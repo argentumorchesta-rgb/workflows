@@ -1,0 +1,2160 @@
+{
+  "updatedAt": "2026-05-09T10:58:49.713Z",
+  "createdAt": "2026-05-09T10:22:50.663Z",
+  "id": "EuA9v4w4jGgm1jtT",
+  "name": "driveFolderStatus",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "159nyX_hFCoOPDfrqbofpKiHQK_IRZBA9",
+          "mode": "list",
+          "cachedResultName": "Images",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/159nyX_hFCoOPDfrqbofpKiHQK_IRZBA9"
+        },
+        "event": "fileCreated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        -120
+      ],
+      "id": "d1d04696-bbe4-4d9e-8942-fd8078647a2d",
+      "name": "Google Drive Trigger2",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "4gTN8vYbGOZpLixv",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Images",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "New"
+            },
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Review"
+            }
+          ]
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        272,
+        -120
+      ],
+      "id": "393014f2-5691-424d-b23d-5a0e83310a2c",
+      "name": "Read Sheet2",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Mode: Run Once for All Items\n\nconst filenames = $input.all().map(item => {\n  const name = item.json.name;\n  // Remove ANY extension (everything after the last dot)\n  return name.replace(/\\.[^/.]+$/, '');\n});\n\nreturn [{ json: { filenames } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        -120
+      ],
+      "id": "c26c3eca-dbd3-4458-bcb6-9bf4d69c32f0",
+      "name": "Extract Filenames2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Mode: Run Once for All Items\n\n// Use $input for sheet rows (node 4 is directly after Read Sheet)\nconst sheetRows = $input.all();\n\n// ?? Replace 'Extract Filenames' with your EXACT node name from the canvas\nconst driveFiles = $('Extract Filenames2').first().json.filenames;\n\n// DEBUG - open browser console to see these\nconsole.log('Sheet row count:', sheetRows.length);\nconsole.log('Drive files looking for:', JSON.stringify(driveFiles));\nconsole.log('First sheet Id value:', sheetRows[0]?.json['Id']);\n\nconst filenameSet = new Set(driveFiles);\n\nconst matches = sheetRows\n  .filter(row => filenameSet.has(row.json['Id']))\n  .map(row => ({\n    json: {\n      rowIndex: row.json['row_number'],\n      Id: row.json['Id'],\n    }\n  }));\n\nconsole.log('Matches found:', matches.length);\n\nreturn matches;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        -120
+      ],
+      "id": "0a96eec2-14fb-4eca-8e60-a8ebd2091a33",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        720,
+        -120
+      ],
+      "id": "527cd2d4-79fa-4266-85b9-935109583586",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Images",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Id": "={{ $json.Id }}",
+            "Status": "Approved"
+          },
+          "matchingColumns": [
+            "Id"
+          ],
+          "schema": [
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Girl",
+              "displayName": "Girl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "T2I_prompt",
+              "displayName": "T2I_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Model",
+              "displayName": "Model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Resolution",
+              "displayName": "Resolution",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Public",
+              "displayName": "Public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Posted",
+              "displayName": "Posted",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        944,
+        -192
+      ],
+      "id": "97939426-9b41-44af-8fc7-36c5f6d9fded",
+      "name": "Update Sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1168,
+        -120
+      ],
+      "id": "ce317a53-1be7-4aa2-8e89-f4388f112418",
+      "name": "Wait",
+      "webhookId": "307bd429-faf8-48ad-af97-f378a22e00c8"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1qokWIY2qg7O3xQQ7cL0zk8NJnmUk8L_u",
+          "mode": "list",
+          "cachedResultName": "Videos",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1qokWIY2qg7O3xQQ7cL0zk8NJnmUk8L_u"
+        },
+        "event": "fileCreated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        176
+      ],
+      "id": "501ff712-f901-4ee4-97dd-e8e08636526f",
+      "name": "Google Drive Trigger",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "4gTN8vYbGOZpLixv",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 90821773,
+          "mode": "list",
+          "cachedResultName": "Videos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=90821773"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Video Status",
+              "lookupValue": "New"
+            },
+            {
+              "lookupColumn": "Video Status",
+              "lookupValue": "Review"
+            }
+          ]
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        272,
+        176
+      ],
+      "id": "60f471ef-0b7c-46ef-b3a1-5b3cd807a0b7",
+      "name": "Read Sheet",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Mode: Run Once for All Items\n\nconst filenames = $input.all().map(item => {\n  const name = item.json.name;\n  // Remove ANY extension (everything after the last dot)\n  return name.replace(/\\.[^/.]+$/, '');\n});\n\nreturn [{ json: { filenames } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        176
+      ],
+      "id": "523db885-64ea-4839-8a5c-d954d2a08416",
+      "name": "Extract Filenames"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Mode: Run Once for All Items\n\n// Use $input for sheet rows (node 4 is directly after Read Sheet)\nconst sheetRows = $input.all();\n\n// ?? Replace 'Extract Filenames' with your EXACT node name from the canvas\nconst driveFiles = $('Extract Filenames').first().json.filenames;\n\n// DEBUG - open browser console to see these\nconsole.log('Sheet row count:', sheetRows.length);\nconsole.log('Drive files looking for:', JSON.stringify(driveFiles));\nconsole.log('First sheet Id value:', sheetRows[0]?.json['Id']);\n\nconst filenameSet = new Set(driveFiles);\n\nconst matches = sheetRows\n  .filter(row => filenameSet.has(row.json['Id']))\n  .map(row => ({\n    json: {\n      rowIndex: row.json['row_number'],\n      Id: row.json['Id'],\n    }\n  }));\n\nconsole.log('Matches found:', matches.length);\n\nreturn matches;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        176
+      ],
+      "id": "0a533ba6-f6fc-429b-abeb-dc8642517d76",
+      "name": "Code in JavaScript7"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        720,
+        176
+      ],
+      "id": "256d5b0b-00aa-4798-8d29-0051165b60ee",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1168,
+        176
+      ],
+      "id": "058754af-8237-44ed-ae1a-9e9f320421d9",
+      "name": "Wait6",
+      "webhookId": "307bd429-faf8-48ad-af97-f378a22e00c8"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 90821773,
+          "mode": "list",
+          "cachedResultName": "Videos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=90821773"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Id": "={{ $json.Id }}",
+            "Video Status": "Approved"
+          },
+          "matchingColumns": [
+            "Id"
+          ],
+          "schema": [
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Girl",
+              "displayName": "Girl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "T2I_prompt",
+              "displayName": "T2I_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Image Model",
+              "displayName": "Image Model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Image Resolution",
+              "displayName": "Image Resolution",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Image Status",
+              "displayName": "Image Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "I2V_prompt",
+              "displayName": "I2V_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Video Model",
+              "displayName": "Video Model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Video Resolution",
+              "displayName": "Video Resolution",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Video Status",
+              "displayName": "Video Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        944,
+        104
+      ],
+      "id": "981d2aaa-dd6f-48b7-b56d-12d64ceef29d",
+      "name": "Update Sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1oONjwMxOLy2s2Q_qiFYy6ZiNRKQK5fGi",
+          "mode": "list",
+          "cachedResultName": "Review",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1oONjwMxOLy2s2Q_qiFYy6ZiNRKQK5fGi"
+        },
+        "event": "fileCreated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        472
+      ],
+      "id": "73b0fa0d-23a0-4c1a-b38d-a05ac52dc3c6",
+      "name": "Google Drive Trigger1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "4gTN8vYbGOZpLixv",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 90821773,
+          "mode": "list",
+          "cachedResultName": "Videos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=90821773"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Video Status",
+              "lookupValue": "New"
+            },
+            {
+              "lookupColumn": "Video Status",
+              "lookupValue": "Approved"
+            }
+          ]
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        272,
+        472
+      ],
+      "id": "f8f75ced-3430-4daf-9e83-29cbae1652ad",
+      "name": "Read Sheet1",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Mode: Run Once for All Items\n\nconst filenames = $input.all().map(item => {\n  const name = item.json.name;\n  // Remove ANY extension (everything after the last dot)\n  return name.replace(/\\.[^/.]+$/, '');\n});\n\nreturn [{ json: { filenames } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        472
+      ],
+      "id": "6323cb61-5d27-41a5-867b-5cad5a31d4cd",
+      "name": "Extract Filenames1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Mode: Run Once for All Items\n\n// Use $input for sheet rows (node 4 is directly after Read Sheet)\nconst sheetRows = $input.all();\n\n// ?? Replace 'Extract Filenames' with your EXACT node name from the canvas\nconst driveFiles = $('Extract Filenames1').first().json.filenames;\n\n// DEBUG - open browser console to see these\nconsole.log('Sheet row count:', sheetRows.length);\nconsole.log('Drive files looking for:', JSON.stringify(driveFiles));\nconsole.log('First sheet Id value:', sheetRows[0]?.json['Id']);\n\nconst filenameSet = new Set(driveFiles);\n\nconst matches = sheetRows\n  .filter(row => filenameSet.has(row.json['Id']))\n  .map(row => ({\n    json: {\n      rowIndex: row.json['row_number'],\n      Id: row.json['Id'],\n    }\n  }));\n\nconsole.log('Matches found:', matches.length);\n\nreturn matches;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        472
+      ],
+      "id": "2a37e27c-77a3-4e6a-8f0d-6b58b58fd218",
+      "name": "Code in JavaScript8"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        720,
+        472
+      ],
+      "id": "3cd4535d-ad0a-4dce-83cb-80c1b7654f2b",
+      "name": "Loop Over Items2"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 90821773,
+          "mode": "list",
+          "cachedResultName": "Videos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=90821773"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Id": "={{ $json.Id }}",
+            "Video Status": "Review"
+          },
+          "matchingColumns": [
+            "Id"
+          ],
+          "schema": [
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Girl",
+              "displayName": "Girl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "T2I_prompt",
+              "displayName": "T2I_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Image Model",
+              "displayName": "Image Model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Image Resolution",
+              "displayName": "Image Resolution",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Image Status",
+              "displayName": "Image Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "I2V_prompt",
+              "displayName": "I2V_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Video Model",
+              "displayName": "Video Model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Video Resolution",
+              "displayName": "Video Resolution",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Video Status",
+              "displayName": "Video Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        944,
+        400
+      ],
+      "id": "4836bd73-43c2-46e8-b48e-c8b96dbb46f0",
+      "name": "Update Sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1168,
+        472
+      ],
+      "id": "2cc8d795-274e-46fc-a6f0-219025487411",
+      "name": "Wait7",
+      "webhookId": "307bd429-faf8-48ad-af97-f378a22e00c8"
+    }
+  ],
+  "connections": {
+    "Google Drive Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Extract Filenames2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Filenames2": {
+      "main": [
+        [
+          {
+            "node": "Read Sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Sheet2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Update Sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet2": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Filenames",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Filenames": {
+      "main": [
+        [
+          {
+            "node": "Read Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript7": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Update Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet": {
+      "main": [
+        [
+          {
+            "node": "Wait6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait6": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Extract Filenames1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Filenames1": {
+      "main": [
+        [
+          {
+            "node": "Read Sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Sheet1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript8": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items2": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Update Sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Sheet1": {
+      "main": [
+        [
+          {
+            "node": "Wait7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait7": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": {
+    "node:Google Drive Trigger2": {
+      "lastTimeChecked": "2026-05-16T06:23:58Z"
+    },
+    "node:Google Drive Trigger": {
+      "lastTimeChecked": "2026-05-16T06:24:00Z"
+    },
+    "node:Google Drive Trigger1": {
+      "lastTimeChecked": "2026-05-16T06:24:01Z"
+    }
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "bfba9f9c-5a31-4e4d-a542-06c42e38347f",
+  "activeVersionId": "bfba9f9c-5a31-4e4d-a542-06c42e38347f",
+  "triggerCount": 3,
+  "shared": [
+    {
+      "updatedAt": "2026-05-09T10:22:50.673Z",
+      "createdAt": "2026-05-09T10:22:50.673Z",
+      "role": "workflow:owner",
+      "workflowId": "EuA9v4w4jGgm1jtT",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-09T10:58:52.000Z",
+    "createdAt": "2026-05-09T10:58:49.716Z",
+    "versionId": "bfba9f9c-5a31-4e4d-a542-06c42e38347f",
+    "workflowId": "EuA9v4w4jGgm1jtT",
+    "nodes": [
+      {
+        "parameters": {
+          "pollTimes": {
+            "item": [
+              {
+                "mode": "everyMinute"
+              }
+            ]
+          },
+          "triggerOn": "specificFolder",
+          "folderToWatch": {
+            "__rl": true,
+            "value": "159nyX_hFCoOPDfrqbofpKiHQK_IRZBA9",
+            "mode": "list",
+            "cachedResultName": "Images",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/159nyX_hFCoOPDfrqbofpKiHQK_IRZBA9"
+          },
+          "event": "fileCreated",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleDriveTrigger",
+        "typeVersion": 1,
+        "position": [
+          -176,
+          -120
+        ],
+        "id": "d1d04696-bbe4-4d9e-8942-fd8078647a2d",
+        "name": "Google Drive Trigger2",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "4gTN8vYbGOZpLixv",
+            "name": "Google Drive account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Images",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+          },
+          "filtersUI": {
+            "values": [
+              {
+                "lookupColumn": "Status",
+                "lookupValue": "New"
+              },
+              {
+                "lookupColumn": "Status",
+                "lookupValue": "Review"
+              }
+            ]
+          },
+          "combineFilters": "OR",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          272,
+          -120
+        ],
+        "id": "393014f2-5691-424d-b23d-5a0e83310a2c",
+        "name": "Read Sheet2",
+        "alwaysOutputData": false,
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// Mode: Run Once for All Items\n\nconst filenames = $input.all().map(item => {\n  const name = item.json.name;\n  // Remove ANY extension (everything after the last dot)\n  return name.replace(/\\.[^/.]+$/, '');\n});\n\nreturn [{ json: { filenames } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          48,
+          -120
+        ],
+        "id": "c26c3eca-dbd3-4458-bcb6-9bf4d69c32f0",
+        "name": "Extract Filenames2"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Mode: Run Once for All Items\n\n// Use $input for sheet rows (node 4 is directly after Read Sheet)\nconst sheetRows = $input.all();\n\n// ?? Replace 'Extract Filenames' with your EXACT node name from the canvas\nconst driveFiles = $('Extract Filenames2').first().json.filenames;\n\n// DEBUG - open browser console to see these\nconsole.log('Sheet row count:', sheetRows.length);\nconsole.log('Drive files looking for:', JSON.stringify(driveFiles));\nconsole.log('First sheet Id value:', sheetRows[0]?.json['Id']);\n\nconst filenameSet = new Set(driveFiles);\n\nconst matches = sheetRows\n  .filter(row => filenameSet.has(row.json['Id']))\n  .map(row => ({\n    json: {\n      rowIndex: row.json['row_number'],\n      Id: row.json['Id'],\n    }\n  }));\n\nconsole.log('Matches found:', matches.length);\n\nreturn matches;"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          496,
+          -120
+        ],
+        "id": "0a96eec2-14fb-4eca-8e60-a8ebd2091a33",
+        "name": "Code in JavaScript"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          720,
+          -120
+        ],
+        "id": "527cd2d4-79fa-4266-85b9-935109583586",
+        "name": "Loop Over Items"
+      },
+      {
+        "parameters": {
+          "operation": "appendOrUpdate",
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Images",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "Id": "={{ $json.Id }}",
+              "Status": "Approved"
+            },
+            "matchingColumns": [
+              "Id"
+            ],
+            "schema": [
+              {
+                "id": "Id",
+                "displayName": "Id",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Girl",
+                "displayName": "Girl",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "T2I_prompt",
+                "displayName": "T2I_prompt",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Model",
+                "displayName": "Model",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Resolution",
+                "displayName": "Resolution",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Status",
+                "displayName": "Status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Public",
+                "displayName": "Public",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Posted",
+                "displayName": "Posted",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          944,
+          -192
+        ],
+        "id": "97939426-9b41-44af-8fc7-36c5f6d9fded",
+        "name": "Update Sheet2",
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          1168,
+          -120
+        ],
+        "id": "ce317a53-1be7-4aa2-8e89-f4388f112418",
+        "name": "Wait",
+        "webhookId": "307bd429-faf8-48ad-af97-f378a22e00c8"
+      },
+      {
+        "parameters": {
+          "pollTimes": {
+            "item": [
+              {
+                "mode": "everyMinute"
+              }
+            ]
+          },
+          "triggerOn": "specificFolder",
+          "folderToWatch": {
+            "__rl": true,
+            "value": "1qokWIY2qg7O3xQQ7cL0zk8NJnmUk8L_u",
+            "mode": "list",
+            "cachedResultName": "Videos",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1qokWIY2qg7O3xQQ7cL0zk8NJnmUk8L_u"
+          },
+          "event": "fileCreated",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleDriveTrigger",
+        "typeVersion": 1,
+        "position": [
+          -176,
+          176
+        ],
+        "id": "501ff712-f901-4ee4-97dd-e8e08636526f",
+        "name": "Google Drive Trigger",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "4gTN8vYbGOZpLixv",
+            "name": "Google Drive account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": 90821773,
+            "mode": "list",
+            "cachedResultName": "Videos",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=90821773"
+          },
+          "filtersUI": {
+            "values": [
+              {
+                "lookupColumn": "Video Status",
+                "lookupValue": "New"
+              },
+              {
+                "lookupColumn": "Video Status",
+                "lookupValue": "Review"
+              }
+            ]
+          },
+          "combineFilters": "OR",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          272,
+          176
+        ],
+        "id": "60f471ef-0b7c-46ef-b3a1-5b3cd807a0b7",
+        "name": "Read Sheet",
+        "alwaysOutputData": false,
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// Mode: Run Once for All Items\n\nconst filenames = $input.all().map(item => {\n  const name = item.json.name;\n  // Remove ANY extension (everything after the last dot)\n  return name.replace(/\\.[^/.]+$/, '');\n});\n\nreturn [{ json: { filenames } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          48,
+          176
+        ],
+        "id": "523db885-64ea-4839-8a5c-d954d2a08416",
+        "name": "Extract Filenames"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Mode: Run Once for All Items\n\n// Use $input for sheet rows (node 4 is directly after Read Sheet)\nconst sheetRows = $input.all();\n\n// ?? Replace 'Extract Filenames' with your EXACT node name from the canvas\nconst driveFiles = $('Extract Filenames').first().json.filenames;\n\n// DEBUG - open browser console to see these\nconsole.log('Sheet row count:', sheetRows.length);\nconsole.log('Drive files looking for:', JSON.stringify(driveFiles));\nconsole.log('First sheet Id value:', sheetRows[0]?.json['Id']);\n\nconst filenameSet = new Set(driveFiles);\n\nconst matches = sheetRows\n  .filter(row => filenameSet.has(row.json['Id']))\n  .map(row => ({\n    json: {\n      rowIndex: row.json['row_number'],\n      Id: row.json['Id'],\n    }\n  }));\n\nconsole.log('Matches found:', matches.length);\n\nreturn matches;"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          496,
+          176
+        ],
+        "id": "0a533ba6-f6fc-429b-abeb-dc8642517d76",
+        "name": "Code in JavaScript7"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          720,
+          176
+        ],
+        "id": "256d5b0b-00aa-4798-8d29-0051165b60ee",
+        "name": "Loop Over Items1"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          1168,
+          176
+        ],
+        "id": "058754af-8237-44ed-ae1a-9e9f320421d9",
+        "name": "Wait6",
+        "webhookId": "307bd429-faf8-48ad-af97-f378a22e00c8"
+      },
+      {
+        "parameters": {
+          "operation": "appendOrUpdate",
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": 90821773,
+            "mode": "list",
+            "cachedResultName": "Videos",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=90821773"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "Id": "={{ $json.Id }}",
+              "Video Status": "Approved"
+            },
+            "matchingColumns": [
+              "Id"
+            ],
+            "schema": [
+              {
+                "id": "Id",
+                "displayName": "Id",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Girl",
+                "displayName": "Girl",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "T2I_prompt",
+                "displayName": "T2I_prompt",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Image Model",
+                "displayName": "Image Model",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Image Resolution",
+                "displayName": "Image Resolution",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Image Status",
+                "displayName": "Image Status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "I2V_prompt",
+                "displayName": "I2V_prompt",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Video Model",
+                "displayName": "Video Model",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Video Resolution",
+                "displayName": "Video Resolution",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Video Status",
+                "displayName": "Video Status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          944,
+          104
+        ],
+        "id": "981d2aaa-dd6f-48b7-b56d-12d64ceef29d",
+        "name": "Update Sheet",
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "pollTimes": {
+            "item": [
+              {
+                "mode": "everyMinute"
+              }
+            ]
+          },
+          "triggerOn": "specificFolder",
+          "folderToWatch": {
+            "__rl": true,
+            "value": "1oONjwMxOLy2s2Q_qiFYy6ZiNRKQK5fGi",
+            "mode": "list",
+            "cachedResultName": "Review",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1oONjwMxOLy2s2Q_qiFYy6ZiNRKQK5fGi"
+          },
+          "event": "fileCreated",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleDriveTrigger",
+        "typeVersion": 1,
+        "position": [
+          -176,
+          472
+        ],
+        "id": "73b0fa0d-23a0-4c1a-b38d-a05ac52dc3c6",
+        "name": "Google Drive Trigger1",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "4gTN8vYbGOZpLixv",
+            "name": "Google Drive account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": 90821773,
+            "mode": "list",
+            "cachedResultName": "Videos",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=90821773"
+          },
+          "filtersUI": {
+            "values": [
+              {
+                "lookupColumn": "Video Status",
+                "lookupValue": "New"
+              },
+              {
+                "lookupColumn": "Video Status",
+                "lookupValue": "Approved"
+              }
+            ]
+          },
+          "combineFilters": "OR",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          272,
+          472
+        ],
+        "id": "f8f75ced-3430-4daf-9e83-29cbae1652ad",
+        "name": "Read Sheet1",
+        "alwaysOutputData": false,
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// Mode: Run Once for All Items\n\nconst filenames = $input.all().map(item => {\n  const name = item.json.name;\n  // Remove ANY extension (everything after the last dot)\n  return name.replace(/\\.[^/.]+$/, '');\n});\n\nreturn [{ json: { filenames } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          48,
+          472
+        ],
+        "id": "6323cb61-5d27-41a5-867b-5cad5a31d4cd",
+        "name": "Extract Filenames1"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Mode: Run Once for All Items\n\n// Use $input for sheet rows (node 4 is directly after Read Sheet)\nconst sheetRows = $input.all();\n\n// ?? Replace 'Extract Filenames' with your EXACT node name from the canvas\nconst driveFiles = $('Extract Filenames1').first().json.filenames;\n\n// DEBUG - open browser console to see these\nconsole.log('Sheet row count:', sheetRows.length);\nconsole.log('Drive files looking for:', JSON.stringify(driveFiles));\nconsole.log('First sheet Id value:', sheetRows[0]?.json['Id']);\n\nconst filenameSet = new Set(driveFiles);\n\nconst matches = sheetRows\n  .filter(row => filenameSet.has(row.json['Id']))\n  .map(row => ({\n    json: {\n      rowIndex: row.json['row_number'],\n      Id: row.json['Id'],\n    }\n  }));\n\nconsole.log('Matches found:', matches.length);\n\nreturn matches;"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          496,
+          472
+        ],
+        "id": "2a37e27c-77a3-4e6a-8f0d-6b58b58fd218",
+        "name": "Code in JavaScript8"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          720,
+          472
+        ],
+        "id": "3cd4535d-ad0a-4dce-83cb-80c1b7654f2b",
+        "name": "Loop Over Items2"
+      },
+      {
+        "parameters": {
+          "operation": "appendOrUpdate",
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": 90821773,
+            "mode": "list",
+            "cachedResultName": "Videos",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=90821773"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "Id": "={{ $json.Id }}",
+              "Video Status": "Review"
+            },
+            "matchingColumns": [
+              "Id"
+            ],
+            "schema": [
+              {
+                "id": "Id",
+                "displayName": "Id",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Girl",
+                "displayName": "Girl",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "T2I_prompt",
+                "displayName": "T2I_prompt",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Image Model",
+                "displayName": "Image Model",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Image Resolution",
+                "displayName": "Image Resolution",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Image Status",
+                "displayName": "Image Status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "I2V_prompt",
+                "displayName": "I2V_prompt",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Video Model",
+                "displayName": "Video Model",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Video Resolution",
+                "displayName": "Video Resolution",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Video Status",
+                "displayName": "Video Status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          944,
+          400
+        ],
+        "id": "4836bd73-43c2-46e8-b48e-c8b96dbb46f0",
+        "name": "Update Sheet1",
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          1168,
+          472
+        ],
+        "id": "2cc8d795-274e-46fc-a6f0-219025487411",
+        "name": "Wait7",
+        "webhookId": "307bd429-faf8-48ad-af97-f378a22e00c8"
+      }
+    ],
+    "connections": {
+      "Google Drive Trigger2": {
+        "main": [
+          [
+            {
+              "node": "Extract Filenames2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract Filenames2": {
+        "main": [
+          [
+            {
+              "node": "Read Sheet2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Read Sheet2": {
+        "main": [
+          [
+            {
+              "node": "Code in JavaScript",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Loop Over Items": {
+        "main": [
+          [],
+          [
+            {
+              "node": "Update Sheet2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update Sheet2": {
+        "main": [
+          [
+            {
+              "node": "Wait",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Wait": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Drive Trigger": {
+        "main": [
+          [
+            {
+              "node": "Extract Filenames",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract Filenames": {
+        "main": [
+          [
+            {
+              "node": "Read Sheet",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript7": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Read Sheet": {
+        "main": [
+          [
+            {
+              "node": "Code in JavaScript7",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Loop Over Items1": {
+        "main": [
+          [],
+          [
+            {
+              "node": "Update Sheet",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update Sheet": {
+        "main": [
+          [
+            {
+              "node": "Wait6",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Wait6": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Drive Trigger1": {
+        "main": [
+          [
+            {
+              "node": "Extract Filenames1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Extract Filenames1": {
+        "main": [
+          [
+            {
+              "node": "Read Sheet1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Read Sheet1": {
+        "main": [
+          [
+            {
+              "node": "Code in JavaScript8",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript8": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Loop Over Items2": {
+        "main": [
+          [],
+          [
+            {
+              "node": "Update Sheet1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update Sheet1": {
+        "main": [
+          [
+            {
+              "node": "Wait7",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Wait7": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Argentum Orchesta",
+    "name": "Version bfba9f9c",
+    "description": "",
+    "autosaved": false
+  },
+  "tags": []
+}
