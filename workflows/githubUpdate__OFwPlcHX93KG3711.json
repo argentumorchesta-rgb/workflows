@@ -1,0 +1,487 @@
+{
+  "updatedAt": "2026-05-16T08:35:46.339Z",
+  "createdAt": "2026-05-16T07:35:26.944Z",
+  "id": "OFwPlcHX93KG3711",
+  "name": "githubUpdate",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "e4d079d4-7709-446a-8b09-7319f8554b87",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        112,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 3 * * *"
+            }
+          ]
+        }
+      },
+      "id": "5a807f8b-72e8-4a4b-acb6-fadb05b05316",
+      "name": "Daily at 3 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        112,
+        632
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.n8nBaseUrl }}/api/v1/workflows?limit=250",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "={{ $json.n8nApiKey }}"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1a675a9b-736e-4809-bc8c-1d75d58e455d",
+      "name": "List All Workflows",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        560,
+        536
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "e87a3e7d-b328-4ff4-a6ae-d3b9a9fc33bc",
+      "name": "Loop Over Workflows",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1008,
+        536
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare per-workflow metadata for GitHub API calls\nconst wf = $input.first().json;\nconst config = wf._config;\n\n// Sanitise workflow name for use as a filename\nconst safeName = (wf.name || 'unnamed')\n  .replace(/[^a-zA-Z0-9._-]/g, '_')\n  .replace(/_+/g, '_')\n  .replace(/^_|_$/, '');\n\nconst filename = `${safeName}__${wf.id}.json`;\nconst githubFilePath = `workflows/${filename}`;\n\n// Strip internal _config before saving to GitHub\nconst { _config, ...cleanWf } = wf;\n\nreturn [{\n  json: {\n    workflowId:      wf.id,\n    workflowName:    wf.name,\n    workflowJson:    JSON.stringify(cleanWf, null, 2),\n    filename,\n    githubFilePath,\n    githubOwner:     config.githubOwner,\n    githubRepo:      config.githubRepo,\n    githubBranch:    config.githubBranch\n  }\n}];"
+      },
+      "id": "5ffab3de-7396-425a-8fa9-582154ae2708",
+      "name": "Prepare Item",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.argentumorchesta.org/webhook/telegram-notify",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.message }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1456,
+        464
+      ],
+      "id": "6ae9656c-3e48-4ac6-bcb1-043a77b1bf95",
+      "name": "reportTelegram"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Workflows > Backup finished\"\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        464
+      ],
+      "id": "8b7b54a8-bddd-4894-91b0-4cb5242e0b17",
+      "name": "setMessage"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cfg-001",
+              "name": "n8nBaseUrl",
+              "value": "https://n8n.argentumorchesta.org",
+              "type": "string"
+            },
+            {
+              "id": "cfg-002",
+              "name": "n8nApiKey",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwODVjZDE1MC03MDUzLTQzYmMtODA3Yi1iMGRjNmY2YTYyYWQiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiYmI4YjI1YzEtYTA0YS00YzM1LWI2YzEtNjI0OTk2MDEwYzNmIiwiaWF0IjoxNzc4OTE4NTc2fQ.sAHbSCSrLxyzHDJj0Ktga-80Q3rE58NqAlXI6uURv70",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0f8747e8-6c9e-4605-9a38-0cbfb4d18851",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        336,
+        536
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "argentumorchesta-rgb",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "workflows",
+          "mode": "list",
+          "cachedResultName": "workflows",
+          "cachedResultUrl": "https://github.com/argentumorchesta-rgb/workflows"
+        },
+        "filePath": "={{ $('Prepare Item').item.json.githubFilePath }}",
+        "fileContent": "={{ $('Prepare Item').item.json.workflowJson }}",
+        "commitMessage": "=Backup {{ $('Prepare Item').item.json.workflowName }}"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        1904,
+        440
+      ],
+      "id": "03808ee5-b041-4768-a88d-f2755585064e",
+      "name": "Create a file1",
+      "webhookId": "e91fe368-aca9-45f2-8adf-2fd49921bb2e",
+      "credentials": {
+        "githubApi": {
+          "id": "aMGVDwqxYaSd3h0q",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// n8n API returns { data: [...workflows], nextCursor: null|string }\nconst res = $input.first().json;\nconst workflows = res.data || [];\nconst config = $('Config').first().json;\n\nif (workflows.length === 0) {\n  throw new Error('No workflows returned. Check n8nBaseUrl and n8nApiKey in the Config node.');\n}\n\nconsole.log(`Found ${workflows.length} workflows to back up.`);\n\n// Attach config to each workflow item for downstream access\nreturn workflows.map(wf => ({\n  json: { ...wf, _config: config }\n}));"
+      },
+      "id": "e909221d-c847-406e-b04e-d695e364c902",
+      "name": "Extract Workflows",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        784,
+        536
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "argentumorchesta-rgb",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "workflows",
+          "mode": "list",
+          "cachedResultName": "workflows",
+          "cachedResultUrl": "https://github.com/argentumorchesta-rgb/workflows"
+        },
+        "filePath": "={{ $json.githubFilePath }}",
+        "asBinaryProperty": false,
+        "additionalParameters": {}
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        1456,
+        272
+      ],
+      "id": "7f64a7e5-f94f-4c3e-8d83-943ea5a05896",
+      "name": "Get a file",
+      "webhookId": "66db083d-5c4d-44ae-bd0a-7c24692e7cf8",
+      "alwaysOutputData": false,
+      "credentials": {
+        "githubApi": {
+          "id": "aMGVDwqxYaSd3h0q",
+          "name": "GitHub account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "4c31bfe0-1223-492c-a302-587113a6669a",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1680,
+        272
+      ],
+      "id": "57de2e4d-0b78-4282-905b-7cc447e1c610",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "edit",
+        "owner": {
+          "__rl": true,
+          "value": "argentumorchesta-rgb",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "workflows",
+          "mode": "list",
+          "cachedResultName": "workflows",
+          "cachedResultUrl": "https://github.com/argentumorchesta-rgb/workflows"
+        },
+        "filePath": "={{ $('Prepare Item').item.json.githubFilePath }}",
+        "fileContent": "={{ $('Prepare Item').item.json.workflowJson }}",
+        "commitMessage": "=Backup {{ $('Prepare Item').item.json.workflowName }}"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        1904,
+        656
+      ],
+      "id": "eb564169-b079-4aa9-b5da-c763d7c55651",
+      "name": "Edit a file",
+      "webhookId": "e91fe368-aca9-45f2-8adf-2fd49921bb2e",
+      "credentials": {
+        "githubApi": {
+          "id": "aMGVDwqxYaSd3h0q",
+          "name": "GitHub account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily at 3 AM": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List All Workflows": {
+      "main": [
+        [
+          {
+            "node": "Extract Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Workflows": {
+      "main": [
+        [
+          {
+            "node": "setMessage",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Item",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Item": {
+      "main": [
+        [
+          {
+            "node": "Get a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "setMessage": {
+      "main": [
+        [
+          {
+            "node": "reportTelegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "List All Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a file1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Workflows": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a file": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Create a file1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit a file": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "baf4aa19-ed86-4432-98f7-7d5477cae4cc",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-16T07:35:26.952Z",
+      "createdAt": "2026-05-16T07:35:26.952Z",
+      "role": "workflow:owner",
+      "workflowId": "OFwPlcHX93KG3711",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}
