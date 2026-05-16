@@ -1,0 +1,344 @@
+{
+  "updatedAt": "2026-05-09T09:49:07.259Z",
+  "createdAt": "2026-05-09T09:49:07.259Z",
+  "id": "IPnihWjOYJfjF2GM",
+  "name": "cleanGitHub",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "accessToken",
+        "resource": "file",
+        "operation": "delete",
+        "owner": {
+          "__rl": true,
+          "mode": "name",
+          "value": "=argentumorchesta-rgb"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "media",
+          "mode": "list",
+          "cachedResultName": "media",
+          "cachedResultUrl": "https://github.com/argentumorchesta-rgb/media"
+        },
+        "filePath": "=images/{{ $json.file_name }}",
+        "commitMessage": "RPI5 cleaning",
+        "additionalParameters": {}
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        1424,
+        1664
+      ],
+      "id": "50f9c0ee-b0f0-4183-8266-51a200fb66c8",
+      "name": "Delete a file1",
+      "webhookId": "30c8ac39-457a-4f98-b1cc-f1764d8ba5de",
+      "credentials": {
+        "githubApi": {
+          "id": "aMGVDwqxYaSd3h0q",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "splitInBatchesNotice": "",
+        "batchSize": 1,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1200,
+        1616
+      ],
+      "id": "22b26392-76e4-48b1-9049-6aaa47a570f6",
+      "name": "loopDelete1"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "return $('Start').first().json.updateStatus1_allItems.map(({ json }) => ({\n  json: {\n    file_name: json.Id + \".png\",\n  }\n}));",
+        "notice": ""
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        1616
+      ],
+      "id": "c8fe9e8a-949b-4e2b-9ccd-7ede8294ebb2",
+      "name": "splitDelete1"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Github > Cleaned\"\n  }\n}];",
+        "notice": ""
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1424,
+        1488
+      ],
+      "id": "5b6021d8-fe3b-4086-ac72-6d14498cdb7a",
+      "name": "setMessage",
+      "disabled": false
+    },
+    {
+      "parameters": {
+        "curlImport": "",
+        "method": "POST",
+        "url": "https://n8n.argentumorchesta.org/webhook/telegram-notify",
+        "authentication": "none",
+        "provideSslCertificates": false,
+        "sendQuery": false,
+        "sendHeaders": false,
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "keypair",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.message }}"
+            }
+          ]
+        },
+        "options": {},
+        "infoMessage": ""
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1664,
+        1472
+      ],
+      "id": "bea58b2e-902c-4584-8843-8350fddfdc45",
+      "name": "reportTelegram1",
+      "disabled": false
+    },
+    {
+      "id": "0e9db6ba-0013-4c40-8bfe-e6508511d75d",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        768,
+        1616
+      ],
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "updateStatus1_allItems",
+              "type": "any"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "splitDelete1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "27f1e841-9d22-4a61-82b3-528592f51daa",
+  "activeVersionId": "27f1e841-9d22-4a61-82b3-528592f51daa",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-09T09:49:07.263Z",
+      "createdAt": "2026-05-09T09:49:07.263Z",
+      "role": "workflow:owner",
+      "workflowId": "IPnihWjOYJfjF2GM",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-09T09:49:07.264Z",
+    "createdAt": "2026-05-09T09:49:07.264Z",
+    "versionId": "27f1e841-9d22-4a61-82b3-528592f51daa",
+    "workflowId": "IPnihWjOYJfjF2GM",
+    "nodes": [
+      {
+        "parameters": {
+          "authentication": "accessToken",
+          "resource": "file",
+          "operation": "delete",
+          "owner": {
+            "__rl": true,
+            "mode": "name",
+            "value": "=argentumorchesta-rgb"
+          },
+          "repository": {
+            "__rl": true,
+            "value": "media",
+            "mode": "list",
+            "cachedResultName": "media",
+            "cachedResultUrl": "https://github.com/argentumorchesta-rgb/media"
+          },
+          "filePath": "=images/{{ $json.file_name }}",
+          "commitMessage": "RPI5 cleaning",
+          "additionalParameters": {}
+        },
+        "type": "n8n-nodes-base.github",
+        "typeVersion": 1.1,
+        "position": [
+          1424,
+          1664
+        ],
+        "id": "50f9c0ee-b0f0-4183-8266-51a200fb66c8",
+        "name": "Delete a file1",
+        "webhookId": "30c8ac39-457a-4f98-b1cc-f1764d8ba5de",
+        "credentials": {
+          "githubApi": {
+            "id": "aMGVDwqxYaSd3h0q",
+            "name": "GitHub account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "splitInBatchesNotice": "",
+          "batchSize": 1,
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          1200,
+          1616
+        ],
+        "id": "22b26392-76e4-48b1-9049-6aaa47a570f6",
+        "name": "loopDelete1"
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForAllItems",
+          "language": "javaScript",
+          "jsCode": "return $('Start').first().json.updateStatus1_allItems.map(({ json }) => ({\n  json: {\n    file_name: json.Id + \".png\",\n  }\n}));",
+          "notice": ""
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          976,
+          1616
+        ],
+        "id": "c8fe9e8a-949b-4e2b-9ccd-7ede8294ebb2",
+        "name": "splitDelete1"
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForAllItems",
+          "language": "javaScript",
+          "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Github > Cleaned\"\n  }\n}];",
+          "notice": ""
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1424,
+          1488
+        ],
+        "id": "5b6021d8-fe3b-4086-ac72-6d14498cdb7a",
+        "name": "setMessage",
+        "disabled": false
+      },
+      {
+        "parameters": {
+          "curlImport": "",
+          "method": "POST",
+          "url": "https://n8n.argentumorchesta.org/webhook/telegram-notify",
+          "authentication": "none",
+          "provideSslCertificates": false,
+          "sendQuery": false,
+          "sendHeaders": false,
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "keypair",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "message",
+                "value": "={{ $json.message }}"
+              }
+            ]
+          },
+          "options": {},
+          "infoMessage": ""
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          1664,
+          1472
+        ],
+        "id": "bea58b2e-902c-4584-8843-8350fddfdc45",
+        "name": "reportTelegram1",
+        "disabled": false
+      },
+      {
+        "id": "0e9db6ba-0013-4c40-8bfe-e6508511d75d",
+        "typeVersion": 1.1,
+        "name": "Start",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "position": [
+          768,
+          1616
+        ],
+        "parameters": {
+          "workflowInputs": {
+            "values": [
+              {
+                "name": "updateStatus1_allItems",
+                "type": "any"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "splitDelete1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Argentum Orchesta",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "tags": []
+}
