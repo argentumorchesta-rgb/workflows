@@ -1,0 +1,2232 @@
+{
+  "updatedAt": "2026-05-10T21:13:45.951Z",
+  "createdAt": "2026-05-03T07:17:21.681Z",
+  "id": "FkBl1KSk0YRXEmv0",
+  "name": "mediaMonitor",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        -512
+      ],
+      "id": "0332c05e-a940-40e9-a354-31185e7ddef8",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
+              "name": "maeveToken",
+              "value": "IGAAXVb07ZCZBz9BZAGJCX1c3eGdhM01FZAU1xNm5oVUY2ZAjhzT1ItZAlpqRE8wZA3BhTmFrQkJlM3dDVXBDUmdTc211bnBWNzhidHp1UWh3U0tjRDQyQ1JYVVZAxRjd3cGpJTEZAvOUU3WS1ZAbGd2Y0R6WGlIaTR6WnhoSGgxejZAnaWlCSQZDZD",
+              "type": "string"
+            },
+            {
+              "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
+              "name": "elaraToken",
+              "value": "IGAAXVb07ZCZBz9BZAGI4RnF5aE1ybVBXaUNzQ0VQOXFnckN0b283dXg1elg4bUhFdENzM2VXNk5Rbng5RWdtVTlCa21uZA0I2X05mM0xEM2hvVjh1Mm5vS1hXYXlPZAXVQQS1ua1BCZAzBMemZAkQnc4SGw5cVU5UjdYdlk0MmNOZAHNiMAZDZD",
+              "type": "string"
+            },
+            {
+              "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
+              "name": "amaraToken",
+              "value": "IGAAXVb07ZCZBz9BZAFpyYXFoVjVkUzJWZA1U1dG1pWGgzSVUyclBENmFwV29IbE9LU2FoN2ljTE1OX3RVOUltMGpTYm1ocjVKQThsSHBsS3lCay10ZAFMzNEJVUk9yNEVfMGN6UHRHOXNMNUYwelc4c0xTNTlYOTFEYTZAaNURoVHpzYwZDZD",
+              "type": "string"
+            },
+            {
+              "id": "fef885d1-906f-4e80-9dae-87799af2c79b",
+              "name": "sheetDelay",
+              "value": 1,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -128,
+        -392
+      ],
+      "id": "c1f2a5f1-9b12-41ae-a4d0-248d247330e1",
+      "name": "Tokens"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\nreturn [\n  { json: { name: \"maeve\", token: data.maeveToken, delay: data.sheetDelay } },\n  { json: { name: \"elara\",token: data.elaraToken, delay: data.sheetDelay } },\n  { json: { name: \"amara\", token: data.amaraToken, delay: data.sheetDelay } },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        -392
+      ],
+      "id": "f779999d-a5c6-405a-a626-14811b7004f0",
+      "name": "packTokens"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.instagram.com/v25.0/me?fields=id,name,username,account_type,followers_count,follows_count,media_count & access_token={{ $json.token }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        320,
+        -392
+      ],
+      "id": "a75980d8-7c2c-4b80-a790-0f03558577b6",
+      "name": "getProfiles"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.instagram.com/v25.0/me/media?fields=id,media_type & access_token={{ $('packTokens').item.json.token }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        544,
+        -392
+      ],
+      "id": "2418449f-4264-4380-94e8-b2fe52f8c704",
+      "name": "listMedia"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.media_type }}",
+                    "rightValue": "CAROUSEL_ALBUM",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "7b677781-aaf3-4029-9655-6d111b2de3ad"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Carousel"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "67d56215-0af5-4357-9e75-650476d7ecf9",
+                    "leftValue": "={{ $json.media_type }}",
+                    "rightValue": "VIDEO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Reel"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "521f2354-d9cd-4686-b4a6-78d6d206535f",
+                    "leftValue": "={{ $json.media_type }}",
+                    "rightValue": "IMAGE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Post"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        1440,
+        -408
+      ],
+      "id": "ef07abe4-bdfd-48d6-89dc-f4b3b6805568",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Mode: Run Once for All Items\nconst mediaItems = $input.all();\nconst tokenList  = $items(\"packTokens\");\n\n// Build profiles lookup by first name\nconst profiles = {};\nfor (const p of $('getProfiles').all()) {\n  const key = p.json.name.trim().split(/\\s+/)[0].toLowerCase();\n  profiles[key] = p.json;\n}\n\nconst result = [];\nfor (let i = 0; i < mediaItems.length; i++) {\n  const ctx      = tokenList[i].json;\n  const profile  = profiles[ctx.name];\n  const mediaArray = mediaItems[i].json.data;\n\n  for (const media of mediaArray) {\n    result.push({\n      json: {\n        ...media,\n        name:            ctx.name,\n        token:           ctx.token,\n        delay:           ctx.delay,\n        followers_count: profile?.followers_count ?? null,\n        follows_count:   profile?.follows_count   ?? null,\n      }\n    });\n  }\n}\n\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        768,
+        -392
+      ],
+      "id": "21b50c31-298e-46aa-8a8a-1421f5404b4a",
+      "name": "mediaList"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.instagram.com/v25.0/{{ $json.id }}?fields=\n    id,\n    timestamp, children\n     & access_token={{ $json.token }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        992,
+        -392
+      ],
+      "id": "7a8c946a-a3a5-4ece-b35d-51d791ff2d09",
+      "name": "getTime"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.instagram.com/v25.0/{{ $json.id }}/insights?metric= reach, likes, comments, shares, saved, total_interactions, views & access_token={{ $json.token }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1664,
+        -608
+      ],
+      "id": "3743ad99-0b40-4e2c-9606-e589523c5e2f",
+      "name": "getCarrousel"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.instagram.com/v25.0/{{ $json.id }}/insights?metric= views, reach, likes, comments, shares, saved, total_interactions, ig_reels_avg_watch_time, ig_reels_video_view_total_time, reels_skip_rate & access_token={{ $json.token }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1664,
+        -416
+      ],
+      "id": "92fa1059-c426-4bcf-a411-9d6aba9e78d3",
+      "name": "getReels"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.instagram.com/v25.0/{{ $json.id }}/insights?metric= reach, likes, comments, shares, saved, total_interactions, views & access_token={{ $json.token }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1664,
+        -224
+      ],
+      "id": "17534199-3bf4-475a-b427-49d48ad8fbbe",
+      "name": "getPosts"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2112,
+        -416
+      ],
+      "id": "294857ba-5ba0-402b-a218-62aa5e04a1fc",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Mode: Run Once for All Items\nconst mediaItems = $('mediaList').all();\nconst timeItems  = $('getTime').all();\n\n// Build id ? { timestamp, children? } lookup\nconst timeMap = {};\nfor (const t of timeItems) {\n  timeMap[t.json.id] = {\n    timestamp: t.json.timestamp,\n    children:  t.json.children ?? null,\n  };\n}\n\nreturn mediaItems.map(item => ({\n  json: {\n    ...item.json,\n    timestamp: timeMap[item.json.id]?.timestamp ?? null,\n    children:  timeMap[item.json.id]?.children  ?? null,\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1216,
+        -392
+      ],
+      "id": "6838c0f9-4f65-4de6-976f-f33069fb8b1d",
+      "name": "addtime"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1888,
+        -432
+      ],
+      "id": "fca71a12-2f4a-4097-9547-62e818ba7ef3",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Mode: Run Once for All Items\n\n// ?? Context from Switch ???????????????????????????????????????????????????????\nconst switchMap = {};\nfor (const s of $('addtime').all()) {\n  switchMap[s.json.id] = {\n    name:            s.json.name,\n    token:           s.json.token,\n    delay:           s.json.delay,\n    timestamp:       s.json.timestamp,\n    children:        s.json.children ?? null,\n    media_type:      s.json.media_type,\n    followers_count: s.json.followers_count,\n    follows_count:   s.json.follows_count,\n  };\n}\n\n// ?? Per-type config ???????????????????????????????????????????????????????????\nconst CONFIG = {\n  CAROUSEL_ALBUM: {\n    type: 'Carousel',\n    scaledM: {\n      Views:[0.040,0.090], Reach:[0.035,0.075], Interactions:[0.006,0.014],\n      Likes:[0.004,0.009], Comments:[0.0008,0.003], Saves:[0.0004,0.001], Shares:[0.0001,0.0005]\n    },\n    ft: {\n      EngagementVsReach_Red:0.08,  EngagementVsReach_Yellow:0.18,\n      Rewatch_Red:1.05,            Rewatch_Yellow:1.20,\n      ReachVsFollowers_Red:0.05,   ReachVsFollowers_Yellow:0.10,\n    },\n  },\n  VIDEO: {\n    type: 'Reel',\n    scaledM: {\n      Views:[0.083,0.167], Reach:[0.071,0.143], Interactions:[0.007,0.017],\n      Likes:[0.006,0.012], Comments:[0.001,0.0036], Saves:[0.0005,0.0012], Shares:[0.0002,0.001]\n    },\n    ft: {\n      EngagementVsReach_Red:0.05,  EngagementVsReach_Yellow:0.12,\n      Rewatch_Red:1.10,            Rewatch_Yellow:1.40,\n      ReachVsFollowers_Red:0.08,   ReachVsFollowers_Yellow:0.18,\n    },\n  },\n  IMAGE: {\n    type: 'Post',\n    scaledM: {\n      Views:[0.045,0.095], Reach:[0.038,0.080], Interactions:[0.006,0.015],\n      Likes:[0.005,0.010], Comments:[0.0008,0.003], Saves:[0.0004,0.001], Shares:[0.0001,0.0005]\n    },\n    ft: {\n      EngagementVsReach_Red:0.08,  EngagementVsReach_Yellow:0.18,\n      Rewatch_Red:1.05,            Rewatch_Yellow:1.20,\n      ReachVsFollowers_Red:0.05,   ReachVsFollowers_Yellow:0.10,\n    },\n  },\n};\n\n// ?? Shared user thresholds ????????????????????????????????????????????????????\nconst ut = {\n  EngagementVsFollowers_Red:0.008, EngagementVsFollowers_Yellow:0.017,\n  CommentVsLike_Red:0.05,          CommentVsLike_Yellow:0.20,\n};\n\n// ?? getRanges ?????????????????????????????????????????????????????????????????\nfunction getRanges(followers, ageHours, scaledM) {\n  const age = ageHours < 48  ? 0.65\n            : ageHours < 168 ? 0.90\n            :                  1.00;\n  const calc = key => ({\n    red:    Math.round(followers * scaledM[key][0] * age),\n    yellow: Math.round(followers * scaledM[key][1] * age),\n  });\n  return {\n    Views: calc('Views'), Reach: calc('Reach'), Interactions: calc('Interactions'),\n    Likes: calc('Likes'), Comments: calc('Comments'), Saves: calc('Saves'), Shares: calc('Shares'),\n  };\n}\n\n// ?? Status functions ??????????????????????????????????????????????????????????\nfunction getStatusCarousel(ageDays, engRateReach, rewatchRatio, commentLikeRatio, Comments, Shares, Reach, Interactions, Saved, r, ft) {\n  let watchFlags = 0, excellentFlags = 0;\n\n  const erA = ageDays < 5 ? 0.05 : ageDays < 10 ? 0.06 : ageDays < 21 ? 0.07 : 0.08;\n  if (engRateReach < erA)                                      return 'Archive';\n  if (ageDays >= 10 && r && Reach < r.Reach.red)               return 'Archive';\n  if (ageDays >= 21 && r && Interactions < r.Interactions.red) return 'Archive';\n\n  const erW = ageDays < 3 ? 0.07 : ageDays < 5 ? 0.09 : ageDays < 10 ? 0.11 : ageDays < 21 ? 0.13 : 0.15;\n  if      (engRateReach < erW)  watchFlags++;\n  else if (engRateReach > 0.18) excellentFlags++;\n\n  const rwW = ageDays < 5 ? 1.05 : ageDays < 10 ? 1.08 : 1.10;\n  if      (rewatchRatio < rwW)  watchFlags++;\n  else if (rewatchRatio > 1.20) excellentFlags++;\n\n  if      (Comments < 3)            watchFlags++;\n  else if (commentLikeRatio > 0.30) excellentFlags++;\n  else if (commentLikeRatio < 0.10) watchFlags++;\n  else                              excellentFlags++;\n\n  if      (Shares === 0) watchFlags++;\n  else if (Shares >= 2)  excellentFlags++;\n\n  let countWatch = 0, countExcellent = 0;\n  if (r) {\n    if      (Reach < r.Reach.yellow)               countWatch++;\n    else if (Reach > r.Reach.yellow)               countExcellent++;\n    if      (Interactions < r.Interactions.yellow) countWatch++;\n    else if (Interactions > r.Interactions.yellow) countExcellent++;\n    if (Saved > r.Saves.yellow)                    countExcellent++;\n  }\n  if (countWatch > 0) watchFlags++;\n  excellentFlags += countExcellent;\n\n  const watchNeeded = ageDays < 3 ? 3 : 2;\n  if (watchFlags >= watchNeeded)                                             return 'Watch';\n  if (watchFlags === 0 && Comments >= 3 &&\n     (excellentFlags >= 4 || (excellentFlags >= 3 && engRateReach > 0.22))) return 'Excellent';\n  if (watchFlags === 0 && engRateReach >= ft.EngagementVsReach_Yellow)      return 'Good';\n  if (watchFlags === 1)                                                      return 'Average';\n  return 'Watch';\n}\n\nfunction getStatusReel(ageDays, engRateReach, rewatchRatio, commentLikeRatio, skipRate, Comments, Shares, Reach, Saved, r, ft) {\n  let watchFlags = 0, excellentFlags = 0;\n\n  if (skipRate !== null) {\n    if      (skipRate > 0.70) return 'Archive';\n    else if (skipRate > 0.60) watchFlags++;\n    else                      excellentFlags++;\n  }\n\n  const erA = ageDays < 7  ? 0.030 : ageDays < 14 ? 0.040 : ageDays < 30 ? 0.045 : 0.050;\n  if (engRateReach < erA)                        return 'Archive';\n  if (ageDays >= 14 && r && Reach < r.Reach.red) return 'Archive';\n\n  const erW = ageDays < 3 ? 0.050 : ageDays < 7 ? 0.060 : ageDays < 14 ? 0.070 : 0.080;\n  if      (engRateReach < erW)  watchFlags++;\n  else if (engRateReach > 0.15) excellentFlags++;\n\n  const rwA = ageDays < 7 ? 1.01 : ageDays < 14 ? 1.03 : 1.05;\n  const rwW = ageDays < 7 ? 1.05 : ageDays < 14 ? 1.08 : 1.10;\n  if      (rewatchRatio < rwA)  return 'Archive';\n  else if (rewatchRatio < rwW)  watchFlags++;\n  else if (rewatchRatio > 1.40) excellentFlags++;\n\n  if      (Comments < 3)            watchFlags++;\n  else if (commentLikeRatio > 0.30) excellentFlags++;\n  else if (commentLikeRatio < 0.10) watchFlags++;\n  else                              excellentFlags++;\n\n  if      (Shares === 0) watchFlags++;\n  else if (Shares >= 2)  excellentFlags++;\n\n  let countWatch = 0, countExcellent = 0;\n  if (r) {\n    if      (Reach < r.Reach.yellow) countWatch++;\n    else if (Reach > r.Reach.yellow) countExcellent++;\n    if (Saved > r.Saves.yellow)      countExcellent++;\n  }\n  if (countWatch > 0) watchFlags++;\n  excellentFlags += countExcellent;\n\n  const watchNeeded = ageDays < 3 ? 3 : 2;\n  if (watchFlags >= watchNeeded)                                             return 'Watch';\n  if (watchFlags === 0 && Comments >= 3 &&\n     (excellentFlags >= 4 || (excellentFlags >= 3 && engRateReach > 0.18))) return 'Excellent';\n  if (watchFlags === 0 && engRateReach >= ft.EngagementVsReach_Yellow)      return 'Good';\n  if (watchFlags === 1)                                                      return 'Average';\n  return 'Watch';\n}\n\nfunction getStatusPost(ageDays, engRateReach, rewatchRatio, commentLikeRatio, Comments, Shares, Reach, Likes, Saved, r, ft) {\n  let watchFlags = 0, excellentFlags = 0;\n\n  const erA = ageDays < 3 ? 0.05 : ageDays < 7 ? 0.06 : ageDays < 14 ? 0.07 : 0.08;\n  if (engRateReach < erA)                        return 'Archive';\n  if (ageDays >= 7 && r && Reach < r.Reach.red)  return 'Archive';\n  if (ageDays >= 7 && r && Likes < r.Likes.red)  return 'Archive';\n\n  const erW = ageDays < 2 ? 0.07 : ageDays < 3 ? 0.08 : ageDays < 7 ? 0.10 : ageDays < 14 ? 0.12 : 0.14;\n  if      (engRateReach < erW)  watchFlags++;\n  else if (engRateReach > 0.18) excellentFlags++;\n\n  const rwW = ageDays < 3 ? 1.05 : ageDays < 7 ? 1.08 : 1.10;\n  if      (rewatchRatio < rwW)  watchFlags++;\n  else if (rewatchRatio > 1.20) excellentFlags++;\n\n  if      (Comments < 3)            watchFlags++;\n  else if (commentLikeRatio > 0.40) excellentFlags++;\n  else if (commentLikeRatio < 0.10) watchFlags++;\n  else                              excellentFlags++;\n\n  if      (Shares === 0) watchFlags++;\n  else if (Shares >= 2)  excellentFlags++;\n\n  let countWatch = 0, countExcellent = 0;\n  if (r) {\n    if      (Reach < r.Reach.yellow) countWatch++;\n    else if (Reach > r.Reach.yellow) countExcellent++;\n    if      (Likes < r.Likes.yellow) countWatch++;\n    else if (Likes > r.Likes.yellow) countExcellent++;\n    if (Saved > r.Saves.yellow)      countExcellent++;\n  }\n  if (countWatch > 0) watchFlags++;\n  excellentFlags += countExcellent;\n\n  const watchNeeded = ageDays < 2 ? 3 : 2;\n  if (watchFlags >= watchNeeded)                                             return 'Watch';\n  if (watchFlags === 0 && Comments >= 3 &&\n     (excellentFlags >= 4 || (excellentFlags >= 3 && engRateReach > 0.22))) return 'Excellent';\n  if (watchFlags === 0 && engRateReach >= ft.EngagementVsReach_Yellow)      return 'Good';\n  if (watchFlags === 1)                                                      return 'Average';\n  return 'Watch';\n}\n\n// ?? Main ??????????????????????????????????????????????????????????????????????\nreturn $input.all().map(item => {\n  const mediaId = item.json.data[0].id.split('/')[0];  // ? extract from metric entry\n  const ctx     = switchMap[mediaId];\n  if (!ctx) throw new Error(`No Switch context for id: ${mediaId}`);\n\n  const mediaType = ctx.media_type;\n  const cfg       = CONFIG[mediaType];\n  if (!cfg) throw new Error(`Unknown media_type: ${mediaType}`);\n\n  const { scaledM, ft, type: Type } = cfg;\n\n  const girlName  = ctx.name;\n  const Girl      = girlName.charAt(0).toUpperCase() + girlName.slice(1);\n  const followers = ctx.followers_count;\n  const follows   = ctx.follows_count;\n  const postedAt  = ctx.timestamp || null;\n\n  // ?? Metrics block ?????????????????????????????????????????????????????????\n  const block = item.json.data;\n  const m     = {};\n  for (const entry of block) {\n    m[entry.name] = entry.values[0]?.value ?? null;\n  }\n\n // const mediaId           = item.json.id || block[0]?.id?.split('/')[0] || 'unknown';\n  const Views             = m.views              ?? 0;\n  const Reach             = m.reach              ?? 0;\n  const Likes             = m.likes              ?? 0;\n  const Comments          = m.comments           ?? 0;\n  const Shares            = m.shares             ?? 0;\n  const Saved             = m.saved              ?? 0;\n  const totalInteractions = m.total_interactions ?? 0;\n\n  const avgWatchTimeMs   = m.ig_reels_avg_watch_time        ?? 0;\n  const totalWatchTimeMs = m.ig_reels_video_view_total_time ?? 0;\n  const skipRate         = m.reels_skip_rate != null ? m.reels_skip_rate / 100 : null;\n  const SlideCount = mediaType === 'CAROUSEL_ALBUM' ? (ctx.children?.data?.length ?? null) : null;\n\n  const postedAtFormatted = postedAt\n    ? DateTime.fromISO(postedAt).plus({hours: 14}).toFormat('dd/MM/yyyy HH:mm')\n    : null;\n  const ageHours = postedAt\n    ? +DateTime.now().diff(DateTime.fromISO(postedAt), 'hours').hours.toFixed(1)\n    : null;\n  const ageDays  = ageHours != null ? +(ageHours / 24).toFixed(1) : null;\n\n  const r = ageHours != null ? getRanges(followers, ageHours, scaledM) : null;\n\n  const engRateReach     = Reach     > 0 ? +((totalInteractions / Reach)    ).toFixed(2) : 0;\n  const engRateFollowers = followers > 0 ? +((totalInteractions / followers) ).toFixed(2) : 0;\n  const rewatchRatio     = Reach     > 0 ? +(Views / Reach                   ).toFixed(2) : 0;\n  const commentLikeRatio = Likes     > 0 ? +(Comments / Likes                ).toFixed(2) : 0;\n  const reachRate        = followers > 0 ? +((Reach / followers)             ).toFixed(2) : 0;\n\n  const avgWatchTimeSec   = mediaType === 'VIDEO' ? +(avgWatchTimeMs / 1000).toFixed(2) : null;\n  const totalWatchTimeSec = mediaType === 'VIDEO' ? Math.floor(totalWatchTimeMs / 1000) : null;\n  const totalWatchTimeMin = totalWatchTimeSec != null\n    ? `${Math.floor(totalWatchTimeSec / 60)}m ${totalWatchTimeSec % 60}s`\n    : null;\n\n  let Status = 'Unknown';\n  if (ageDays != null) {\n    if      (mediaType === 'CAROUSEL_ALBUM')\n      Status = getStatusCarousel(ageDays, engRateReach, rewatchRatio, commentLikeRatio, Comments, Shares, Reach, totalInteractions, Saved, r, ft);\n    else if (mediaType === 'VIDEO')\n      Status = getStatusReel(ageDays, engRateReach, rewatchRatio, commentLikeRatio, skipRate, Comments, Shares, Reach, Saved, r, ft);\n    else if (mediaType === 'IMAGE')\n      Status = getStatusPost(ageDays, engRateReach, rewatchRatio, commentLikeRatio, Comments, Shares, Reach, Likes, Saved, r, ft);\n  }\n\n\n   return {\n    json: {\n      Id:                           mediaId,\n      Time:                         postedAtFormatted,\n      Girl,\n      Followers:                    followers,\n      Following:                    follows,\n      Type,\n      AgeHours:                     ageHours,\n      AgeDays:                      ageDays,\n      Views, Reach, Interactions:   totalInteractions,\n      Likes, Comments, Saved, Shares,\n      WatchTime_AVG:                avgWatchTimeSec,\n      WatchTime_Total:              totalWatchTimeMin,\n      SkipRate:                     mediaType === 'VIDEO' ? skipRate : null,\n      SlideCount,\n      EngagementVsReach:            engRateReach,\n      EngagementVsfollowers:        engRateFollowers,\n      Rewatch:                      rewatchRatio,\n      CommentVsLike:                commentLikeRatio,\n      ReachVsFollowers:             reachRate,\n      Status,\n      Views_Red:                    r ? r.Views.red           : null,\n      Views_Yellow:                 r ? r.Views.yellow        : null,\n      Reach_Red:                    r ? r.Reach.red           : null,\n      Reach_Yellow:                 r ? r.Reach.yellow        : null,\n      Interactions_Red:             r ? r.Interactions.red    : null,\n      Interactions_Yellow:          r ? r.Interactions.yellow : null,\n      Likes_Red:                    r ? r.Likes.red           : null,\n      Likes_Yellow:                 r ? r.Likes.yellow        : null,\n      Comments_Red:                 r ? r.Comments.red        : null,\n      Comments_Yellow:              r ? r.Comments.yellow     : null,\n      Saves_Red:                    r ? r.Saves.red           : null,\n      Saves_Yellow:                 r ? r.Saves.yellow        : null,\n      Shares_Red:                   r ? r.Shares.red          : null,\n      Shares_Yellow:                r ? r.Shares.yellow       : null,\n      EngagementVsReach_Red:        ft.EngagementVsReach_Red,\n      EngagementVsReach_Yellow:     ft.EngagementVsReach_Yellow,\n      Rewatch_Red:                  ft.Rewatch_Red,\n      Rewatch_Yellow:               ft.Rewatch_Yellow,\n      ReachVsFollowers_Red:         ft.ReachVsFollowers_Red,\n      ReachVsFollowers_Yellow:      ft.ReachVsFollowers_Yellow,\n      EngagementVsFollowers_Red:    ut.EngagementVsFollowers_Red,\n      EngagementVsFollowers_Yellow: ut.EngagementVsFollowers_Yellow,\n      CommentVsLike_Red:            ut.CommentVsLike_Red,\n      CommentVsLike_Yellow:         ut.CommentVsLike_Yellow,\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2336,
+        -392
+      ],
+      "id": "d3c73a8c-3333-4293-a66c-47c7939aede5",
+      "name": "analyzer"
+    },
+    {
+      "parameters": {
+        "amount": "=1"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2560,
+        -392
+      ],
+      "id": "e3915744-c785-41aa-9913-08e92152fb94",
+      "name": "Wait",
+      "webhookId": "837e964a-1af4-4f4f-a710-32cb4f52b6c2"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1290883059,
+          "mode": "list",
+          "cachedResultName": "Media",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=1290883059"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "Id"
+          ],
+          "schema": [
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Girl",
+              "displayName": "Girl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Followers",
+              "displayName": "Followers",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Following",
+              "displayName": "Following",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Type",
+              "displayName": "Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Views",
+              "displayName": "Views",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reach",
+              "displayName": "Reach",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Interactions",
+              "displayName": "Interactions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Likes",
+              "displayName": "Likes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Comments",
+              "displayName": "Comments",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Saved",
+              "displayName": "Saved",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Shares",
+              "displayName": "Shares",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "WatchTime_AVG",
+              "displayName": "WatchTime_AVG",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "WatchTime_Total",
+              "displayName": "WatchTime_Total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SkipRate",
+              "displayName": "SkipRate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SlideCount",
+              "displayName": "SlideCount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EngagementVsReach",
+              "displayName": "EngagementVsReach",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EngagementVsfollowers",
+              "displayName": "EngagementVsfollowers",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Rewatch",
+              "displayName": "Rewatch",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CommentVsLike",
+              "displayName": "CommentVsLike",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ReachVsFollowers",
+              "displayName": "ReachVsFollowers",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AgeHours",
+              "displayName": "AgeHours",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AgeDays",
+              "displayName": "AgeDays",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Views_Red",
+              "displayName": "Views_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Views_Yellow",
+              "displayName": "Views_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reach_Red",
+              "displayName": "Reach_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reach_Yellow",
+              "displayName": "Reach_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Interactions_Red",
+              "displayName": "Interactions_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Interactions_Yellow",
+              "displayName": "Interactions_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Likes_Red",
+              "displayName": "Likes_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Likes_Yellow",
+              "displayName": "Likes_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Comments_Red",
+              "displayName": "Comments_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Comments_Yellow",
+              "displayName": "Comments_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Saves_Red",
+              "displayName": "Saves_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Saves_Yellow",
+              "displayName": "Saves_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Shares_Red",
+              "displayName": "Shares_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Shares_Yellow",
+              "displayName": "Shares_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EngagementVsReach_Red",
+              "displayName": "EngagementVsReach_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EngagementVsReach_Yellow",
+              "displayName": "EngagementVsReach_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Rewatch_Red",
+              "displayName": "Rewatch_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Rewatch_Yellow",
+              "displayName": "Rewatch_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ReachVsFollowers_Red",
+              "displayName": "ReachVsFollowers_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ReachVsFollowers_Yellow",
+              "displayName": "ReachVsFollowers_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EngagementVsFollowers_Red",
+              "displayName": "EngagementVsFollowers_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EngagementVsFollowers_Yellow",
+              "displayName": "EngagementVsFollowers_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CommentVsLike_Red",
+              "displayName": "CommentVsLike_Red",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CommentVsLike_Yellow",
+              "displayName": "CommentVsLike_Yellow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2784,
+        -320
+      ],
+      "id": "d1c16537-92b4-418a-9be4-34c7e38e009e",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.argentumorchesta.org/webhook/telegram-notify",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.message }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2560,
+        -584
+      ],
+      "id": "ba156bb8-657f-4ac7-8b4b-754f34fbaf82",
+      "name": "reportTelegram"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Media > Statistics updated\"\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2336,
+        -584
+      ],
+      "id": "91c7bd5b-7263-4023-bc48-30406cc8e89e",
+      "name": "setMessage"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "mediaUpdate",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -352,
+        -320
+      ],
+      "id": "fcb1038b-c761-4bbe-9a68-0a9a76dd51a6",
+      "name": "Webhook",
+      "webhookId": "27c42971-5e1f-4086-8f71-5f56005ff377"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Tokens",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tokens": {
+      "main": [
+        [
+          {
+            "node": "packTokens",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "packTokens": {
+      "main": [
+        [
+          {
+            "node": "getProfiles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getProfiles": {
+      "main": [
+        [
+          {
+            "node": "listMedia",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "listMedia": {
+      "main": [
+        [
+          {
+            "node": "mediaList",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "getCarrousel",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "getReels",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "getPosts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "mediaList": {
+      "main": [
+        [
+          {
+            "node": "getTime",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getTime": {
+      "main": [
+        [
+          {
+            "node": "addtime",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getCarrousel": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getReels": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "getPosts": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "setMessage",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "analyzer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "addtime": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "analyzer": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "reportTelegram": {
+      "main": [
+        []
+      ]
+    },
+    "setMessage": {
+      "main": [
+        [
+          {
+            "node": "reportTelegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Tokens",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "696dacc6-6d3a-466b-9fee-b719e357aef1",
+  "activeVersionId": "696dacc6-6d3a-466b-9fee-b719e357aef1",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "updatedAt": "2026-05-03T07:17:21.689Z",
+      "createdAt": "2026-05-03T07:17:21.689Z",
+      "role": "workflow:owner",
+      "workflowId": "FkBl1KSk0YRXEmv0",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-15T10:22:30.000Z",
+    "createdAt": "2026-05-10T21:13:45.955Z",
+    "versionId": "696dacc6-6d3a-466b-9fee-b719e357aef1",
+    "workflowId": "FkBl1KSk0YRXEmv0",
+    "nodes": [
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          -352,
+          -512
+        ],
+        "id": "0332c05e-a940-40e9-a354-31185e7ddef8",
+        "name": "When clicking ‘Execute workflow’"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
+                "name": "maeveToken",
+                "value": "IGAAXVb07ZCZBz9BZAGJCX1c3eGdhM01FZAU1xNm5oVUY2ZAjhzT1ItZAlpqRE8wZA3BhTmFrQkJlM3dDVXBDUmdTc211bnBWNzhidHp1UWh3U0tjRDQyQ1JYVVZAxRjd3cGpJTEZAvOUU3WS1ZAbGd2Y0R6WGlIaTR6WnhoSGgxejZAnaWlCSQZDZD",
+                "type": "string"
+              },
+              {
+                "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
+                "name": "elaraToken",
+                "value": "IGAAXVb07ZCZBz9BZAGI4RnF5aE1ybVBXaUNzQ0VQOXFnckN0b283dXg1elg4bUhFdENzM2VXNk5Rbng5RWdtVTlCa21uZA0I2X05mM0xEM2hvVjh1Mm5vS1hXYXlPZAXVQQS1ua1BCZAzBMemZAkQnc4SGw5cVU5UjdYdlk0MmNOZAHNiMAZDZD",
+                "type": "string"
+              },
+              {
+                "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
+                "name": "amaraToken",
+                "value": "IGAAXVb07ZCZBz9BZAFpyYXFoVjVkUzJWZA1U1dG1pWGgzSVUyclBENmFwV29IbE9LU2FoN2ljTE1OX3RVOUltMGpTYm1ocjVKQThsSHBsS3lCay10ZAFMzNEJVUk9yNEVfMGN6UHRHOXNMNUYwelc4c0xTNTlYOTFEYTZAaNURoVHpzYwZDZD",
+                "type": "string"
+              },
+              {
+                "id": "fef885d1-906f-4e80-9dae-87799af2c79b",
+                "name": "sheetDelay",
+                "value": 1,
+                "type": "number"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -128,
+          -392
+        ],
+        "id": "c1f2a5f1-9b12-41ae-a4d0-248d247330e1",
+        "name": "Tokens"
+      },
+      {
+        "parameters": {
+          "jsCode": "const data = $input.first().json;\n\nreturn [\n  { json: { name: \"maeve\", token: data.maeveToken, delay: data.sheetDelay } },\n  { json: { name: \"elara\",token: data.elaraToken, delay: data.sheetDelay } },\n  { json: { name: \"amara\", token: data.amaraToken, delay: data.sheetDelay } },\n];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          96,
+          -392
+        ],
+        "id": "f779999d-a5c6-405a-a626-14811b7004f0",
+        "name": "packTokens"
+      },
+      {
+        "parameters": {
+          "url": "=https://graph.instagram.com/v25.0/me?fields=id,name,username,account_type,followers_count,follows_count,media_count & access_token={{ $json.token }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          320,
+          -392
+        ],
+        "id": "a75980d8-7c2c-4b80-a790-0f03558577b6",
+        "name": "getProfiles"
+      },
+      {
+        "parameters": {
+          "url": "=https://graph.instagram.com/v25.0/me/media?fields=id,media_type & access_token={{ $('packTokens').item.json.token }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          544,
+          -392
+        ],
+        "id": "2418449f-4264-4380-94e8-b2fe52f8c704",
+        "name": "listMedia"
+      },
+      {
+        "parameters": {
+          "rules": {
+            "values": [
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "leftValue": "={{ $json.media_type }}",
+                      "rightValue": "CAROUSEL_ALBUM",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals"
+                      },
+                      "id": "7b677781-aaf3-4029-9655-6d111b2de3ad"
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "Carousel"
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "id": "67d56215-0af5-4357-9e75-650476d7ecf9",
+                      "leftValue": "={{ $json.media_type }}",
+                      "rightValue": "VIDEO",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "Reel"
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "id": "521f2354-d9cd-4686-b4a6-78d6d206535f",
+                      "leftValue": "={{ $json.media_type }}",
+                      "rightValue": "IMAGE",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "Post"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.4,
+        "position": [
+          1440,
+          -408
+        ],
+        "id": "ef07abe4-bdfd-48d6-89dc-f4b3b6805568",
+        "name": "Switch"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Mode: Run Once for All Items\nconst mediaItems = $input.all();\nconst tokenList  = $items(\"packTokens\");\n\n// Build profiles lookup by first name\nconst profiles = {};\nfor (const p of $('getProfiles').all()) {\n  const key = p.json.name.trim().split(/\\s+/)[0].toLowerCase();\n  profiles[key] = p.json;\n}\n\nconst result = [];\nfor (let i = 0; i < mediaItems.length; i++) {\n  const ctx      = tokenList[i].json;\n  const profile  = profiles[ctx.name];\n  const mediaArray = mediaItems[i].json.data;\n\n  for (const media of mediaArray) {\n    result.push({\n      json: {\n        ...media,\n        name:            ctx.name,\n        token:           ctx.token,\n        delay:           ctx.delay,\n        followers_count: profile?.followers_count ?? null,\n        follows_count:   profile?.follows_count   ?? null,\n      }\n    });\n  }\n}\n\nreturn result;"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          768,
+          -392
+        ],
+        "id": "21b50c31-298e-46aa-8a8a-1421f5404b4a",
+        "name": "mediaList"
+      },
+      {
+        "parameters": {
+          "url": "=https://graph.instagram.com/v25.0/{{ $json.id }}?fields=\n    id,\n    timestamp, children\n     & access_token={{ $json.token }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          992,
+          -392
+        ],
+        "id": "7a8c946a-a3a5-4ece-b35d-51d791ff2d09",
+        "name": "getTime"
+      },
+      {
+        "parameters": {
+          "url": "=https://graph.instagram.com/v25.0/{{ $json.id }}/insights?metric= reach, likes, comments, shares, saved, total_interactions, views & access_token={{ $json.token }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          1664,
+          -608
+        ],
+        "id": "3743ad99-0b40-4e2c-9606-e589523c5e2f",
+        "name": "getCarrousel"
+      },
+      {
+        "parameters": {
+          "url": "=https://graph.instagram.com/v25.0/{{ $json.id }}/insights?metric= views, reach, likes, comments, shares, saved, total_interactions, ig_reels_avg_watch_time, ig_reels_video_view_total_time, reels_skip_rate & access_token={{ $json.token }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          1664,
+          -416
+        ],
+        "id": "92fa1059-c426-4bcf-a411-9d6aba9e78d3",
+        "name": "getReels"
+      },
+      {
+        "parameters": {
+          "url": "=https://graph.instagram.com/v25.0/{{ $json.id }}/insights?metric= reach, likes, comments, shares, saved, total_interactions, views & access_token={{ $json.token }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          1664,
+          -224
+        ],
+        "id": "17534199-3bf4-475a-b427-49d48ad8fbbe",
+        "name": "getPosts"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          2112,
+          -416
+        ],
+        "id": "294857ba-5ba0-402b-a218-62aa5e04a1fc",
+        "name": "Loop Over Items"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Mode: Run Once for All Items\nconst mediaItems = $('mediaList').all();\nconst timeItems  = $('getTime').all();\n\n// Build id ? { timestamp, children? } lookup\nconst timeMap = {};\nfor (const t of timeItems) {\n  timeMap[t.json.id] = {\n    timestamp: t.json.timestamp,\n    children:  t.json.children ?? null,\n  };\n}\n\nreturn mediaItems.map(item => ({\n  json: {\n    ...item.json,\n    timestamp: timeMap[item.json.id]?.timestamp ?? null,\n    children:  timeMap[item.json.id]?.children  ?? null,\n  }\n}));"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1216,
+          -392
+        ],
+        "id": "6838c0f9-4f65-4de6-976f-f33069fb8b1d",
+        "name": "addtime"
+      },
+      {
+        "parameters": {
+          "numberInputs": 3
+        },
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3.2,
+        "position": [
+          1888,
+          -432
+        ],
+        "id": "fca71a12-2f4a-4097-9547-62e818ba7ef3",
+        "name": "Merge"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Mode: Run Once for All Items\n\n// ?? Context from Switch ???????????????????????????????????????????????????????\nconst switchMap = {};\nfor (const s of $('addtime').all()) {\n  switchMap[s.json.id] = {\n    name:            s.json.name,\n    token:           s.json.token,\n    delay:           s.json.delay,\n    timestamp:       s.json.timestamp,\n    children:        s.json.children ?? null,\n    media_type:      s.json.media_type,\n    followers_count: s.json.followers_count,\n    follows_count:   s.json.follows_count,\n  };\n}\n\n// ?? Per-type config ???????????????????????????????????????????????????????????\nconst CONFIG = {\n  CAROUSEL_ALBUM: {\n    type: 'Carousel',\n    scaledM: {\n      Views:[0.040,0.090], Reach:[0.035,0.075], Interactions:[0.006,0.014],\n      Likes:[0.004,0.009], Comments:[0.0008,0.003], Saves:[0.0004,0.001], Shares:[0.0001,0.0005]\n    },\n    ft: {\n      EngagementVsReach_Red:0.08,  EngagementVsReach_Yellow:0.18,\n      Rewatch_Red:1.05,            Rewatch_Yellow:1.20,\n      ReachVsFollowers_Red:0.05,   ReachVsFollowers_Yellow:0.10,\n    },\n  },\n  VIDEO: {\n    type: 'Reel',\n    scaledM: {\n      Views:[0.083,0.167], Reach:[0.071,0.143], Interactions:[0.007,0.017],\n      Likes:[0.006,0.012], Comments:[0.001,0.0036], Saves:[0.0005,0.0012], Shares:[0.0002,0.001]\n    },\n    ft: {\n      EngagementVsReach_Red:0.05,  EngagementVsReach_Yellow:0.12,\n      Rewatch_Red:1.10,            Rewatch_Yellow:1.40,\n      ReachVsFollowers_Red:0.08,   ReachVsFollowers_Yellow:0.18,\n    },\n  },\n  IMAGE: {\n    type: 'Post',\n    scaledM: {\n      Views:[0.045,0.095], Reach:[0.038,0.080], Interactions:[0.006,0.015],\n      Likes:[0.005,0.010], Comments:[0.0008,0.003], Saves:[0.0004,0.001], Shares:[0.0001,0.0005]\n    },\n    ft: {\n      EngagementVsReach_Red:0.08,  EngagementVsReach_Yellow:0.18,\n      Rewatch_Red:1.05,            Rewatch_Yellow:1.20,\n      ReachVsFollowers_Red:0.05,   ReachVsFollowers_Yellow:0.10,\n    },\n  },\n};\n\n// ?? Shared user thresholds ????????????????????????????????????????????????????\nconst ut = {\n  EngagementVsFollowers_Red:0.008, EngagementVsFollowers_Yellow:0.017,\n  CommentVsLike_Red:0.05,          CommentVsLike_Yellow:0.20,\n};\n\n// ?? getRanges ?????????????????????????????????????????????????????????????????\nfunction getRanges(followers, ageHours, scaledM) {\n  const age = ageHours < 48  ? 0.65\n            : ageHours < 168 ? 0.90\n            :                  1.00;\n  const calc = key => ({\n    red:    Math.round(followers * scaledM[key][0] * age),\n    yellow: Math.round(followers * scaledM[key][1] * age),\n  });\n  return {\n    Views: calc('Views'), Reach: calc('Reach'), Interactions: calc('Interactions'),\n    Likes: calc('Likes'), Comments: calc('Comments'), Saves: calc('Saves'), Shares: calc('Shares'),\n  };\n}\n\n// ?? Status functions ??????????????????????????????????????????????????????????\nfunction getStatusCarousel(ageDays, engRateReach, rewatchRatio, commentLikeRatio, Comments, Shares, Reach, Interactions, Saved, r, ft) {\n  let watchFlags = 0, excellentFlags = 0;\n\n  const erA = ageDays < 5 ? 0.05 : ageDays < 10 ? 0.06 : ageDays < 21 ? 0.07 : 0.08;\n  if (engRateReach < erA)                                      return 'Archive';\n  if (ageDays >= 10 && r && Reach < r.Reach.red)               return 'Archive';\n  if (ageDays >= 21 && r && Interactions < r.Interactions.red) return 'Archive';\n\n  const erW = ageDays < 3 ? 0.07 : ageDays < 5 ? 0.09 : ageDays < 10 ? 0.11 : ageDays < 21 ? 0.13 : 0.15;\n  if      (engRateReach < erW)  watchFlags++;\n  else if (engRateReach > 0.18) excellentFlags++;\n\n  const rwW = ageDays < 5 ? 1.05 : ageDays < 10 ? 1.08 : 1.10;\n  if      (rewatchRatio < rwW)  watchFlags++;\n  else if (rewatchRatio > 1.20) excellentFlags++;\n\n  if      (Comments < 3)            watchFlags++;\n  else if (commentLikeRatio > 0.30) excellentFlags++;\n  else if (commentLikeRatio < 0.10) watchFlags++;\n  else                              excellentFlags++;\n\n  if      (Shares === 0) watchFlags++;\n  else if (Shares >= 2)  excellentFlags++;\n\n  let countWatch = 0, countExcellent = 0;\n  if (r) {\n    if      (Reach < r.Reach.yellow)               countWatch++;\n    else if (Reach > r.Reach.yellow)               countExcellent++;\n    if      (Interactions < r.Interactions.yellow) countWatch++;\n    else if (Interactions > r.Interactions.yellow) countExcellent++;\n    if (Saved > r.Saves.yellow)                    countExcellent++;\n  }\n  if (countWatch > 0) watchFlags++;\n  excellentFlags += countExcellent;\n\n  const watchNeeded = ageDays < 3 ? 3 : 2;\n  if (watchFlags >= watchNeeded)                                             return 'Watch';\n  if (watchFlags === 0 && Comments >= 3 &&\n     (excellentFlags >= 4 || (excellentFlags >= 3 && engRateReach > 0.22))) return 'Excellent';\n  if (watchFlags === 0 && engRateReach >= ft.EngagementVsReach_Yellow)      return 'Good';\n  if (watchFlags === 1)                                                      return 'Average';\n  return 'Watch';\n}\n\nfunction getStatusReel(ageDays, engRateReach, rewatchRatio, commentLikeRatio, skipRate, Comments, Shares, Reach, Saved, r, ft) {\n  let watchFlags = 0, excellentFlags = 0;\n\n  if (skipRate !== null) {\n    if      (skipRate > 0.70) return 'Archive';\n    else if (skipRate > 0.60) watchFlags++;\n    else                      excellentFlags++;\n  }\n\n  const erA = ageDays < 7  ? 0.030 : ageDays < 14 ? 0.040 : ageDays < 30 ? 0.045 : 0.050;\n  if (engRateReach < erA)                        return 'Archive';\n  if (ageDays >= 14 && r && Reach < r.Reach.red) return 'Archive';\n\n  const erW = ageDays < 3 ? 0.050 : ageDays < 7 ? 0.060 : ageDays < 14 ? 0.070 : 0.080;\n  if      (engRateReach < erW)  watchFlags++;\n  else if (engRateReach > 0.15) excellentFlags++;\n\n  const rwA = ageDays < 7 ? 1.01 : ageDays < 14 ? 1.03 : 1.05;\n  const rwW = ageDays < 7 ? 1.05 : ageDays < 14 ? 1.08 : 1.10;\n  if      (rewatchRatio < rwA)  return 'Archive';\n  else if (rewatchRatio < rwW)  watchFlags++;\n  else if (rewatchRatio > 1.40) excellentFlags++;\n\n  if      (Comments < 3)            watchFlags++;\n  else if (commentLikeRatio > 0.30) excellentFlags++;\n  else if (commentLikeRatio < 0.10) watchFlags++;\n  else                              excellentFlags++;\n\n  if      (Shares === 0) watchFlags++;\n  else if (Shares >= 2)  excellentFlags++;\n\n  let countWatch = 0, countExcellent = 0;\n  if (r) {\n    if      (Reach < r.Reach.yellow) countWatch++;\n    else if (Reach > r.Reach.yellow) countExcellent++;\n    if (Saved > r.Saves.yellow)      countExcellent++;\n  }\n  if (countWatch > 0) watchFlags++;\n  excellentFlags += countExcellent;\n\n  const watchNeeded = ageDays < 3 ? 3 : 2;\n  if (watchFlags >= watchNeeded)                                             return 'Watch';\n  if (watchFlags === 0 && Comments >= 3 &&\n     (excellentFlags >= 4 || (excellentFlags >= 3 && engRateReach > 0.18))) return 'Excellent';\n  if (watchFlags === 0 && engRateReach >= ft.EngagementVsReach_Yellow)      return 'Good';\n  if (watchFlags === 1)                                                      return 'Average';\n  return 'Watch';\n}\n\nfunction getStatusPost(ageDays, engRateReach, rewatchRatio, commentLikeRatio, Comments, Shares, Reach, Likes, Saved, r, ft) {\n  let watchFlags = 0, excellentFlags = 0;\n\n  const erA = ageDays < 3 ? 0.05 : ageDays < 7 ? 0.06 : ageDays < 14 ? 0.07 : 0.08;\n  if (engRateReach < erA)                        return 'Archive';\n  if (ageDays >= 7 && r && Reach < r.Reach.red)  return 'Archive';\n  if (ageDays >= 7 && r && Likes < r.Likes.red)  return 'Archive';\n\n  const erW = ageDays < 2 ? 0.07 : ageDays < 3 ? 0.08 : ageDays < 7 ? 0.10 : ageDays < 14 ? 0.12 : 0.14;\n  if      (engRateReach < erW)  watchFlags++;\n  else if (engRateReach > 0.18) excellentFlags++;\n\n  const rwW = ageDays < 3 ? 1.05 : ageDays < 7 ? 1.08 : 1.10;\n  if      (rewatchRatio < rwW)  watchFlags++;\n  else if (rewatchRatio > 1.20) excellentFlags++;\n\n  if      (Comments < 3)            watchFlags++;\n  else if (commentLikeRatio > 0.40) excellentFlags++;\n  else if (commentLikeRatio < 0.10) watchFlags++;\n  else                              excellentFlags++;\n\n  if      (Shares === 0) watchFlags++;\n  else if (Shares >= 2)  excellentFlags++;\n\n  let countWatch = 0, countExcellent = 0;\n  if (r) {\n    if      (Reach < r.Reach.yellow) countWatch++;\n    else if (Reach > r.Reach.yellow) countExcellent++;\n    if      (Likes < r.Likes.yellow) countWatch++;\n    else if (Likes > r.Likes.yellow) countExcellent++;\n    if (Saved > r.Saves.yellow)      countExcellent++;\n  }\n  if (countWatch > 0) watchFlags++;\n  excellentFlags += countExcellent;\n\n  const watchNeeded = ageDays < 2 ? 3 : 2;\n  if (watchFlags >= watchNeeded)                                             return 'Watch';\n  if (watchFlags === 0 && Comments >= 3 &&\n     (excellentFlags >= 4 || (excellentFlags >= 3 && engRateReach > 0.22))) return 'Excellent';\n  if (watchFlags === 0 && engRateReach >= ft.EngagementVsReach_Yellow)      return 'Good';\n  if (watchFlags === 1)                                                      return 'Average';\n  return 'Watch';\n}\n\n// ?? Main ??????????????????????????????????????????????????????????????????????\nreturn $input.all().map(item => {\n  const mediaId = item.json.data[0].id.split('/')[0];  // ? extract from metric entry\n  const ctx     = switchMap[mediaId];\n  if (!ctx) throw new Error(`No Switch context for id: ${mediaId}`);\n\n  const mediaType = ctx.media_type;\n  const cfg       = CONFIG[mediaType];\n  if (!cfg) throw new Error(`Unknown media_type: ${mediaType}`);\n\n  const { scaledM, ft, type: Type } = cfg;\n\n  const girlName  = ctx.name;\n  const Girl      = girlName.charAt(0).toUpperCase() + girlName.slice(1);\n  const followers = ctx.followers_count;\n  const follows   = ctx.follows_count;\n  const postedAt  = ctx.timestamp || null;\n\n  // ?? Metrics block ?????????????????????????????????????????????????????????\n  const block = item.json.data;\n  const m     = {};\n  for (const entry of block) {\n    m[entry.name] = entry.values[0]?.value ?? null;\n  }\n\n // const mediaId           = item.json.id || block[0]?.id?.split('/')[0] || 'unknown';\n  const Views             = m.views              ?? 0;\n  const Reach             = m.reach              ?? 0;\n  const Likes             = m.likes              ?? 0;\n  const Comments          = m.comments           ?? 0;\n  const Shares            = m.shares             ?? 0;\n  const Saved             = m.saved              ?? 0;\n  const totalInteractions = m.total_interactions ?? 0;\n\n  const avgWatchTimeMs   = m.ig_reels_avg_watch_time        ?? 0;\n  const totalWatchTimeMs = m.ig_reels_video_view_total_time ?? 0;\n  const skipRate         = m.reels_skip_rate != null ? m.reels_skip_rate / 100 : null;\n  const SlideCount = mediaType === 'CAROUSEL_ALBUM' ? (ctx.children?.data?.length ?? null) : null;\n\n  const postedAtFormatted = postedAt\n    ? DateTime.fromISO(postedAt).plus({hours: 14}).toFormat('dd/MM/yyyy HH:mm')\n    : null;\n  const ageHours = postedAt\n    ? +DateTime.now().diff(DateTime.fromISO(postedAt), 'hours').hours.toFixed(1)\n    : null;\n  const ageDays  = ageHours != null ? +(ageHours / 24).toFixed(1) : null;\n\n  const r = ageHours != null ? getRanges(followers, ageHours, scaledM) : null;\n\n  const engRateReach     = Reach     > 0 ? +((totalInteractions / Reach)    ).toFixed(2) : 0;\n  const engRateFollowers = followers > 0 ? +((totalInteractions / followers) ).toFixed(2) : 0;\n  const rewatchRatio     = Reach     > 0 ? +(Views / Reach                   ).toFixed(2) : 0;\n  const commentLikeRatio = Likes     > 0 ? +(Comments / Likes                ).toFixed(2) : 0;\n  const reachRate        = followers > 0 ? +((Reach / followers)             ).toFixed(2) : 0;\n\n  const avgWatchTimeSec   = mediaType === 'VIDEO' ? +(avgWatchTimeMs / 1000).toFixed(2) : null;\n  const totalWatchTimeSec = mediaType === 'VIDEO' ? Math.floor(totalWatchTimeMs / 1000) : null;\n  const totalWatchTimeMin = totalWatchTimeSec != null\n    ? `${Math.floor(totalWatchTimeSec / 60)}m ${totalWatchTimeSec % 60}s`\n    : null;\n\n  let Status = 'Unknown';\n  if (ageDays != null) {\n    if      (mediaType === 'CAROUSEL_ALBUM')\n      Status = getStatusCarousel(ageDays, engRateReach, rewatchRatio, commentLikeRatio, Comments, Shares, Reach, totalInteractions, Saved, r, ft);\n    else if (mediaType === 'VIDEO')\n      Status = getStatusReel(ageDays, engRateReach, rewatchRatio, commentLikeRatio, skipRate, Comments, Shares, Reach, Saved, r, ft);\n    else if (mediaType === 'IMAGE')\n      Status = getStatusPost(ageDays, engRateReach, rewatchRatio, commentLikeRatio, Comments, Shares, Reach, Likes, Saved, r, ft);\n  }\n\n\n   return {\n    json: {\n      Id:                           mediaId,\n      Time:                         postedAtFormatted,\n      Girl,\n      Followers:                    followers,\n      Following:                    follows,\n      Type,\n      AgeHours:                     ageHours,\n      AgeDays:                      ageDays,\n      Views, Reach, Interactions:   totalInteractions,\n      Likes, Comments, Saved, Shares,\n      WatchTime_AVG:                avgWatchTimeSec,\n      WatchTime_Total:              totalWatchTimeMin,\n      SkipRate:                     mediaType === 'VIDEO' ? skipRate : null,\n      SlideCount,\n      EngagementVsReach:            engRateReach,\n      EngagementVsfollowers:        engRateFollowers,\n      Rewatch:                      rewatchRatio,\n      CommentVsLike:                commentLikeRatio,\n      ReachVsFollowers:             reachRate,\n      Status,\n      Views_Red:                    r ? r.Views.red           : null,\n      Views_Yellow:                 r ? r.Views.yellow        : null,\n      Reach_Red:                    r ? r.Reach.red           : null,\n      Reach_Yellow:                 r ? r.Reach.yellow        : null,\n      Interactions_Red:             r ? r.Interactions.red    : null,\n      Interactions_Yellow:          r ? r.Interactions.yellow : null,\n      Likes_Red:                    r ? r.Likes.red           : null,\n      Likes_Yellow:                 r ? r.Likes.yellow        : null,\n      Comments_Red:                 r ? r.Comments.red        : null,\n      Comments_Yellow:              r ? r.Comments.yellow     : null,\n      Saves_Red:                    r ? r.Saves.red           : null,\n      Saves_Yellow:                 r ? r.Saves.yellow        : null,\n      Shares_Red:                   r ? r.Shares.red          : null,\n      Shares_Yellow:                r ? r.Shares.yellow       : null,\n      EngagementVsReach_Red:        ft.EngagementVsReach_Red,\n      EngagementVsReach_Yellow:     ft.EngagementVsReach_Yellow,\n      Rewatch_Red:                  ft.Rewatch_Red,\n      Rewatch_Yellow:               ft.Rewatch_Yellow,\n      ReachVsFollowers_Red:         ft.ReachVsFollowers_Red,\n      ReachVsFollowers_Yellow:      ft.ReachVsFollowers_Yellow,\n      EngagementVsFollowers_Red:    ut.EngagementVsFollowers_Red,\n      EngagementVsFollowers_Yellow: ut.EngagementVsFollowers_Yellow,\n      CommentVsLike_Red:            ut.CommentVsLike_Red,\n      CommentVsLike_Yellow:         ut.CommentVsLike_Yellow,\n    }\n  };\n});"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2336,
+          -392
+        ],
+        "id": "d3c73a8c-3333-4293-a66c-47c7939aede5",
+        "name": "analyzer"
+      },
+      {
+        "parameters": {
+          "amount": "=1"
+        },
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          2560,
+          -392
+        ],
+        "id": "e3915744-c785-41aa-9913-08e92152fb94",
+        "name": "Wait",
+        "webhookId": "837e964a-1af4-4f4f-a710-32cb4f52b6c2"
+      },
+      {
+        "parameters": {
+          "operation": "appendOrUpdate",
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": 1290883059,
+            "mode": "list",
+            "cachedResultName": "Media",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=1290883059"
+          },
+          "columns": {
+            "mappingMode": "autoMapInputData",
+            "value": {},
+            "matchingColumns": [
+              "Id"
+            ],
+            "schema": [
+              {
+                "id": "Id",
+                "displayName": "Id",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Time",
+                "displayName": "Time",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Girl",
+                "displayName": "Girl",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Followers",
+                "displayName": "Followers",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Following",
+                "displayName": "Following",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Type",
+                "displayName": "Type",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Status",
+                "displayName": "Status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Views",
+                "displayName": "Views",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Reach",
+                "displayName": "Reach",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Interactions",
+                "displayName": "Interactions",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Likes",
+                "displayName": "Likes",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Comments",
+                "displayName": "Comments",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Saved",
+                "displayName": "Saved",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Shares",
+                "displayName": "Shares",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "WatchTime_AVG",
+                "displayName": "WatchTime_AVG",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "WatchTime_Total",
+                "displayName": "WatchTime_Total",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "SkipRate",
+                "displayName": "SkipRate",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "SlideCount",
+                "displayName": "SlideCount",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "EngagementVsReach",
+                "displayName": "EngagementVsReach",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "EngagementVsfollowers",
+                "displayName": "EngagementVsfollowers",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Rewatch",
+                "displayName": "Rewatch",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "CommentVsLike",
+                "displayName": "CommentVsLike",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "ReachVsFollowers",
+                "displayName": "ReachVsFollowers",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "AgeHours",
+                "displayName": "AgeHours",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "AgeDays",
+                "displayName": "AgeDays",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Views_Red",
+                "displayName": "Views_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Views_Yellow",
+                "displayName": "Views_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Reach_Red",
+                "displayName": "Reach_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Reach_Yellow",
+                "displayName": "Reach_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Interactions_Red",
+                "displayName": "Interactions_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Interactions_Yellow",
+                "displayName": "Interactions_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Likes_Red",
+                "displayName": "Likes_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Likes_Yellow",
+                "displayName": "Likes_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Comments_Red",
+                "displayName": "Comments_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Comments_Yellow",
+                "displayName": "Comments_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Saves_Red",
+                "displayName": "Saves_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Saves_Yellow",
+                "displayName": "Saves_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Shares_Red",
+                "displayName": "Shares_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Shares_Yellow",
+                "displayName": "Shares_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "EngagementVsReach_Red",
+                "displayName": "EngagementVsReach_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "EngagementVsReach_Yellow",
+                "displayName": "EngagementVsReach_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Rewatch_Red",
+                "displayName": "Rewatch_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Rewatch_Yellow",
+                "displayName": "Rewatch_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "ReachVsFollowers_Red",
+                "displayName": "ReachVsFollowers_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "ReachVsFollowers_Yellow",
+                "displayName": "ReachVsFollowers_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "EngagementVsFollowers_Red",
+                "displayName": "EngagementVsFollowers_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "EngagementVsFollowers_Yellow",
+                "displayName": "EngagementVsFollowers_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "CommentVsLike_Red",
+                "displayName": "CommentVsLike_Red",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "CommentVsLike_Yellow",
+                "displayName": "CommentVsLike_Yellow",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          2784,
+          -320
+        ],
+        "id": "d1c16537-92b4-418a-9be4-34c7e38e009e",
+        "name": "Append or update row in sheet",
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://n8n.argentumorchesta.org/webhook/telegram-notify",
+          "sendBody": true,
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "message",
+                "value": "={{ $json.message }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          2560,
+          -584
+        ],
+        "id": "ba156bb8-657f-4ac7-8b4b-754f34fbaf82",
+        "name": "reportTelegram"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Media > Statistics updated\"\n  }\n}];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2336,
+          -584
+        ],
+        "id": "91c7bd5b-7263-4023-bc48-30406cc8e89e",
+        "name": "setMessage"
+      },
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "mediaUpdate",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "position": [
+          -352,
+          -320
+        ],
+        "id": "fcb1038b-c761-4bbe-9a68-0a9a76dd51a6",
+        "name": "Webhook",
+        "webhookId": "27c42971-5e1f-4086-8f71-5f56005ff377"
+      }
+    ],
+    "connections": {
+      "When clicking ‘Execute workflow’": {
+        "main": [
+          [
+            {
+              "node": "Tokens",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Tokens": {
+        "main": [
+          [
+            {
+              "node": "packTokens",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "packTokens": {
+        "main": [
+          [
+            {
+              "node": "getProfiles",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "getProfiles": {
+        "main": [
+          [
+            {
+              "node": "listMedia",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "listMedia": {
+        "main": [
+          [
+            {
+              "node": "mediaList",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Switch": {
+        "main": [
+          [
+            {
+              "node": "getCarrousel",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "getReels",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "getPosts",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "mediaList": {
+        "main": [
+          [
+            {
+              "node": "getTime",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "getTime": {
+        "main": [
+          [
+            {
+              "node": "addtime",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "getCarrousel": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "getReels": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "getPosts": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 2
+            }
+          ]
+        ]
+      },
+      "Loop Over Items": {
+        "main": [
+          [
+            {
+              "node": "setMessage",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "analyzer",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "addtime": {
+        "main": [
+          [
+            {
+              "node": "Switch",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "analyzer": {
+        "main": [
+          [
+            {
+              "node": "Wait",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Wait": {
+        "main": [
+          [
+            {
+              "node": "Append or update row in sheet",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Append or update row in sheet": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "reportTelegram": {
+        "main": [
+          []
+        ]
+      },
+      "setMessage": {
+        "main": [
+          [
+            {
+              "node": "reportTelegram",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Webhook": {
+        "main": [
+          [
+            {
+              "node": "Tokens",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Argentum Orchesta",
+    "name": "Version 696dacc6",
+    "description": "",
+    "autosaved": true
+  },
+  "tags": []
+}
