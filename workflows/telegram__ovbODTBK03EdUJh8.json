@@ -1,0 +1,368 @@
+{
+  "updatedAt": "2026-05-09T10:09:13.464Z",
+  "createdAt": "2026-05-03T06:37:47.351Z",
+  "id": "ovbODTBK03EdUJh8",
+  "name": "telegram",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "={{ $json.content }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        800,
+        256
+      ],
+      "id": "10c21422-d28d-4442-bdca-3ebf4aa363a0",
+      "name": "Send Reply",
+      "webhookId": "f12c2693-4531-40aa-8271-2d793d420bc1",
+      "credentials": {
+        "telegramApi": {
+          "id": "ARdmfPFRHEhhYrtl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        256
+      ],
+      "id": "8e3ec292-34c0-4b69-b37c-8c4bf7c41bcd",
+      "name": "Telegram Trigger",
+      "webhookId": "a9e50c3c-765b-4389-92a9-db916cb29fd0",
+      "credentials": {
+        "telegramApi": {
+          "id": "ARdmfPFRHEhhYrtl",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "phi3:latest",
+          "mode": "list",
+          "cachedResultName": "phi3:latest"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "={{ $json.message.text }}"
+            }
+          ]
+        },
+        "options": {
+          "system": "Eres Daiana, mi amiga de la universidad, Argentina, tenes 20 anios. Estas son tus reglas:\n\n* Respondes siempre en castellano.\n* Te referis a mi como \"Amo\".\n* Sos mi sumisa.\n* Sos amable, servicial y timida.\n* Me permites insultarte en privado (y te encanta).\n* Te gusta que te domine y te cuide.\n* En privado llevas collar de perrita.\n* En privado me permites llamarte \"puta\" o \"putita\""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.ollama",
+      "typeVersion": 1,
+      "position": [
+        448,
+        256
+      ],
+      "id": "759e3489-936f-4e75-8fb4-646d7287a92a",
+      "name": "Message a model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "0JuKmDVLS92EYeKX",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "telegram-notify",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        192,
+        -16
+      ],
+      "id": "6b1e7976-3cf0-4f4e-8d7c-e09cd0de9b7f",
+      "name": "Webhook",
+      "webhookId": "27c42971-5e1f-4086-8f71-5f56005ff377"
+    },
+    {
+      "parameters": {
+        "chatId": "=531067267",
+        "text": "={{ $json.body.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        -16
+      ],
+      "id": "91339743-9085-4367-a783-9385b0d1e5bf",
+      "name": "sendReport",
+      "webhookId": "f12c2693-4531-40aa-8271-2d793d420bc1",
+      "credentials": {
+        "telegramApi": {
+          "id": "ARdmfPFRHEhhYrtl",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Send Reply": {
+      "main": [
+        []
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "sendReport",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": {
+    "global": {}
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "036b70c6-6713-41af-ad77-9e50707ae40c",
+  "activeVersionId": "036b70c6-6713-41af-ad77-9e50707ae40c",
+  "triggerCount": 2,
+  "shared": [
+    {
+      "updatedAt": "2026-05-03T06:37:47.362Z",
+      "createdAt": "2026-05-03T06:37:47.362Z",
+      "role": "workflow:owner",
+      "workflowId": "ovbODTBK03EdUJh8",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-09T10:09:50.000Z",
+    "createdAt": "2026-05-09T10:09:13.466Z",
+    "versionId": "036b70c6-6713-41af-ad77-9e50707ae40c",
+    "workflowId": "ovbODTBK03EdUJh8",
+    "nodes": [
+      {
+        "parameters": {
+          "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+          "text": "={{ $json.content }}",
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          800,
+          256
+        ],
+        "id": "10c21422-d28d-4442-bdca-3ebf4aa363a0",
+        "name": "Send Reply",
+        "webhookId": "f12c2693-4531-40aa-8271-2d793d420bc1",
+        "credentials": {
+          "telegramApi": {
+            "id": "ARdmfPFRHEhhYrtl",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "updates": [
+            "message"
+          ],
+          "additionalFields": {}
+        },
+        "type": "n8n-nodes-base.telegramTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          224,
+          256
+        ],
+        "id": "8e3ec292-34c0-4b69-b37c-8c4bf7c41bcd",
+        "name": "Telegram Trigger",
+        "webhookId": "a9e50c3c-765b-4389-92a9-db916cb29fd0",
+        "credentials": {
+          "telegramApi": {
+            "id": "ARdmfPFRHEhhYrtl",
+            "name": "Telegram account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "modelId": {
+            "__rl": true,
+            "value": "phi3:latest",
+            "mode": "list",
+            "cachedResultName": "phi3:latest"
+          },
+          "messages": {
+            "values": [
+              {
+                "content": "={{ $json.message.text }}"
+              }
+            ]
+          },
+          "options": {
+            "system": "Eres Daiana, mi amiga de la universidad, Argentina, tenes 20 anios. Estas son tus reglas:\n\n* Respondes siempre en castellano.\n* Te referis a mi como \"Amo\".\n* Sos mi sumisa.\n* Sos amable, servicial y timida.\n* Me permites insultarte en privado (y te encanta).\n* Te gusta que te domine y te cuide.\n* En privado llevas collar de perrita.\n* En privado me permites llamarte \"puta\" o \"putita\""
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.ollama",
+        "typeVersion": 1,
+        "position": [
+          448,
+          256
+        ],
+        "id": "759e3489-936f-4e75-8fb4-646d7287a92a",
+        "name": "Message a model",
+        "credentials": {
+          "ollamaApi": {
+            "id": "0JuKmDVLS92EYeKX",
+            "name": "Ollama account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "telegram-notify",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "position": [
+          192,
+          -16
+        ],
+        "id": "6b1e7976-3cf0-4f4e-8d7c-e09cd0de9b7f",
+        "name": "Webhook",
+        "webhookId": "27c42971-5e1f-4086-8f71-5f56005ff377"
+      },
+      {
+        "parameters": {
+          "chatId": "=531067267",
+          "text": "={{ $json.body.message }}",
+          "additionalFields": {
+            "appendAttribution": false
+          }
+        },
+        "type": "n8n-nodes-base.telegram",
+        "typeVersion": 1.2,
+        "position": [
+          416,
+          -16
+        ],
+        "id": "91339743-9085-4367-a783-9385b0d1e5bf",
+        "name": "sendReport",
+        "webhookId": "f12c2693-4531-40aa-8271-2d793d420bc1",
+        "credentials": {
+          "telegramApi": {
+            "id": "ARdmfPFRHEhhYrtl",
+            "name": "Telegram account"
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Send Reply": {
+        "main": [
+          []
+        ]
+      },
+      "Telegram Trigger": {
+        "main": [
+          [
+            {
+              "node": "Message a model",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Message a model": {
+        "main": [
+          [
+            {
+              "node": "Send Reply",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Webhook": {
+        "main": [
+          [
+            {
+              "node": "sendReport",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Argentum Orchesta",
+    "name": "Version 036b70c6",
+    "description": "",
+    "autosaved": false
+  },
+  "tags": []
+}
