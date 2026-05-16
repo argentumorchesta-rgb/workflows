@@ -1,0 +1,458 @@
+{
+  "updatedAt": "2026-05-09T09:54:53.053Z",
+  "createdAt": "2026-05-09T09:54:26.508Z",
+  "id": "ei5DfNigoBwiN7ub",
+  "name": "publishCaroussel",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        80,
+        864
+      ],
+      "id": "4c590c42-ec4d-4160-90ca-caada5dcd909",
+      "name": "loopContainers"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        736,
+        864
+      ],
+      "id": "24006d60-1185-472b-aedf-d92afc5045a1",
+      "name": "Wait1",
+      "webhookId": "829b6ac0-8e63-4ade-aac9-42e8a9f3537e"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1408,
+        880
+      ],
+      "id": "53f44f5f-3fdb-4292-9db3-c070d05fd4a9",
+      "name": "Wait2",
+      "webhookId": "18d56bfb-a6d1-493a-ac98-92c8fed1f209"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.instagram.com/v25.0/{{ $json.account_id }}/media",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "media_type",
+              "value": "=CAROUSEL"
+            },
+            {
+              "name": "children",
+              "value": "={{ $json.children }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.caption }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        512,
+        864
+      ],
+      "id": "5bf5340f-a148-4995-9361-cf3202d4833a",
+      "name": "createCarrousel"
+    },
+    {
+      "parameters": {
+        "jsCode": "const loopInput = $node[\"loopContainers\"].json;\nconst carousel_id = $input.first().json.id;\n\nreturn [{\n  json: {\n    girl:        loopInput.girl,\n    token:       loopInput.token,\n    account_id:  loopInput.account_id,\n    carousel_id,\n    file_names   :loopInput.file_names\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        864
+      ],
+      "id": "bcec7648-6bf0-40b7-8b9c-269a718c4767",
+      "name": "mergeCaroussels"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.instagram.com/v25.0/{{ $json.account_id }}/media_publish",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "creation_id",
+              "value": "={{ $json.carousel_id }}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1184,
+        864
+      ],
+      "id": "4678d2b4-91f1-4edc-b4f0-8706c26fac92",
+      "name": "publishCarrousel"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-random-wait.randomWait",
+      "typeVersion": 1,
+      "position": [
+        272,
+        736
+      ],
+      "id": "fe054a8a-500a-4472-8ece-087ab85bf9b2",
+      "name": "Random Wait"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "7f984bad-1cc1-4d86-aea4-43f189ecd8fd",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        -128,
+        864
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "loopContainers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "loopContainers": {
+      "main": [
+        [
+          {
+            "node": "Random Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "createCarrousel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "createCarrousel": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "mergeCaroussels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "mergeCaroussels": {
+      "main": [
+        [
+          {
+            "node": "publishCarrousel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "publishCarrousel": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "loopContainers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "4169be4b-80ae-403f-a293-c81065f8bc8d",
+  "activeVersionId": "5b8efacc-4a14-435f-89dc-587ce33b25c3",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-09T09:54:26.512Z",
+      "createdAt": "2026-05-09T09:54:26.512Z",
+      "role": "workflow:owner",
+      "workflowId": "ei5DfNigoBwiN7ub",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-09T09:54:26.515Z",
+    "createdAt": "2026-05-09T09:54:26.515Z",
+    "versionId": "5b8efacc-4a14-435f-89dc-587ce33b25c3",
+    "workflowId": "ei5DfNigoBwiN7ub",
+    "nodes": [
+      {
+        "parameters": {
+          "splitInBatchesNotice": "",
+          "batchSize": 1,
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          80,
+          864
+        ],
+        "id": "4c590c42-ec4d-4160-90ca-caada5dcd909",
+        "name": "loopContainers"
+      },
+      {
+        "parameters": {
+          "resume": "timeInterval",
+          "amount": 3,
+          "unit": "seconds"
+        },
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          736,
+          864
+        ],
+        "id": "24006d60-1185-472b-aedf-d92afc5045a1",
+        "name": "Wait1",
+        "webhookId": "829b6ac0-8e63-4ade-aac9-42e8a9f3537e"
+      },
+      {
+        "parameters": {
+          "resume": "timeInterval",
+          "amount": 2,
+          "unit": "seconds"
+        },
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          1408,
+          880
+        ],
+        "id": "53f44f5f-3fdb-4292-9db3-c070d05fd4a9",
+        "name": "Wait2",
+        "webhookId": "18d56bfb-a6d1-493a-ac98-92c8fed1f209"
+      },
+      {
+        "parameters": {
+          "curlImport": "",
+          "method": "POST",
+          "url": "=https://graph.instagram.com/v25.0/{{ $json.account_id }}/media",
+          "authentication": "none",
+          "provideSslCertificates": false,
+          "sendQuery": false,
+          "sendHeaders": false,
+          "sendBody": true,
+          "contentType": "form-urlencoded",
+          "specifyBody": "keypair",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "media_type",
+                "value": "=CAROUSEL"
+              },
+              {
+                "name": "children",
+                "value": "={{ $json.children }}"
+              },
+              {
+                "name": "caption",
+                "value": "={{ $json.caption }}"
+              },
+              {
+                "name": "access_token",
+                "value": "={{ $json.token }}"
+              }
+            ]
+          },
+          "options": {},
+          "infoMessage": ""
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          512,
+          864
+        ],
+        "id": "5bf5340f-a148-4995-9361-cf3202d4833a",
+        "name": "createCarrousel"
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForAllItems",
+          "language": "javaScript",
+          "jsCode": "const loopInput = $node[\"loopContainers\"].json;\nconst carousel_id = $input.first().json.id;\n\nreturn [{\n  json: {\n    girl:        loopInput.girl,\n    token:       loopInput.token,\n    account_id:  loopInput.account_id,\n    carousel_id,\n    file_names   :loopInput.file_names\n  }\n}];",
+          "notice": ""
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          960,
+          864
+        ],
+        "id": "bcec7648-6bf0-40b7-8b9c-269a718c4767",
+        "name": "mergeCaroussels"
+      },
+      {
+        "parameters": {
+          "curlImport": "",
+          "method": "POST",
+          "url": "=https://graph.instagram.com/v25.0/{{ $json.account_id }}/media_publish",
+          "authentication": "none",
+          "provideSslCertificates": false,
+          "sendQuery": false,
+          "sendHeaders": false,
+          "sendBody": true,
+          "contentType": "form-urlencoded",
+          "specifyBody": "keypair",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "creation_id",
+                "value": "={{ $json.carousel_id }}"
+              },
+              {
+                "name": "access_token",
+                "value": "={{ $json.token }}"
+              }
+            ]
+          },
+          "options": {},
+          "infoMessage": ""
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          1184,
+          864
+        ],
+        "id": "4678d2b4-91f1-4edc-b4f0-8706c26fac92",
+        "name": "publishCarrousel"
+      },
+      {
+        "type": "n8n-nodes-random-wait.randomWait",
+        "typeVersion": 1,
+        "position": [
+          272,
+          736
+        ],
+        "id": "fe054a8a-500a-4472-8ece-087ab85bf9b2",
+        "name": "Random Wait",
+        "disabled": false,
+        "parameters": {
+          "unit": "seconds",
+          "min": 1,
+          "max": 5
+        }
+      },
+      {
+        "id": "7f984bad-1cc1-4d86-aea4-43f189ecd8fd",
+        "typeVersion": 1.1,
+        "name": "Start",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "position": [
+          -128,
+          864
+        ],
+        "parameters": {
+          "inputSource": "passthrough"
+        }
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "loopContainers",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Argentum Orchesta",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "tags": []
+}
