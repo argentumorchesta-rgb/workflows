@@ -1,0 +1,2862 @@
+{
+  "updatedAt": "2026-05-15T11:48:05.263Z",
+  "createdAt": "2026-05-04T08:05:03.846Z",
+  "id": "V1wzIXcLIXW5BC1I",
+  "name": "mediaPoster",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Images",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Approved"
+            },
+            {
+              "lookupColumn": "Public",
+              "lookupValue": "Safe"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1728,
+        336
+      ],
+      "id": "de972c17-fc1f-4c13-afe8-3cf58daa3ff9",
+      "name": "getImages",
+      "executeOnce": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// ?? Config ??????????????????????????????????????????????????????????????????\nconst GIRLS   = [\"Maeve\", \"Elara\", \"Amara\"];\nconst MAX_PER = 3;\n\n// Fisher-Yates shuffle (in-place)\nfunction shuffle(arr) {\n  for (let i = arr.length - 1; i > 0; i--) {\n    const j = Math.floor(Math.random() * (i + 1));\n    [arr[i], arr[j]] = [arr[j], arr[i]];\n  }\n  return arr;\n}\n\n// ?? 1. Collect all items ?????????????????????????????????????????????????????\nconst allItems = $input.all();\n\nif (!allItems || allItems.length === 0) {\n  return [{ json: { error: \"No input items found\" } }];\n}\n\n// ?? 2. Sort by row_number ascending ?????????????????????????????????????????\nconst sorted = allItems\n  .map(item => item.json)\n  .sort((a, b) => (a.row_number ?? 0) - (b.row_number ?? 0));\n\n// ?? 3. Filter out any row where Posted contains \"Carousel\" ???????????????????\nconst filtered = sorted.filter(row => {\n  const posted = (row.Posted ?? \"\").toLowerCase();\n  return !posted.split(/[\\s,]+/).includes(\"carousel\");\n});\n\n// ?? 4. Group by Girl ?????????????????????????????????????????????????????????\nconst grouped = {};\nfor (const girl of GIRLS) {\n  grouped[girl] = filtered.filter(row => row.Girl === girl);\n}\n\n// ?? 5. Randomly pick up to MAX_PER Ids per girl ??????????????????????????????\nconst result = {};\nfor (const girl of GIRLS) {\n  const pool     = grouped[girl];\n  const shuffled = shuffle([...pool]);\n  const picked   = shuffled.slice(0, MAX_PER);\n  result[girl]   = picked.map(row => row.Id);\n}\n\n// ?? 6. Return one item per girl ???????????????????????????????????????????????\n// ?? 6. Return one item per girl, keyed by name ??????????????????????????????????????\nreturn GIRLS.flatMap(girl =>\n  result[girl].map(id => ({\n    json: {\n      girl: girl.toLowerCase(),\n      id\n    }\n  }))\n);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1280,
+        336
+      ],
+      "id": "3338c497-5d8c-4e12-89d7-aa69161e2c2d",
+      "name": "selectCaroussel"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
+              "name": "maeveToken",
+              "value": "IGAAXVb07ZCZBz9BZAGJCX1c3eGdhM01FZAU1xNm5oVUY2ZAjhzT1ItZAlpqRE8wZA3BhTmFrQkJlM3dDVXBDUmdTc211bnBWNzhidHp1UWh3U0tjRDQyQ1JYVVZAxRjd3cGpJTEZAvOUU3WS1ZAbGd2Y0R6WGlIaTR6WnhoSGgxejZAnaWlCSQZDZD",
+              "type": "string"
+            },
+            {
+              "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
+              "name": "elaraToken",
+              "value": "IGAAXVb07ZCZBz9BZAGI4RnF5aE1ybVBXaUNzQ0VQOXFnckN0b283dXg1elg4bUhFdENzM2VXNk5Rbng5RWdtVTlCa21uZA0I2X05mM0xEM2hvVjh1Mm5vS1hXYXlPZAXVQQS1ua1BCZAzBMemZAkQnc4SGw5cVU5UjdYdlk0MmNOZAHNiMAZDZD",
+              "type": "string"
+            },
+            {
+              "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
+              "name": "amaraToken",
+              "value": "IGAAXVb07ZCZBz9BZAFpyYXFoVjVkUzJWZA1U1dG1pWGgzSVUyclBENmFwV29IbE9LU2FoN2ljTE1OX3RVOUltMGpTYm1ocjVKQThsSHBsS3lCay10ZAFMzNEJVUk9yNEVfMGN6UHRHOXNMNUYwelc4c0xTNTlYOTFEYTZAaNURoVHpzYwZDZD",
+              "type": "string"
+            },
+            {
+              "id": "7062909c-0db0-42cb-8be7-b1b2a630afff",
+              "name": "maeveId",
+              "value": "17841478136820581",
+              "type": "string"
+            },
+            {
+              "id": "18d148ea-d800-4617-9b5b-c05de706ad01",
+              "name": "elaraId",
+              "value": "17841480189765921",
+              "type": "string"
+            },
+            {
+              "id": "93b56442-9db3-47e9-b6cc-88d2fce5839c",
+              "name": "amaraId",
+              "value": "17841480706715642",
+              "type": "string"
+            },
+            {
+              "id": "ddcc1a3e-b8ad-4086-999f-42a4606d1770",
+              "name": "maeveCaption",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1952,
+        336
+      ],
+      "id": "0ff9bf08-a3a3-4693-8f5d-ed9914c1e170",
+      "name": "Tokens"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all().map(i => i.json);\n\nconst grouped = {};\nfor (const item of items) {\n  if (!item.container_id) continue;\n  const girl = item.girl;\n  if (!grouped[girl]) {\n    grouped[girl] = {\n      girl,\n      token:      item.token,\n      account_id: item.account_id,\n      caption:    item.caption,\n      children:   [],\n      file_names: [],\n    };\n  }\n  grouped[girl].children.push(item.container_id);\n  grouped[girl].file_names.push(item.file_name);\n}\n\nreturn Object.values(grouped).map(g => ({\n  json: g\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -384,
+        336
+      ],
+      "id": "8527f3d3-0b03-4b6c-bd18-53e2724c21a8",
+      "name": "reGroup"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Images",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Id",
+              "lookupValue": "={{ $json.file_names.replace(/\\.png$/, '') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        736,
+        336
+      ],
+      "id": "6e991482-d7bd-496a-bb90-108781a5afbc",
+      "name": "getImagesStatus",
+      "executeOnce": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(({ json: item }) => {\n  const existing = (item.Posted ?? \"\").trim();\n  const words = existing\n    ? existing.split(/[\\s,]+/).map(w => w.trim()).filter(Boolean)\n    : [];\n\n  if (!words.map(w => w.toLowerCase()).includes(\"carousel\")) {\n    words.push(\"Carousel\");\n  }\n\n  return {\n    json: {\n      ...item,\n      Posted: words.join(\", \"),\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        336
+      ],
+      "id": "d0880fc4-04d2-49c0-97d6-cb0a420d5135",
+      "name": "updateStatus"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Images",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Id": "={{ $json.Id }}",
+            "Posted": "={{ $json.Posted }}"
+          },
+          "matchingColumns": [
+            "Id"
+          ],
+          "schema": [
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Girl",
+              "displayName": "Girl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "T2I_prompt",
+              "displayName": "T2I_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Model",
+              "displayName": "Model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Resolution",
+              "displayName": "Resolution",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Public",
+              "displayName": "Public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Posted",
+              "displayName": "Posted",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1184,
+        336
+      ],
+      "id": "9ff0f755-6bcd-4cc6-ba89-c12fb2f7e6d5",
+      "name": "updateSheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all().map(i => i.json);\nconst tokens = $node[\"Tokens\"].json;\n\nconst tokenMap = {\n  maeve: tokens.maeveToken,\n  elara: tokens.elaraToken,\n  amara: tokens.amaraToken,\n};\n\nconst idMap = {\n  maeve: tokens.maeveId,\n  elara: tokens.elaraId,\n  amara: tokens.amaraId,\n};\n\nconst grouped = {};\nfor (const item of items) {\n  const girl = item.girl;\n  if (!grouped[girl]) grouped[girl] = [];\n  grouped[girl].push(item.file_name);\n}\n\nreturn Object.entries(grouped).flatMap(([girl, file_names]) =>\n  file_names.map(file_name => ({\n    json: {\n      girl,\n      file_name,\n      token:      tokenMap[girl] ?? null,\n      account_id: idMap[girl]    ?? null,\n    }\n  }))\n);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -832,
+        336
+      ],
+      "id": "8516dd02-69f1-4d34-a1ca-7b2bdef2a2bf",
+      "name": "packCaroussel"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
+              "name": "maeveToken",
+              "value": "IGAAXVb07ZCZBz9BZAGJCX1c3eGdhM01FZAU1xNm5oVUY2ZAjhzT1ItZAlpqRE8wZA3BhTmFrQkJlM3dDVXBDUmdTc211bnBWNzhidHp1UWh3U0tjRDQyQ1JYVVZAxRjd3cGpJTEZAvOUU3WS1ZAbGd2Y0R6WGlIaTR6WnhoSGgxejZAnaWlCSQZDZD",
+              "type": "string"
+            },
+            {
+              "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
+              "name": "elaraToken",
+              "value": "IGAAXVb07ZCZBz9BZAGI4RnF5aE1ybVBXaUNzQ0VQOXFnckN0b283dXg1elg4bUhFdENzM2VXNk5Rbng5RWdtVTlCa21uZA0I2X05mM0xEM2hvVjh1Mm5vS1hXYXlPZAXVQQS1ua1BCZAzBMemZAkQnc4SGw5cVU5UjdYdlk0MmNOZAHNiMAZDZD",
+              "type": "string"
+            },
+            {
+              "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
+              "name": "amaraToken",
+              "value": "IGAAXVb07ZCZBz9BZAFpyYXFoVjVkUzJWZA1U1dG1pWGgzSVUyclBENmFwV29IbE9LU2FoN2ljTE1OX3RVOUltMGpTYm1ocjVKQThsSHBsS3lCay10ZAFMzNEJVUk9yNEVfMGN6UHRHOXNMNUYwelc4c0xTNTlYOTFEYTZAaNURoVHpzYwZDZD",
+              "type": "string"
+            },
+            {
+              "id": "7062909c-0db0-42cb-8be7-b1b2a630afff",
+              "name": "maeveId",
+              "value": "17841478136820581",
+              "type": "string"
+            },
+            {
+              "id": "18d148ea-d800-4617-9b5b-c05de706ad01",
+              "name": "elaraId",
+              "value": "17841480189765921",
+              "type": "string"
+            },
+            {
+              "id": "93b56442-9db3-47e9-b6cc-88d2fce5839c",
+              "name": "amaraId",
+              "value": "17841480706715642",
+              "type": "string"
+            },
+            {
+              "id": "ddcc1a3e-b8ad-4086-999f-42a4606d1770",
+              "name": "maeveCaption",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1952,
+        640
+      ],
+      "id": "0ebb780f-d1a8-4331-9498-cec285d848b3",
+      "name": "Tokens1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Images",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "Approved"
+            },
+            {
+              "lookupColumn": "Public",
+              "lookupValue": "Safe"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1728,
+        640
+      ],
+      "id": "fc200356-0cc8-47ab-8c4c-b1fe307b3e21",
+      "name": "getImages1",
+      "executeOnce": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b9245869-968a-49d0-90f5-a393a9f6b746",
+              "leftValue": "={{ $json.Posted }}",
+              "rightValue": "Carousel",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        -1504,
+        336
+      ],
+      "id": "b10ee40d-7767-4f98-92ee-1b1358dc3983",
+      "name": "filterCarousels"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "893e4f5d-d851-42d8-a98f-054f5beefe51",
+              "leftValue": "={{ $json.Posted }}",
+              "rightValue": "Story",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        -1504,
+        640
+      ],
+      "id": "a5a0a045-ca2f-4b09-a54d-a1daaf89c6cf",
+      "name": "filterStories"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ?? Config ??????????????????????????????????????????????????????????????????\nconst GIRLS   = [\"Maeve\", \"Elara\", \"Amara\"];\nconst MAX_PER = 1;\n\n// Fisher-Yates shuffle (in-place)\nfunction shuffle(arr) {\n  for (let i = arr.length - 1; i > 0; i--) {\n    const j = Math.floor(Math.random() * (i + 1));\n    [arr[i], arr[j]] = [arr[j], arr[i]];\n  }\n  return arr;\n}\n\n// ?? 1. Collect all items ?????????????????????????????????????????????????????\nconst allItems = $input.all();\n\nif (!allItems || allItems.length === 0) {\n  return [{ json: { error: \"No input items found\" } }];\n}\n\n// ?? 2. Sort by row_number ascending ?????????????????????????????????????????\nconst sorted = allItems\n  .map(item => item.json)\n  .sort((a, b) => (a.row_number ?? 0) - (b.row_number ?? 0));\n\n// ?? 3. Filter out any row where Posted contains \"Carousel\" ???????????????????\nconst filtered = sorted.filter(row => {\n  const posted = (row.Posted ?? \"\").toLowerCase();\n  return !posted.split(/[\\s,]+/).includes(\"carousel\");\n});\n\n// ?? 4. Group by Girl ?????????????????????????????????????????????????????????\nconst grouped = {};\nfor (const girl of GIRLS) {\n  grouped[girl] = filtered.filter(row => row.Girl === girl);\n}\n\n// ?? 5. Randomly pick up to MAX_PER Ids per girl ??????????????????????????????\nconst result = {};\nfor (const girl of GIRLS) {\n  const pool     = grouped[girl];\n  const shuffled = shuffle([...pool]);\n  const picked   = shuffled.slice(0, MAX_PER);\n  result[girl]   = picked.map(row => row.Id);\n}\n\n// ?? 6. Return one item per girl ???????????????????????????????????????????????\n// ?? 6. Return one item per girl, keyed by name ??????????????????????????????????????\nreturn GIRLS.flatMap(girl =>\n  result[girl].map(id => ({\n    json: {\n      girl: girl.toLowerCase(),\n      id\n    }\n  }))\n);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1280,
+        640
+      ],
+      "id": "84d80d09-9ce9-4c86-8759-d8d93d0a56bb",
+      "name": "selectStory"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all().map(i => i.json);\nconst tokens = $node[\"Tokens1\"].json;\n\nconst tokenMap = {\n  maeve: tokens.maeveToken,\n  elara: tokens.elaraToken,\n  amara: tokens.amaraToken,\n};\n\nconst idMap = {\n  maeve: tokens.maeveId,\n  elara: tokens.elaraId,\n  amara: tokens.amaraId,\n};\n\nconst grouped = {};\nfor (const item of items) {\n  const girl = item.girl;\n  if (!grouped[girl]) grouped[girl] = [];\n  grouped[girl].push(item.file_name);\n}\n\nreturn Object.entries(grouped).flatMap(([girl, file_names]) =>\n  file_names.map(file_name => ({\n    json: {\n      girl,\n      file_name,\n      token:      tokenMap[girl] ?? null,\n      account_id: idMap[girl]    ?? null,\n    }\n  }))\n);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -832,
+        640
+      ],
+      "id": "5fc47eff-3a02-442b-805f-e1efcdcbd070",
+      "name": "packStory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Images",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Id",
+              "lookupValue": "={{ $json.file_name.replace(/\\.png$/, '') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        288,
+        640
+      ],
+      "id": "b0db117e-d362-42e2-8d23-1fcda5725fef",
+      "name": "getImagesStatus1",
+      "executeOnce": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(({ json: item }) => {\n  const existing = (item.Posted ?? \"\").trim();\n  const words = existing\n    ? existing.split(/[\\s,]+/).map(w => w.trim()).filter(Boolean)\n    : [];\n\n  if (!words.map(w => w.toLowerCase()).includes(\"story\")) {\n    words.push(\"Story\");\n  }\n\n  return {\n    json: {\n      ...item,\n      Posted: words.join(\", \"),\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        640
+      ],
+      "id": "f1b467f8-6324-4051-8a2e-c9277233c838",
+      "name": "updateStatus1"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Images",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Id": "={{ $json.Id }}",
+            "Posted": "={{ $json.Posted }}"
+          },
+          "matchingColumns": [
+            "Id"
+          ],
+          "schema": [
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Girl",
+              "displayName": "Girl",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "T2I_prompt",
+              "displayName": "T2I_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Model",
+              "displayName": "Model",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Resolution",
+              "displayName": "Resolution",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Public",
+              "displayName": "Public",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Posted",
+              "displayName": "Posted",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        736,
+        640
+      ],
+      "id": "bb0b1892-f441-4772-ac89-e1bcb21181e4",
+      "name": "updateSheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "useDataOfInput": 2
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        64,
+        640
+      ],
+      "id": "96dc37e3-65d8-4a3f-963c-fe71dc2549ed",
+      "name": "Merge2"
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "useDataOfInput": 2
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        512,
+        336
+      ],
+      "id": "d98aaf2c-ce5a-4c34-9f5e-62790c7689f8",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "KpE1S1EUwS70OucO",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -1056,
+        640
+      ],
+      "name": "Call createPublicLinks",
+      "id": "88e3970b-fc6b-42d4-a75e-ad29bab304ec"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "KpE1S1EUwS70OucO",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/KpE1S1EUwS70OucO",
+          "cachedResultName": "createPublicLinks"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -1056,
+        336
+      ],
+      "name": "Call createPublicLinks1",
+      "id": "78de5803-7b1f-4f2a-9762-6c396b5b5d5e"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "h7NYAUzC9jYQ9FjR",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/h7NYAUzC9jYQ9FjR",
+          "cachedResultName": "publishStory"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -608,
+        704
+      ],
+      "name": "Call publishStory",
+      "id": "031c5f6b-7257-4142-9691-5e9d3f8f9a07"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Caroussels > Posted\"\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        64,
+        416
+      ],
+      "id": "0b75d93e-9fa7-4ee1-b72c-b7b9f775c30d",
+      "name": "setMessage1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.argentumorchesta.org/webhook/telegram-notify",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.message }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        288,
+        416
+      ],
+      "id": "2190002b-d3cb-422e-80f4-236ae8b0b769",
+      "name": "reportTelegram4"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "IPnihWjOYJfjF2GM",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "updateStatus1_allItems": "={{ $('updateStatus1').all() }}"
+          },
+          "matchingColumns": [
+            "updateStatus1_allItems"
+          ],
+          "schema": [
+            {
+              "id": "updateStatus1_allItems",
+              "displayName": "updateStatus1_allItems",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        960,
+        640
+      ],
+      "name": "Call cleanGitHub",
+      "id": "a6b8e3ac-552e-43b0-90f8-89afcfb1d903"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "IPnihWjOYJfjF2GM",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "updateStatus1_allItems": "={{ $('updateStatus1').all() }}"
+          },
+          "matchingColumns": [
+            "updateStatus1_allItems"
+          ],
+          "schema": [
+            {
+              "id": "updateStatus1_allItems",
+              "displayName": "updateStatus1_allItems",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1408,
+        336
+      ],
+      "name": "Call cleanGitHub1",
+      "id": "deeab04c-be89-4d85-a8ff-1f4071a59714"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "ei5DfNigoBwiN7ub",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/ei5DfNigoBwiN7ub",
+          "cachedResultName": "publishCaroussel"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -160,
+        416
+      ],
+      "name": "Call publishCaroussel",
+      "id": "cb492f97-b3ef-4990-9e23-bece2aafeb62"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Story > Posted\"\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -384,
+        704
+      ],
+      "id": "a5cfdda8-247b-4c57-9ebd-495071af02d1",
+      "name": "setMessage"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.argentumorchesta.org/webhook/telegram-notify",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={{ $json.message }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -160,
+        704
+      ],
+      "id": "32826cc9-4e96-4f2c-a2b8-cbc8426f5961",
+      "name": "reportTelegram"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "EsscGygyrnud3vfY",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/EsscGygyrnud3vfY",
+          "cachedResultName": "createContainer"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -608,
+        336
+      ],
+      "name": "Call createContainer",
+      "id": "c12f64aa-42da-4c3d-8fbf-f57ebec4fdd7"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "postCarousels",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -2176,
+        336
+      ],
+      "id": "01f6a042-91b0-4d56-9e99-df5849dbb02f",
+      "name": "Webhook1",
+      "webhookId": "27c42971-5e1f-4086-8f71-5f56005ff377"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "postStories",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -2176,
+        640
+      ],
+      "id": "40c255fd-2f46-46e0-a93e-ff174bc034bd",
+      "name": "Webhook",
+      "webhookId": "27c42971-5e1f-4086-8f71-5f56005ff377"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2368,
+        512
+      ],
+      "id": "9cef98f0-cbf1-4d72-8639-8fbb207b8504",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "content": "Captions are missing!"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        160
+      ],
+      "id": "7475351f-04c7-4b15-8860-f36edcf1c877",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "3 items into this one is braeaking it"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        640,
+        160
+      ],
+      "id": "2083cdd5-34d5-472c-9216-edc640eab364",
+      "name": "Sticky Note1"
+    }
+  ],
+  "connections": {
+    "getImages": {
+      "main": [
+        [
+          {
+            "node": "filterCarousels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "selectCaroussel": {
+      "main": [
+        [
+          {
+            "node": "Call createPublicLinks1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tokens": {
+      "main": [
+        [
+          {
+            "node": "getImages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "reGroup": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Call publishCaroussel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getImagesStatus": {
+      "main": [
+        [
+          {
+            "node": "updateStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updateStatus": {
+      "main": [
+        [
+          {
+            "node": "updateSheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updateSheet": {
+      "main": [
+        [
+          {
+            "node": "Call cleanGitHub1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "packCaroussel": {
+      "main": [
+        [
+          {
+            "node": "Call createContainer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tokens1": {
+      "main": [
+        [
+          {
+            "node": "getImages1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getImages1": {
+      "main": [
+        [
+          {
+            "node": "filterStories",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "filterCarousels": {
+      "main": [
+        [
+          {
+            "node": "selectCaroussel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "filterStories": {
+      "main": [
+        [
+          {
+            "node": "selectStory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "selectStory": {
+      "main": [
+        [
+          {
+            "node": "Call createPublicLinks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "packStory": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Call publishStory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getImagesStatus1": {
+      "main": [
+        [
+          {
+            "node": "updateStatus1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updateStatus1": {
+      "main": [
+        [
+          {
+            "node": "updateSheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updateSheet1": {
+      "main": [
+        [
+          {
+            "node": "Call cleanGitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "getImagesStatus1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "getImagesStatus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call createPublicLinks": {
+      "main": [
+        [
+          {
+            "node": "packStory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call createPublicLinks1": {
+      "main": [
+        [
+          {
+            "node": "packCaroussel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call publishStory": {
+      "main": [
+        [
+          {
+            "node": "setMessage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "setMessage1": {
+      "main": [
+        [
+          {
+            "node": "reportTelegram4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "reportTelegram4": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call publishCaroussel": {
+      "main": [
+        [
+          {
+            "node": "setMessage1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "setMessage": {
+      "main": [
+        [
+          {
+            "node": "reportTelegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "reportTelegram": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call createContainer": {
+      "main": [
+        [
+          {
+            "node": "reGroup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Tokens1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Tokens",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Tokens",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "5ac742b6-b6b8-44d0-84e6-c5147ee5c847",
+  "activeVersionId": "594c27dc-75c4-4d33-b114-554280dd663e",
+  "triggerCount": 2,
+  "shared": [
+    {
+      "updatedAt": "2026-05-04T08:05:03.850Z",
+      "createdAt": "2026-05-04T08:05:03.850Z",
+      "role": "workflow:owner",
+      "workflowId": "V1wzIXcLIXW5BC1I",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-09T10:05:13.000Z",
+    "createdAt": "2026-05-09T10:04:54.153Z",
+    "versionId": "594c27dc-75c4-4d33-b114-554280dd663e",
+    "workflowId": "V1wzIXcLIXW5BC1I",
+    "nodes": [
+      {
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Images",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+          },
+          "filtersUI": {
+            "values": [
+              {
+                "lookupColumn": "Status",
+                "lookupValue": "Approved"
+              },
+              {
+                "lookupColumn": "Public",
+                "lookupValue": "Safe"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          -1728,
+          336
+        ],
+        "id": "de972c17-fc1f-4c13-afe8-3cf58daa3ff9",
+        "name": "getImages",
+        "executeOnce": false,
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// ?? Config ??????????????????????????????????????????????????????????????????\nconst GIRLS   = [\"Maeve\", \"Elara\", \"Amara\"];\nconst MAX_PER = 3;\n\n// Fisher-Yates shuffle (in-place)\nfunction shuffle(arr) {\n  for (let i = arr.length - 1; i > 0; i--) {\n    const j = Math.floor(Math.random() * (i + 1));\n    [arr[i], arr[j]] = [arr[j], arr[i]];\n  }\n  return arr;\n}\n\n// ?? 1. Collect all items ?????????????????????????????????????????????????????\nconst allItems = $input.all();\n\nif (!allItems || allItems.length === 0) {\n  return [{ json: { error: \"No input items found\" } }];\n}\n\n// ?? 2. Sort by row_number ascending ?????????????????????????????????????????\nconst sorted = allItems\n  .map(item => item.json)\n  .sort((a, b) => (a.row_number ?? 0) - (b.row_number ?? 0));\n\n// ?? 3. Filter out any row where Posted contains \"Carousel\" ???????????????????\nconst filtered = sorted.filter(row => {\n  const posted = (row.Posted ?? \"\").toLowerCase();\n  return !posted.split(/[\\s,]+/).includes(\"carousel\");\n});\n\n// ?? 4. Group by Girl ?????????????????????????????????????????????????????????\nconst grouped = {};\nfor (const girl of GIRLS) {\n  grouped[girl] = filtered.filter(row => row.Girl === girl);\n}\n\n// ?? 5. Randomly pick up to MAX_PER Ids per girl ??????????????????????????????\nconst result = {};\nfor (const girl of GIRLS) {\n  const pool     = grouped[girl];\n  const shuffled = shuffle([...pool]);\n  const picked   = shuffled.slice(0, MAX_PER);\n  result[girl]   = picked.map(row => row.Id);\n}\n\n// ?? 6. Return one item per girl ???????????????????????????????????????????????\n// ?? 6. Return one item per girl, keyed by name ??????????????????????????????????????\nreturn GIRLS.flatMap(girl =>\n  result[girl].map(id => ({\n    json: {\n      girl: girl.toLowerCase(),\n      id\n    }\n  }))\n);"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -1280,
+          336
+        ],
+        "id": "3338c497-5d8c-4e12-89d7-aa69161e2c2d",
+        "name": "selectCaroussel"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
+                "name": "maeveToken",
+                "value": "IGAAXVb07ZCZBz9BZAGJCX1c3eGdhM01FZAU1xNm5oVUY2ZAjhzT1ItZAlpqRE8wZA3BhTmFrQkJlM3dDVXBDUmdTc211bnBWNzhidHp1UWh3U0tjRDQyQ1JYVVZAxRjd3cGpJTEZAvOUU3WS1ZAbGd2Y0R6WGlIaTR6WnhoSGgxejZAnaWlCSQZDZD",
+                "type": "string"
+              },
+              {
+                "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
+                "name": "elaraToken",
+                "value": "IGAAXVb07ZCZBz9BZAGI4RnF5aE1ybVBXaUNzQ0VQOXFnckN0b283dXg1elg4bUhFdENzM2VXNk5Rbng5RWdtVTlCa21uZA0I2X05mM0xEM2hvVjh1Mm5vS1hXYXlPZAXVQQS1ua1BCZAzBMemZAkQnc4SGw5cVU5UjdYdlk0MmNOZAHNiMAZDZD",
+                "type": "string"
+              },
+              {
+                "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
+                "name": "amaraToken",
+                "value": "IGAAXVb07ZCZBz9BZAFpyYXFoVjVkUzJWZA1U1dG1pWGgzSVUyclBENmFwV29IbE9LU2FoN2ljTE1OX3RVOUltMGpTYm1ocjVKQThsSHBsS3lCay10ZAFMzNEJVUk9yNEVfMGN6UHRHOXNMNUYwelc4c0xTNTlYOTFEYTZAaNURoVHpzYwZDZD",
+                "type": "string"
+              },
+              {
+                "id": "7062909c-0db0-42cb-8be7-b1b2a630afff",
+                "name": "maeveId",
+                "value": "17841478136820581",
+                "type": "string"
+              },
+              {
+                "id": "18d148ea-d800-4617-9b5b-c05de706ad01",
+                "name": "elaraId",
+                "value": "17841480189765921",
+                "type": "string"
+              },
+              {
+                "id": "93b56442-9db3-47e9-b6cc-88d2fce5839c",
+                "name": "amaraId",
+                "value": "17841480706715642",
+                "type": "string"
+              },
+              {
+                "id": "ddcc1a3e-b8ad-4086-999f-42a4606d1770",
+                "name": "maeveCaption",
+                "value": "",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -1952,
+          336
+        ],
+        "id": "0ff9bf08-a3a3-4693-8f5d-ed9914c1e170",
+        "name": "Tokens"
+      },
+      {
+        "parameters": {
+          "jsCode": "const items = $input.all().map(i => i.json);\n\nconst grouped = {};\nfor (const item of items) {\n  if (!item.container_id) continue;\n  const girl = item.girl;\n  if (!grouped[girl]) {\n    grouped[girl] = {\n      girl,\n      token:      item.token,\n      account_id: item.account_id,\n      caption:    item.caption,\n      children:   [],\n      file_names: [],\n    };\n  }\n  grouped[girl].children.push(item.container_id);\n  grouped[girl].file_names.push(item.file_name);\n}\n\nreturn Object.values(grouped).map(g => ({\n  json: g\n}));"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -384,
+          336
+        ],
+        "id": "8527f3d3-0b03-4b6c-bd18-53e2724c21a8",
+        "name": "reGroup"
+      },
+      {
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Images",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+          },
+          "filtersUI": {
+            "values": [
+              {
+                "lookupColumn": "Id",
+                "lookupValue": "={{ $json.file_name.replace(/\\.png$/, '') }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          736,
+          336
+        ],
+        "id": "6e991482-d7bd-496a-bb90-108781a5afbc",
+        "name": "getImagesStatus",
+        "executeOnce": false,
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "return $input.all().map(({ json: item }) => {\n  const existing = (item.Posted ?? \"\").trim();\n  const words = existing\n    ? existing.split(/[\\s,]+/).map(w => w.trim()).filter(Boolean)\n    : [];\n\n  if (!words.map(w => w.toLowerCase()).includes(\"carousel\")) {\n    words.push(\"Carousel\");\n  }\n\n  return {\n    json: {\n      ...item,\n      Posted: words.join(\", \"),\n    }\n  };\n});"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          960,
+          336
+        ],
+        "id": "d0880fc4-04d2-49c0-97d6-cb0a420d5135",
+        "name": "updateStatus"
+      },
+      {
+        "parameters": {
+          "operation": "appendOrUpdate",
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Images",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "Id": "={{ $json.Id }}",
+              "Posted": "={{ $json.Posted }}"
+            },
+            "matchingColumns": [
+              "Id"
+            ],
+            "schema": [
+              {
+                "id": "Id",
+                "displayName": "Id",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Girl",
+                "displayName": "Girl",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "T2I_prompt",
+                "displayName": "T2I_prompt",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Model",
+                "displayName": "Model",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Resolution",
+                "displayName": "Resolution",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Status",
+                "displayName": "Status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Public",
+                "displayName": "Public",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Posted",
+                "displayName": "Posted",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          1184,
+          336
+        ],
+        "id": "9ff0f755-6bcd-4cc6-ba89-c12fb2f7e6d5",
+        "name": "updateSheet",
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const items = $input.all().map(i => i.json);\nconst tokens = $node[\"Tokens\"].json;\n\nconst tokenMap = {\n  maeve: tokens.maeveToken,\n  elara: tokens.elaraToken,\n  amara: tokens.amaraToken,\n};\n\nconst idMap = {\n  maeve: tokens.maeveId,\n  elara: tokens.elaraId,\n  amara: tokens.amaraId,\n};\n\nconst grouped = {};\nfor (const item of items) {\n  const girl = item.girl;\n  if (!grouped[girl]) grouped[girl] = [];\n  grouped[girl].push(item.file_name);\n}\n\nreturn Object.entries(grouped).flatMap(([girl, file_names]) =>\n  file_names.map(file_name => ({\n    json: {\n      girl,\n      file_name,\n      token:      tokenMap[girl] ?? null,\n      account_id: idMap[girl]    ?? null,\n    }\n  }))\n);"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -832,
+          336
+        ],
+        "id": "8516dd02-69f1-4d34-a1ca-7b2bdef2a2bf",
+        "name": "packCaroussel"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
+                "name": "maeveToken",
+                "value": "IGAAXVb07ZCZBz9BZAGJCX1c3eGdhM01FZAU1xNm5oVUY2ZAjhzT1ItZAlpqRE8wZA3BhTmFrQkJlM3dDVXBDUmdTc211bnBWNzhidHp1UWh3U0tjRDQyQ1JYVVZAxRjd3cGpJTEZAvOUU3WS1ZAbGd2Y0R6WGlIaTR6WnhoSGgxejZAnaWlCSQZDZD",
+                "type": "string"
+              },
+              {
+                "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
+                "name": "elaraToken",
+                "value": "IGAAXVb07ZCZBz9BZAGI4RnF5aE1ybVBXaUNzQ0VQOXFnckN0b283dXg1elg4bUhFdENzM2VXNk5Rbng5RWdtVTlCa21uZA0I2X05mM0xEM2hvVjh1Mm5vS1hXYXlPZAXVQQS1ua1BCZAzBMemZAkQnc4SGw5cVU5UjdYdlk0MmNOZAHNiMAZDZD",
+                "type": "string"
+              },
+              {
+                "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
+                "name": "amaraToken",
+                "value": "IGAAXVb07ZCZBz9BZAFpyYXFoVjVkUzJWZA1U1dG1pWGgzSVUyclBENmFwV29IbE9LU2FoN2ljTE1OX3RVOUltMGpTYm1ocjVKQThsSHBsS3lCay10ZAFMzNEJVUk9yNEVfMGN6UHRHOXNMNUYwelc4c0xTNTlYOTFEYTZAaNURoVHpzYwZDZD",
+                "type": "string"
+              },
+              {
+                "id": "7062909c-0db0-42cb-8be7-b1b2a630afff",
+                "name": "maeveId",
+                "value": "17841478136820581",
+                "type": "string"
+              },
+              {
+                "id": "18d148ea-d800-4617-9b5b-c05de706ad01",
+                "name": "elaraId",
+                "value": "17841480189765921",
+                "type": "string"
+              },
+              {
+                "id": "93b56442-9db3-47e9-b6cc-88d2fce5839c",
+                "name": "amaraId",
+                "value": "17841480706715642",
+                "type": "string"
+              },
+              {
+                "id": "ddcc1a3e-b8ad-4086-999f-42a4606d1770",
+                "name": "maeveCaption",
+                "value": "",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -1952,
+          632
+        ],
+        "id": "0ebb780f-d1a8-4331-9498-cec285d848b3",
+        "name": "Tokens1"
+      },
+      {
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Images",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+          },
+          "filtersUI": {
+            "values": [
+              {
+                "lookupColumn": "Status",
+                "lookupValue": "Approved"
+              },
+              {
+                "lookupColumn": "Public",
+                "lookupValue": "Safe"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          -1728,
+          632
+        ],
+        "id": "fc200356-0cc8-47ab-8c4c-b1fe307b3e21",
+        "name": "getImages1",
+        "executeOnce": false,
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "b9245869-968a-49d0-90f5-a393a9f6b746",
+                "leftValue": "={{ $json.Posted }}",
+                "rightValue": "Carousel",
+                "operator": {
+                  "type": "string",
+                  "operation": "notContains"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.filter",
+        "typeVersion": 2.3,
+        "position": [
+          -1504,
+          336
+        ],
+        "id": "b10ee40d-7767-4f98-92ee-1b1358dc3983",
+        "name": "filterCarousels"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "893e4f5d-d851-42d8-a98f-054f5beefe51",
+                "leftValue": "={{ $json.Posted }}",
+                "rightValue": "Story",
+                "operator": {
+                  "type": "string",
+                  "operation": "notContains"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.filter",
+        "typeVersion": 2.3,
+        "position": [
+          -1504,
+          632
+        ],
+        "id": "a5a0a045-ca2f-4b09-a54d-a1daaf89c6cf",
+        "name": "filterStories"
+      },
+      {
+        "parameters": {
+          "jsCode": "// ?? Config ??????????????????????????????????????????????????????????????????\nconst GIRLS   = [\"Maeve\", \"Elara\", \"Amara\"];\nconst MAX_PER = 1;\n\n// Fisher-Yates shuffle (in-place)\nfunction shuffle(arr) {\n  for (let i = arr.length - 1; i > 0; i--) {\n    const j = Math.floor(Math.random() * (i + 1));\n    [arr[i], arr[j]] = [arr[j], arr[i]];\n  }\n  return arr;\n}\n\n// ?? 1. Collect all items ?????????????????????????????????????????????????????\nconst allItems = $input.all();\n\nif (!allItems || allItems.length === 0) {\n  return [{ json: { error: \"No input items found\" } }];\n}\n\n// ?? 2. Sort by row_number ascending ?????????????????????????????????????????\nconst sorted = allItems\n  .map(item => item.json)\n  .sort((a, b) => (a.row_number ?? 0) - (b.row_number ?? 0));\n\n// ?? 3. Filter out any row where Posted contains \"Carousel\" ???????????????????\nconst filtered = sorted.filter(row => {\n  const posted = (row.Posted ?? \"\").toLowerCase();\n  return !posted.split(/[\\s,]+/).includes(\"carousel\");\n});\n\n// ?? 4. Group by Girl ?????????????????????????????????????????????????????????\nconst grouped = {};\nfor (const girl of GIRLS) {\n  grouped[girl] = filtered.filter(row => row.Girl === girl);\n}\n\n// ?? 5. Randomly pick up to MAX_PER Ids per girl ??????????????????????????????\nconst result = {};\nfor (const girl of GIRLS) {\n  const pool     = grouped[girl];\n  const shuffled = shuffle([...pool]);\n  const picked   = shuffled.slice(0, MAX_PER);\n  result[girl]   = picked.map(row => row.Id);\n}\n\n// ?? 6. Return one item per girl ???????????????????????????????????????????????\n// ?? 6. Return one item per girl, keyed by name ??????????????????????????????????????\nreturn GIRLS.flatMap(girl =>\n  result[girl].map(id => ({\n    json: {\n      girl: girl.toLowerCase(),\n      id\n    }\n  }))\n);"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -1280,
+          632
+        ],
+        "id": "84d80d09-9ce9-4c86-8759-d8d93d0a56bb",
+        "name": "selectStory"
+      },
+      {
+        "parameters": {
+          "jsCode": "const items = $input.all().map(i => i.json);\nconst tokens = $node[\"Tokens1\"].json;\n\nconst tokenMap = {\n  maeve: tokens.maeveToken,\n  elara: tokens.elaraToken,\n  amara: tokens.amaraToken,\n};\n\nconst idMap = {\n  maeve: tokens.maeveId,\n  elara: tokens.elaraId,\n  amara: tokens.amaraId,\n};\n\nconst grouped = {};\nfor (const item of items) {\n  const girl = item.girl;\n  if (!grouped[girl]) grouped[girl] = [];\n  grouped[girl].push(item.file_name);\n}\n\nreturn Object.entries(grouped).flatMap(([girl, file_names]) =>\n  file_names.map(file_name => ({\n    json: {\n      girl,\n      file_name,\n      token:      tokenMap[girl] ?? null,\n      account_id: idMap[girl]    ?? null,\n    }\n  }))\n);"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -832,
+          632
+        ],
+        "id": "5fc47eff-3a02-442b-805f-e1efcdcbd070",
+        "name": "packStory"
+      },
+      {
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Images",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+          },
+          "filtersUI": {
+            "values": [
+              {
+                "lookupColumn": "Id",
+                "lookupValue": "={{ $json.file_name.replace(/\\.png$/, '') }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          288,
+          632
+        ],
+        "id": "b0db117e-d362-42e2-8d23-1fcda5725fef",
+        "name": "getImagesStatus1",
+        "executeOnce": false,
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "return $input.all().map(({ json: item }) => {\n  const existing = (item.Posted ?? \"\").trim();\n  const words = existing\n    ? existing.split(/[\\s,]+/).map(w => w.trim()).filter(Boolean)\n    : [];\n\n  if (!words.map(w => w.toLowerCase()).includes(\"story\")) {\n    words.push(\"Story\");\n  }\n\n  return {\n    json: {\n      ...item,\n      Posted: words.join(\", \"),\n    }\n  };\n});"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          512,
+          632
+        ],
+        "id": "f1b467f8-6324-4051-8a2e-c9277233c838",
+        "name": "updateStatus1"
+      },
+      {
+        "parameters": {
+          "operation": "appendOrUpdate",
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Images",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=0"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "Id": "={{ $json.Id }}",
+              "Posted": "={{ $json.Posted }}"
+            },
+            "matchingColumns": [
+              "Id"
+            ],
+            "schema": [
+              {
+                "id": "Id",
+                "displayName": "Id",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Girl",
+                "displayName": "Girl",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "T2I_prompt",
+                "displayName": "T2I_prompt",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Model",
+                "displayName": "Model",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Resolution",
+                "displayName": "Resolution",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Status",
+                "displayName": "Status",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Public",
+                "displayName": "Public",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "Posted",
+                "displayName": "Posted",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          736,
+          632
+        ],
+        "id": "bb0b1892-f441-4772-ac89-e1bcb21181e4",
+        "name": "updateSheet1",
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "mode": "chooseBranch",
+          "useDataOfInput": 2
+        },
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3.2,
+        "position": [
+          64,
+          632
+        ],
+        "id": "96dc37e3-65d8-4a3f-963c-fe71dc2549ed",
+        "name": "Merge2"
+      },
+      {
+        "parameters": {
+          "mode": "chooseBranch",
+          "useDataOfInput": 2
+        },
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3.2,
+        "position": [
+          512,
+          336
+        ],
+        "id": "d98aaf2c-ce5a-4c34-9f5e-62790c7689f8",
+        "name": "Merge"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "KpE1S1EUwS70OucO",
+            "mode": "list"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          -1056,
+          632
+        ],
+        "name": "Call createPublicLinks",
+        "id": "88e3970b-fc6b-42d4-a75e-ad29bab304ec"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "KpE1S1EUwS70OucO",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/KpE1S1EUwS70OucO",
+            "cachedResultName": "createPublicLinks"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          -1056,
+          336
+        ],
+        "name": "Call createPublicLinks1",
+        "id": "78de5803-7b1f-4f2a-9762-6c396b5b5d5e"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "h7NYAUzC9jYQ9FjR",
+            "mode": "list",
+            "cachedResultUrl": "/workflow/h7NYAUzC9jYQ9FjR",
+            "cachedResultName": "publishStory"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          -608,
+          704
+        ],
+        "name": "Call publishStory",
+        "id": "031c5f6b-7257-4142-9691-5e9d3f8f9a07"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Caroussels > Posted\"\n  }\n}];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          64,
+          408
+        ],
+        "id": "0b75d93e-9fa7-4ee1-b72c-b7b9f775c30d",
+        "name": "setMessage1"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://n8n.argentumorchesta.org/webhook/telegram-notify",
+          "sendBody": true,
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "message",
+                "value": "={{ $json.message }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          288,
+          408
+        ],
+        "id": "2190002b-d3cb-422e-80f4-236ae8b0b769",
+        "name": "reportTelegram4"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "IPnihWjOYJfjF2GM",
+            "mode": "list"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "updateStatus1_allItems": "={{ $('updateStatus1').all() }}"
+            },
+            "matchingColumns": [
+              "updateStatus1_allItems"
+            ],
+            "schema": [
+              {
+                "id": "updateStatus1_allItems",
+                "displayName": "updateStatus1_allItems",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "canBeUsedToMatch": true,
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          960,
+          632
+        ],
+        "name": "Call cleanGitHub",
+        "id": "a6b8e3ac-552e-43b0-90f8-89afcfb1d903"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "IPnihWjOYJfjF2GM",
+            "mode": "list"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "updateStatus1_allItems": "={{ $('updateStatus1').all() }}"
+            },
+            "matchingColumns": [
+              "updateStatus1_allItems"
+            ],
+            "schema": [
+              {
+                "id": "updateStatus1_allItems",
+                "displayName": "updateStatus1_allItems",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "canBeUsedToMatch": true,
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          1408,
+          336
+        ],
+        "name": "Call cleanGitHub1",
+        "id": "deeab04c-be89-4d85-a8ff-1f4071a59714"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "ei5DfNigoBwiN7ub",
+            "mode": "list"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          -160,
+          408
+        ],
+        "name": "Call publishCaroussel",
+        "id": "cb492f97-b3ef-4990-9e23-bece2aafeb62"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Story > Posted\"\n  }\n}];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -384,
+          704
+        ],
+        "id": "a5cfdda8-247b-4c57-9ebd-495071af02d1",
+        "name": "setMessage"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://n8n.argentumorchesta.org/webhook/telegram-notify",
+          "sendBody": true,
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "message",
+                "value": "={{ $json.message }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          -160,
+          704
+        ],
+        "id": "32826cc9-4e96-4f2c-a2b8-cbc8426f5961",
+        "name": "reportTelegram"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "EsscGygyrnud3vfY",
+            "mode": "list"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": true
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.2,
+        "position": [
+          -608,
+          336
+        ],
+        "name": "Call createContainer",
+        "id": "c12f64aa-42da-4c3d-8fbf-f57ebec4fdd7"
+      },
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "postCarousels",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "position": [
+          -2176,
+          336
+        ],
+        "id": "01f6a042-91b0-4d56-9e99-df5849dbb02f",
+        "name": "Webhook1",
+        "webhookId": "27c42971-5e1f-4086-8f71-5f56005ff377"
+      },
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "postStories",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "position": [
+          -2176,
+          632
+        ],
+        "id": "40c255fd-2f46-46e0-a93e-ff174bc034bd",
+        "name": "Webhook",
+        "webhookId": "27c42971-5e1f-4086-8f71-5f56005ff377"
+      }
+    ],
+    "connections": {
+      "getImages": {
+        "main": [
+          [
+            {
+              "node": "filterCarousels",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "selectCaroussel": {
+        "main": [
+          [
+            {
+              "node": "Call createPublicLinks1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Tokens": {
+        "main": [
+          [
+            {
+              "node": "getImages",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "reGroup": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 1
+            },
+            {
+              "node": "Call publishCaroussel",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "getImagesStatus": {
+        "main": [
+          [
+            {
+              "node": "updateStatus",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "updateStatus": {
+        "main": [
+          [
+            {
+              "node": "updateSheet",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "updateSheet": {
+        "main": [
+          [
+            {
+              "node": "Call cleanGitHub1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "packCaroussel": {
+        "main": [
+          [
+            {
+              "node": "Call createContainer",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Tokens1": {
+        "main": [
+          [
+            {
+              "node": "getImages1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "getImages1": {
+        "main": [
+          [
+            {
+              "node": "filterStories",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "filterCarousels": {
+        "main": [
+          [
+            {
+              "node": "selectCaroussel",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "filterStories": {
+        "main": [
+          [
+            {
+              "node": "selectStory",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "selectStory": {
+        "main": [
+          [
+            {
+              "node": "Call createPublicLinks",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "packStory": {
+        "main": [
+          [
+            {
+              "node": "Merge2",
+              "type": "main",
+              "index": 1
+            },
+            {
+              "node": "Call publishStory",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "getImagesStatus1": {
+        "main": [
+          [
+            {
+              "node": "updateStatus1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "updateStatus1": {
+        "main": [
+          [
+            {
+              "node": "updateSheet1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "updateSheet1": {
+        "main": [
+          [
+            {
+              "node": "Call cleanGitHub",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge2": {
+        "main": [
+          [
+            {
+              "node": "getImagesStatus1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge": {
+        "main": [
+          [
+            {
+              "node": "getImagesStatus",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Call createPublicLinks": {
+        "main": [
+          [
+            {
+              "node": "packStory",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Call createPublicLinks1": {
+        "main": [
+          [
+            {
+              "node": "packCaroussel",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Call publishStory": {
+        "main": [
+          [
+            {
+              "node": "setMessage",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "setMessage1": {
+        "main": [
+          [
+            {
+              "node": "reportTelegram4",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "reportTelegram4": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Call publishCaroussel": {
+        "main": [
+          [
+            {
+              "node": "setMessage1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "setMessage": {
+        "main": [
+          [
+            {
+              "node": "reportTelegram",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "reportTelegram": {
+        "main": [
+          [
+            {
+              "node": "Merge2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Call createContainer": {
+        "main": [
+          [
+            {
+              "node": "reGroup",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Webhook": {
+        "main": [
+          [
+            {
+              "node": "Tokens1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Webhook1": {
+        "main": [
+          [
+            {
+              "node": "Tokens",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Argentum Orchesta",
+    "name": "Version 594c27dc",
+    "description": "",
+    "autosaved": true
+  },
+  "tags": []
+}
