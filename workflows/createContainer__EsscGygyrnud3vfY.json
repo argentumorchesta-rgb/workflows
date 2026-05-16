@@ -1,0 +1,333 @@
+{
+  "updatedAt": "2026-05-09T10:00:00.725Z",
+  "createdAt": "2026-05-09T09:59:38.898Z",
+  "id": "EsscGygyrnud3vfY",
+  "name": "createContainer",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -368,
+        816
+      ],
+      "id": "15a042db-af55-49ee-b6d1-23bb9169200c",
+      "name": "loopGirls"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        512,
+        880
+      ],
+      "id": "c272222c-b15e-40e6-ad05-db6d73c07a6d",
+      "name": "Wait",
+      "webhookId": "e9966e3d-8d63-47d0-b129-139f2ede5c77"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.instagram.com/v25.0/{{ $json.account_id }}/media",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "image_url",
+              "value": "=https://raw.githubusercontent.com/argentumorchesta-rgb/media/main/images/{{ $json.file_name }}"
+            },
+            {
+              "name": "is_carousel_item",
+              "value": "true"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        64,
+        816
+      ],
+      "id": "61db6a93-a46d-4d5b-ae03-cfa80a9f1e16",
+      "name": "createContainer"
+    },
+    {
+      "parameters": {
+        "jsCode": "const loopInput = $node[\"loopGirls\"].json;\nconst container_id = $input.first().json.id;\n\nreturn [{\n  json: {\n    girl:         loopInput.girl,\n    file_name:    loopInput.file_name,\n    token:        loopInput.token,\n    account_id:   loopInput.account_id,\n    caption:      loopInput.caption,\n    container_id,\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        816
+      ],
+      "id": "ea4bd9ca-2d6f-43f4-adc6-a1d6cb1f8a5f",
+      "name": "mergeContainer"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-random-wait.randomWait",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        688
+      ],
+      "id": "658b9f5b-25a4-4341-b4bc-a5adc16a3f04",
+      "name": "Random Wait"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "a15a9d69-4e61-42d4-a766-6e679fe0fcf1",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        -576,
+        816
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "loopGirls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "loopGirls": {
+      "main": [
+        [
+          {
+            "node": "Random Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "createContainer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "createContainer": {
+      "main": [
+        [
+          {
+            "node": "mergeContainer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "mergeContainer": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "loopGirls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "31b3aaf8-6086-4861-bfd0-fed049db0d22",
+  "activeVersionId": "2d252eed-904a-4cf3-9b54-d30bc949cd4f",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-09T09:59:38.902Z",
+      "createdAt": "2026-05-09T09:59:38.902Z",
+      "role": "workflow:owner",
+      "workflowId": "EsscGygyrnud3vfY",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-09T09:59:38.904Z",
+    "createdAt": "2026-05-09T09:59:38.904Z",
+    "versionId": "2d252eed-904a-4cf3-9b54-d30bc949cd4f",
+    "workflowId": "EsscGygyrnud3vfY",
+    "nodes": [
+      {
+        "parameters": {
+          "splitInBatchesNotice": "",
+          "batchSize": 1,
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          -368,
+          816
+        ],
+        "id": "15a042db-af55-49ee-b6d1-23bb9169200c",
+        "name": "loopGirls"
+      },
+      {
+        "parameters": {
+          "resume": "timeInterval",
+          "amount": 1,
+          "unit": "seconds"
+        },
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          512,
+          880
+        ],
+        "id": "c272222c-b15e-40e6-ad05-db6d73c07a6d",
+        "name": "Wait",
+        "webhookId": "e9966e3d-8d63-47d0-b129-139f2ede5c77"
+      },
+      {
+        "parameters": {
+          "curlImport": "",
+          "method": "POST",
+          "url": "=https://graph.instagram.com/v25.0/{{ $json.account_id }}/media",
+          "authentication": "none",
+          "provideSslCertificates": false,
+          "sendQuery": false,
+          "sendHeaders": false,
+          "sendBody": true,
+          "contentType": "form-urlencoded",
+          "specifyBody": "keypair",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "image_url",
+                "value": "=https://raw.githubusercontent.com/argentumorchesta-rgb/media/main/images/{{ $json.file_name }}"
+              },
+              {
+                "name": "is_carousel_item",
+                "value": "true"
+              },
+              {
+                "name": "access_token",
+                "value": "={{ $json.token }}"
+              }
+            ]
+          },
+          "options": {},
+          "infoMessage": ""
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          64,
+          808
+        ],
+        "id": "61db6a93-a46d-4d5b-ae03-cfa80a9f1e16",
+        "name": "createContainer"
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForAllItems",
+          "language": "javaScript",
+          "jsCode": "const loopInput = $node[\"loopGirls\"].json;\nconst container_id = $input.first().json.id;\n\nreturn [{\n  json: {\n    girl:         loopInput.girl,\n    file_name:    loopInput.file_name,\n    token:        loopInput.token,\n    account_id:   loopInput.account_id,\n    caption:      loopInput.caption,\n    container_id,\n  }\n}];",
+          "notice": ""
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          288,
+          808
+        ],
+        "id": "ea4bd9ca-2d6f-43f4-adc6-a1d6cb1f8a5f",
+        "name": "mergeContainer"
+      },
+      {
+        "type": "n8n-nodes-random-wait.randomWait",
+        "typeVersion": 1,
+        "position": [
+          -176,
+          688
+        ],
+        "id": "658b9f5b-25a4-4341-b4bc-a5adc16a3f04",
+        "name": "Random Wait",
+        "disabled": false,
+        "parameters": {
+          "unit": "seconds",
+          "min": 1,
+          "max": 5
+        }
+      },
+      {
+        "id": "a15a9d69-4e61-42d4-a766-6e679fe0fcf1",
+        "typeVersion": 1.1,
+        "name": "Start",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "position": [
+          -576,
+          816
+        ],
+        "parameters": {
+          "inputSource": "passthrough"
+        }
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "loopGirls",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Argentum Orchesta",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "tags": []
+}
