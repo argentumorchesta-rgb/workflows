@@ -1,0 +1,437 @@
+{
+  "updatedAt": "2026-05-09T09:22:09.615Z",
+  "createdAt": "2026-05-09T09:20:25.085Z",
+  "id": "KpE1S1EUwS70OucO",
+  "name": "createPublicLinks",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "={{ $json.id }}",
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "159nyX_hFCoOPDfrqbofpKiHQK_IRZBA9",
+            "mode": "list",
+            "cachedResultName": "Images",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/159nyX_hFCoOPDfrqbofpKiHQK_IRZBA9"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -432,
+        2304
+      ],
+      "id": "be2b6ac3-414a-44c4-b420-0e595dbc6a60",
+      "name": "Search file1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "4gTN8vYbGOZpLixv",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "argentumorchesta-rgb",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "media",
+          "mode": "list",
+          "cachedResultName": "media",
+          "cachedResultUrl": "https://github.com/argentumorchesta-rgb/media"
+        },
+        "filePath": "=images/{{ $json.name }}",
+        "binaryData": true,
+        "commitMessage": "xyz"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        16,
+        2304
+      ],
+      "id": "9c239222-11a9-4d84-8688-fe5d680a7fc3",
+      "name": "Create a file1",
+      "webhookId": "e91fe368-aca9-45f2-8adf-2fd49921bb2e",
+      "credentials": {
+        "githubApi": {
+          "id": "aMGVDwqxYaSd3h0q",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {
+          "binaryPropertyName": "data"
+        }
+      },
+      "id": "288a66ce-b1c3-4a35-980c-d3563f0fca12",
+      "name": "Download file1",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -208,
+        2304
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "4gTN8vYbGOZpLixv",
+          "name": "Google Drive account"
+        }
+      },
+      "notes": "Uploads each image to the folder ID from the LoRAs sheet.\nPre-create these folders in Drive and paste their IDs:\n  AIGirls sheet ? LoRAs tab ? posts_folder_id / reels_folder_id"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -656,
+        2352
+      ],
+      "id": "dba0d0b3-ce5c-443f-937c-588977aced3e",
+      "name": "loopUpload1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ?? Grab data from the Download File node ????????????????????????????????????\nconst downloadData = $node[\"Download file1\"].json;\n\n// ?? Grab girl and id from the loop input ?????????????????????????????????????\nconst loopInput = $node[\"loopUpload1\"].json;\n\n// ?? Extract the fields we want to report ?????????????????????????????????????\nconst fileName = downloadData?.name ?? null;\n\n\nreturn [{\n  json: {\n    girl:        loopInput.girl,   // \"maeve\" | \"elara\" | \"amara\"\n    file_name:   fileName,         // IMAGE_MO5L3Z3MENI.png\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        2432
+      ],
+      "id": "74f53250-90c0-436a-9bb7-a1cfcd1cb7a7",
+      "name": "packImages1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-random-wait.randomWait",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        1968
+      ],
+      "id": "f5809fdc-4b5b-4fcd-b5ac-23b581264714",
+      "name": "Random Wait"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "720f2a1a-7d0c-4531-8029-0c8b6557c1eb",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        -864,
+        2352
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "loopUpload1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "loopUpload1": {
+      "main": [
+        [
+          {
+            "node": "Random Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Search file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search file1": {
+      "main": [
+        [
+          {
+            "node": "Download file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file1": {
+      "main": [
+        [
+          {
+            "node": "Create a file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a file1": {
+      "main": [
+        [
+          {
+            "node": "packImages1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "packImages1": {
+      "main": [
+        [
+          {
+            "node": "loopUpload1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "a9750cc1-7be4-475e-b397-f6c5351ef97d",
+  "activeVersionId": "ee18f108-0393-4e06-9a8a-8eb81206ca22",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-05-09T09:20:25.090Z",
+      "createdAt": "2026-05-09T09:20:25.090Z",
+      "role": "workflow:owner",
+      "workflowId": "KpE1S1EUwS70OucO",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-09T09:20:25.092Z",
+    "createdAt": "2026-05-09T09:20:25.092Z",
+    "versionId": "ee18f108-0393-4e06-9a8a-8eb81206ca22",
+    "workflowId": "KpE1S1EUwS70OucO",
+    "nodes": [
+      {
+        "parameters": {
+          "authentication": "oAuth2",
+          "resource": "fileFolder",
+          "operation": "search",
+          "searchMethod": "name",
+          "queryString": "={{ $json.id }}",
+          "returnAll": false,
+          "limit": 50,
+          "filter": {
+            "folderId": {
+              "__rl": true,
+              "value": "159nyX_hFCoOPDfrqbofpKiHQK_IRZBA9",
+              "mode": "list",
+              "cachedResultName": "Images",
+              "cachedResultUrl": "https://drive.google.com/drive/folders/159nyX_hFCoOPDfrqbofpKiHQK_IRZBA9"
+            }
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleDrive",
+        "typeVersion": 3,
+        "position": [
+          -432,
+          2304
+        ],
+        "id": "be2b6ac3-414a-44c4-b420-0e595dbc6a60",
+        "name": "Search file1",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "4gTN8vYbGOZpLixv",
+            "name": "Google Drive account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "authentication": "accessToken",
+          "resource": "file",
+          "operation": "create",
+          "owner": {
+            "__rl": true,
+            "value": "argentumorchesta-rgb",
+            "mode": "name"
+          },
+          "repository": {
+            "__rl": true,
+            "value": "media",
+            "mode": "list",
+            "cachedResultName": "media",
+            "cachedResultUrl": "https://github.com/argentumorchesta-rgb/media"
+          },
+          "filePath": "=images/{{ $json.name }}",
+          "binaryData": true,
+          "binaryPropertyName": "data",
+          "commitMessage": "xyz",
+          "additionalParameters": {}
+        },
+        "type": "n8n-nodes-base.github",
+        "typeVersion": 1.1,
+        "position": [
+          16,
+          2304
+        ],
+        "id": "9c239222-11a9-4d84-8688-fe5d680a7fc3",
+        "name": "Create a file1",
+        "webhookId": "e91fe368-aca9-45f2-8adf-2fd49921bb2e",
+        "credentials": {
+          "githubApi": {
+            "id": "aMGVDwqxYaSd3h0q",
+            "name": "GitHub account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "authentication": "oAuth2",
+          "resource": "file",
+          "operation": "download",
+          "fileId": {
+            "__rl": true,
+            "value": "={{ $json.id }}",
+            "mode": "id"
+          },
+          "options": {
+            "binaryPropertyName": "data"
+          }
+        },
+        "id": "288a66ce-b1c3-4a35-980c-d3563f0fca12",
+        "name": "Download file1",
+        "type": "n8n-nodes-base.googleDrive",
+        "typeVersion": 3,
+        "position": [
+          -208,
+          2304
+        ],
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "4gTN8vYbGOZpLixv",
+            "name": "Google Drive account"
+          }
+        },
+        "notes": "Uploads each image to the folder ID from the LoRAs sheet.\nPre-create these folders in Drive and paste their IDs:\n  AIGirls sheet ? LoRAs tab ? posts_folder_id / reels_folder_id"
+      },
+      {
+        "parameters": {
+          "splitInBatchesNotice": "",
+          "batchSize": 1,
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          -656,
+          2352
+        ],
+        "id": "dba0d0b3-ce5c-443f-937c-588977aced3e",
+        "name": "loopUpload1"
+      },
+      {
+        "parameters": {
+          "mode": "runOnceForAllItems",
+          "language": "javaScript",
+          "jsCode": "// ?? Grab data from the Download File node ????????????????????????????????????\nconst downloadData = $node[\"Download file1\"].json;\n\n// ?? Grab girl and id from the loop input ?????????????????????????????????????\nconst loopInput = $node[\"loopUpload1\"].json;\n\n// ?? Extract the fields we want to report ?????????????????????????????????????\nconst fileName = downloadData?.name ?? null;\n\n\nreturn [{\n  json: {\n    girl:        loopInput.girl,   // \"maeve\" | \"elara\" | \"amara\"\n    file_name:   fileName,         // IMAGE_MO5L3Z3MENI.png\n  }\n}];",
+          "notice": ""
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          240,
+          2432
+        ],
+        "id": "74f53250-90c0-436a-9bb7-a1cfcd1cb7a7",
+        "name": "packImages1"
+      },
+      {
+        "parameters": {
+          "unit": "seconds",
+          "min": 1,
+          "max": 5
+        },
+        "type": "n8n-nodes-random-wait.randomWait",
+        "typeVersion": 1,
+        "position": [
+          -432,
+          1968
+        ],
+        "id": "f5809fdc-4b5b-4fcd-b5ac-23b581264714",
+        "name": "Random Wait"
+      },
+      {
+        "id": "720f2a1a-7d0c-4531-8029-0c8b6557c1eb",
+        "typeVersion": 1.1,
+        "name": "Start",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "position": [
+          -864,
+          2352
+        ],
+        "parameters": {
+          "inputSource": "passthrough"
+        }
+      }
+    ],
+    "connections": {
+      "Start": {
+        "main": [
+          [
+            {
+              "node": "loopUpload1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Argentum Orchesta",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "tags": []
+}
