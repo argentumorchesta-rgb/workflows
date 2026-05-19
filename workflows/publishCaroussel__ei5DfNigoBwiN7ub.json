@@ -246,7 +246,7 @@
   "meta": null,
   "pinData": {},
   "versionId": "4169be4b-80ae-403f-a293-c81065f8bc8d",
-  "activeVersionId": "5b8efacc-4a14-435f-89dc-587ce33b25c3",
+  "activeVersionId": "4169be4b-80ae-403f-a293-c81065f8bc8d",
   "triggerCount": 0,
   "shared": [
     {
@@ -258,15 +258,13 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-05-09T09:54:26.515Z",
-    "createdAt": "2026-05-09T09:54:26.515Z",
-    "versionId": "5b8efacc-4a14-435f-89dc-587ce33b25c3",
+    "updatedAt": "2026-05-17T11:05:56.000Z",
+    "createdAt": "2026-05-09T09:54:53.055Z",
+    "versionId": "4169be4b-80ae-403f-a293-c81065f8bc8d",
     "workflowId": "ei5DfNigoBwiN7ub",
     "nodes": [
       {
         "parameters": {
-          "splitInBatchesNotice": "",
-          "batchSize": 1,
           "options": {}
         },
         "type": "n8n-nodes-base.splitInBatches",
@@ -280,9 +278,7 @@
       },
       {
         "parameters": {
-          "resume": "timeInterval",
-          "amount": 3,
-          "unit": "seconds"
+          "amount": 3
         },
         "type": "n8n-nodes-base.wait",
         "typeVersion": 1.1,
@@ -296,9 +292,7 @@
       },
       {
         "parameters": {
-          "resume": "timeInterval",
-          "amount": 2,
-          "unit": "seconds"
+          "amount": 2
         },
         "type": "n8n-nodes-base.wait",
         "typeVersion": 1.1,
@@ -312,16 +306,10 @@
       },
       {
         "parameters": {
-          "curlImport": "",
           "method": "POST",
           "url": "=https://graph.instagram.com/v25.0/{{ $json.account_id }}/media",
-          "authentication": "none",
-          "provideSslCertificates": false,
-          "sendQuery": false,
-          "sendHeaders": false,
           "sendBody": true,
           "contentType": "form-urlencoded",
-          "specifyBody": "keypair",
           "bodyParameters": {
             "parameters": [
               {
@@ -342,8 +330,7 @@
               }
             ]
           },
-          "options": {},
-          "infoMessage": ""
+          "options": {}
         },
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -356,10 +343,7 @@
       },
       {
         "parameters": {
-          "mode": "runOnceForAllItems",
-          "language": "javaScript",
-          "jsCode": "const loopInput = $node[\"loopContainers\"].json;\nconst carousel_id = $input.first().json.id;\n\nreturn [{\n  json: {\n    girl:        loopInput.girl,\n    token:       loopInput.token,\n    account_id:  loopInput.account_id,\n    carousel_id,\n    file_names   :loopInput.file_names\n  }\n}];",
-          "notice": ""
+          "jsCode": "const loopInput = $node[\"loopContainers\"].json;\nconst carousel_id = $input.first().json.id;\n\nreturn [{\n  json: {\n    girl:        loopInput.girl,\n    token:       loopInput.token,\n    account_id:  loopInput.account_id,\n    carousel_id,\n    file_names   :loopInput.file_names\n  }\n}];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -372,16 +356,10 @@
       },
       {
         "parameters": {
-          "curlImport": "",
           "method": "POST",
           "url": "=https://graph.instagram.com/v25.0/{{ $json.account_id }}/media_publish",
-          "authentication": "none",
-          "provideSslCertificates": false,
-          "sendQuery": false,
-          "sendHeaders": false,
           "sendBody": true,
           "contentType": "form-urlencoded",
-          "specifyBody": "keypair",
           "bodyParameters": {
             "parameters": [
               {
@@ -394,8 +372,7 @@
               }
             ]
           },
-          "options": {},
-          "infoMessage": ""
+          "options": {}
         },
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -407,6 +384,7 @@
         "name": "publishCarrousel"
       },
       {
+        "parameters": {},
         "type": "n8n-nodes-random-wait.randomWait",
         "typeVersion": 1,
         "position": [
@@ -414,15 +392,12 @@
           736
         ],
         "id": "fe054a8a-500a-4472-8ece-087ab85bf9b2",
-        "name": "Random Wait",
-        "disabled": false,
-        "parameters": {
-          "unit": "seconds",
-          "min": 1,
-          "max": 5
-        }
+        "name": "Random Wait"
       },
       {
+        "parameters": {
+          "inputSource": "passthrough"
+        },
         "id": "7f984bad-1cc1-4d86-aea4-43f189ecd8fd",
         "typeVersion": 1.1,
         "name": "Start",
@@ -430,10 +405,7 @@
         "position": [
           -128,
           864
-        ],
-        "parameters": {
-          "inputSource": "passthrough"
-        }
+        ]
       }
     ],
     "connections": {
@@ -447,12 +419,85 @@
             }
           ]
         ]
+      },
+      "loopContainers": {
+        "main": [
+          [
+            {
+              "node": "Random Wait",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "createCarrousel",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "createCarrousel": {
+        "main": [
+          [
+            {
+              "node": "Wait1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Wait1": {
+        "main": [
+          [
+            {
+              "node": "mergeCaroussels",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "mergeCaroussels": {
+        "main": [
+          [
+            {
+              "node": "publishCarrousel",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "publishCarrousel": {
+        "main": [
+          [
+            {
+              "node": "Wait2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Wait2": {
+        "main": [
+          [
+            {
+              "node": "loopContainers",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Argentum Orchesta",
-    "name": null,
-    "description": null,
-    "autosaved": false
+    "name": "Version 4169be4b",
+    "description": "",
+    "autosaved": true
   },
   "tags": []
 }
