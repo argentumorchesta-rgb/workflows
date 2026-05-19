@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-09T09:49:07.259Z",
+  "updatedAt": "2026-05-17T10:47:18.628Z",
   "createdAt": "2026-05-09T09:49:07.259Z",
   "id": "IPnihWjOYJfjF2GM",
   "name": "cleanGitHub",
@@ -8,7 +8,6 @@
   "nodes": [
     {
       "parameters": {
-        "authentication": "accessToken",
         "resource": "file",
         "operation": "delete",
         "owner": {
@@ -24,13 +23,12 @@
           "cachedResultUrl": "https://github.com/argentumorchesta-rgb/media"
         },
         "filePath": "=images/{{ $json.file_name }}",
-        "commitMessage": "RPI5 cleaning",
-        "additionalParameters": {}
+        "commitMessage": "RPI5 cleaning"
       },
       "type": "n8n-nodes-base.github",
       "typeVersion": 1.1,
       "position": [
-        1424,
+        1440,
         1664
       ],
       "id": "50f9c0ee-b0f0-4183-8266-51a200fb66c8",
@@ -45,14 +43,12 @@
     },
     {
       "parameters": {
-        "splitInBatchesNotice": "",
-        "batchSize": 1,
         "options": {}
       },
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1200,
+        1216,
         1616
       ],
       "id": "22b26392-76e4-48b1-9049-6aaa47a570f6",
@@ -60,15 +56,12 @@
     },
     {
       "parameters": {
-        "mode": "runOnceForAllItems",
-        "language": "javaScript",
-        "jsCode": "return $('Start').first().json.updateStatus1_allItems.map(({ json }) => ({\n  json: {\n    file_name: json.Id + \".png\",\n  }\n}));",
-        "notice": ""
+        "jsCode": "return $('Start').first().json.updateStatus1_allItems.map(({ json }) => ({\n  json: {\n    file_name: json.Id + \".png\",\n  }\n}));"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        976,
+        992,
         1616
       ],
       "id": "c8fe9e8a-949b-4e2b-9ccd-7ede8294ebb2",
@@ -76,33 +69,22 @@
     },
     {
       "parameters": {
-        "mode": "runOnceForAllItems",
-        "language": "javaScript",
-        "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Github > Cleaned\"\n  }\n}];",
-        "notice": ""
+        "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Github > Cleaned\"\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1424,
-        1488
+        1440,
+        1472
       ],
       "id": "5b6021d8-fe3b-4086-ac72-6d14498cdb7a",
-      "name": "setMessage",
-      "disabled": false
+      "name": "setMessage"
     },
     {
       "parameters": {
-        "curlImport": "",
         "method": "POST",
         "url": "https://n8n.argentumorchesta.org/webhook/telegram-notify",
-        "authentication": "none",
-        "provideSslCertificates": false,
-        "sendQuery": false,
-        "sendHeaders": false,
         "sendBody": true,
-        "contentType": "json",
-        "specifyBody": "keypair",
         "bodyParameters": {
           "parameters": [
             {
@@ -111,8 +93,7 @@
             }
           ]
         },
-        "options": {},
-        "infoMessage": ""
+        "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
@@ -121,18 +102,9 @@
         1472
       ],
       "id": "bea58b2e-902c-4584-8843-8350fddfdc45",
-      "name": "reportTelegram1",
-      "disabled": false
+      "name": "reportTelegram1"
     },
     {
-      "id": "0e9db6ba-0013-4c40-8bfe-e6508511d75d",
-      "typeVersion": 1.1,
-      "name": "Start",
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "position": [
-        768,
-        1616
-      ],
       "parameters": {
         "workflowInputs": {
           "values": [
@@ -142,7 +114,15 @@
             }
           ]
         }
-      }
+      },
+      "id": "0e9db6ba-0013-4c40-8bfe-e6508511d75d",
+      "typeVersion": 1.1,
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        768,
+        1616
+      ]
     }
   ],
   "connections": {
@@ -156,17 +136,69 @@
           }
         ]
       ]
+    },
+    "splitDelete1": {
+      "main": [
+        [
+          {
+            "node": "loopDelete1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "loopDelete1": {
+      "main": [
+        [
+          {
+            "node": "setMessage",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Delete a file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a file1": {
+      "main": [
+        [
+          {
+            "node": "loopDelete1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "setMessage": {
+      "main": [
+        [
+          {
+            "node": "reportTelegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
     "executionOrder": "v1",
-    "availableInMCP": false
+    "availableInMCP": false,
+    "binaryMode": "separate"
   },
   "staticData": null,
   "meta": null,
-  "pinData": null,
-  "versionId": "27f1e841-9d22-4a61-82b3-528592f51daa",
-  "activeVersionId": "27f1e841-9d22-4a61-82b3-528592f51daa",
+  "pinData": {},
+  "versionId": "cf5a7385-e128-456e-b5c6-1343be98cf77",
+  "activeVersionId": "cf5a7385-e128-456e-b5c6-1343be98cf77",
   "triggerCount": 0,
   "shared": [
     {
@@ -178,14 +210,13 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-05-09T09:49:07.264Z",
-    "createdAt": "2026-05-09T09:49:07.264Z",
-    "versionId": "27f1e841-9d22-4a61-82b3-528592f51daa",
+    "updatedAt": "2026-05-17T10:47:21.000Z",
+    "createdAt": "2026-05-17T10:47:18.629Z",
+    "versionId": "cf5a7385-e128-456e-b5c6-1343be98cf77",
     "workflowId": "IPnihWjOYJfjF2GM",
     "nodes": [
       {
         "parameters": {
-          "authentication": "accessToken",
           "resource": "file",
           "operation": "delete",
           "owner": {
@@ -201,13 +232,12 @@
             "cachedResultUrl": "https://github.com/argentumorchesta-rgb/media"
           },
           "filePath": "=images/{{ $json.file_name }}",
-          "commitMessage": "RPI5 cleaning",
-          "additionalParameters": {}
+          "commitMessage": "RPI5 cleaning"
         },
         "type": "n8n-nodes-base.github",
         "typeVersion": 1.1,
         "position": [
-          1424,
+          1440,
           1664
         ],
         "id": "50f9c0ee-b0f0-4183-8266-51a200fb66c8",
@@ -222,14 +252,12 @@
       },
       {
         "parameters": {
-          "splitInBatchesNotice": "",
-          "batchSize": 1,
           "options": {}
         },
         "type": "n8n-nodes-base.splitInBatches",
         "typeVersion": 3,
         "position": [
-          1200,
+          1216,
           1616
         ],
         "id": "22b26392-76e4-48b1-9049-6aaa47a570f6",
@@ -237,15 +265,12 @@
       },
       {
         "parameters": {
-          "mode": "runOnceForAllItems",
-          "language": "javaScript",
-          "jsCode": "return $('Start').first().json.updateStatus1_allItems.map(({ json }) => ({\n  json: {\n    file_name: json.Id + \".png\",\n  }\n}));",
-          "notice": ""
+          "jsCode": "return $('Start').first().json.updateStatus1_allItems.map(({ json }) => ({\n  json: {\n    file_name: json.Id + \".png\",\n  }\n}));"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          976,
+          992,
           1616
         ],
         "id": "c8fe9e8a-949b-4e2b-9ccd-7ede8294ebb2",
@@ -253,33 +278,22 @@
       },
       {
         "parameters": {
-          "mode": "runOnceForAllItems",
-          "language": "javaScript",
-          "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Github > Cleaned\"\n  }\n}];",
-          "notice": ""
+          "jsCode": "// Ignore all input items, output a single message\nreturn [{\n  json: {\n    message: \"Github > Cleaned\"\n  }\n}];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          1424,
-          1488
+          1440,
+          1472
         ],
         "id": "5b6021d8-fe3b-4086-ac72-6d14498cdb7a",
-        "name": "setMessage",
-        "disabled": false
+        "name": "setMessage"
       },
       {
         "parameters": {
-          "curlImport": "",
           "method": "POST",
           "url": "https://n8n.argentumorchesta.org/webhook/telegram-notify",
-          "authentication": "none",
-          "provideSslCertificates": false,
-          "sendQuery": false,
-          "sendHeaders": false,
           "sendBody": true,
-          "contentType": "json",
-          "specifyBody": "keypair",
           "bodyParameters": {
             "parameters": [
               {
@@ -288,8 +302,7 @@
               }
             ]
           },
-          "options": {},
-          "infoMessage": ""
+          "options": {}
         },
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -298,18 +311,9 @@
           1472
         ],
         "id": "bea58b2e-902c-4584-8843-8350fddfdc45",
-        "name": "reportTelegram1",
-        "disabled": false
+        "name": "reportTelegram1"
       },
       {
-        "id": "0e9db6ba-0013-4c40-8bfe-e6508511d75d",
-        "typeVersion": 1.1,
-        "name": "Start",
-        "type": "n8n-nodes-base.executeWorkflowTrigger",
-        "position": [
-          768,
-          1616
-        ],
         "parameters": {
           "workflowInputs": {
             "values": [
@@ -319,7 +323,15 @@
               }
             ]
           }
-        }
+        },
+        "id": "0e9db6ba-0013-4c40-8bfe-e6508511d75d",
+        "typeVersion": 1.1,
+        "name": "Start",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "position": [
+          768,
+          1616
+        ]
       }
     ],
     "connections": {
@@ -333,12 +345,63 @@
             }
           ]
         ]
+      },
+      "splitDelete1": {
+        "main": [
+          [
+            {
+              "node": "loopDelete1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "loopDelete1": {
+        "main": [
+          [
+            {
+              "node": "setMessage",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Delete a file1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Delete a file1": {
+        "main": [
+          [
+            {
+              "node": "loopDelete1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "setMessage": {
+        "main": [
+          [
+            {
+              "node": "reportTelegram1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Argentum Orchesta",
-    "name": null,
-    "description": null,
-    "autosaved": false
+    "name": "Version cf5a7385",
+    "description": "",
+    "autosaved": true
   },
   "tags": []
 }
