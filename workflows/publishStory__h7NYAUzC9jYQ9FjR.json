@@ -193,7 +193,7 @@
   "meta": null,
   "pinData": {},
   "versionId": "0b43f5e8-8b67-4bb0-bccb-5ff7c4a2ef41",
-  "activeVersionId": "7d38172e-c274-4a47-bd7d-b1be0e3b3de2",
+  "activeVersionId": "0b43f5e8-8b67-4bb0-bccb-5ff7c4a2ef41",
   "triggerCount": 0,
   "shared": [
     {
@@ -205,16 +205,14 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-05-09T09:36:44.728Z",
-    "createdAt": "2026-05-09T09:36:44.728Z",
-    "versionId": "7d38172e-c274-4a47-bd7d-b1be0e3b3de2",
+    "updatedAt": "2026-05-17T10:46:44.000Z",
+    "createdAt": "2026-05-09T09:37:21.773Z",
+    "versionId": "0b43f5e8-8b67-4bb0-bccb-5ff7c4a2ef41",
     "workflowId": "h7NYAUzC9jYQ9FjR",
     "nodes": [
       {
         "parameters": {
-          "resume": "timeInterval",
-          "amount": 1,
-          "unit": "seconds"
+          "amount": 1
         },
         "type": "n8n-nodes-base.wait",
         "typeVersion": 1.1,
@@ -228,31 +226,23 @@
       },
       {
         "parameters": {
-          "splitInBatchesNotice": "",
-          "batchSize": 1,
           "options": {}
         },
         "type": "n8n-nodes-base.splitInBatches",
         "typeVersion": 3,
         "position": [
           -592,
-          1880
+          1888
         ],
         "id": "fc6cca1f-80f1-4b0f-8686-51f9a050644b",
         "name": "loopStories1"
       },
       {
         "parameters": {
-          "curlImport": "",
           "method": "POST",
           "url": "=https://graph.instagram.com/v25.0/{{ $('loopStories1').item.json.account_id }}/media_publish",
-          "authentication": "none",
-          "provideSslCertificates": false,
-          "sendQuery": false,
-          "sendHeaders": false,
           "sendBody": true,
           "contentType": "form-urlencoded",
-          "specifyBody": "keypair",
           "bodyParameters": {
             "parameters": [
               {
@@ -265,8 +255,7 @@
               }
             ]
           },
-          "options": {},
-          "infoMessage": ""
+          "options": {}
         },
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -279,16 +268,10 @@
       },
       {
         "parameters": {
-          "curlImport": "",
           "method": "POST",
           "url": "=https://graph.instagram.com/v25.0/{{ $json.account_id }}/media",
-          "authentication": "none",
-          "provideSslCertificates": false,
-          "sendQuery": false,
-          "sendHeaders": false,
           "sendBody": true,
           "contentType": "form-urlencoded",
-          "specifyBody": "keypair",
           "bodyParameters": {
             "parameters": [
               {
@@ -305,8 +288,7 @@
               }
             ]
           },
-          "options": {},
-          "infoMessage": ""
+          "options": {}
         },
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
@@ -318,6 +300,7 @@
         "name": "creatingStory"
       },
       {
+        "parameters": {},
         "type": "n8n-nodes-random-wait.randomWait",
         "typeVersion": 1,
         "position": [
@@ -325,26 +308,20 @@
           1536
         ],
         "id": "1d768754-a682-44cd-8494-40a936515e9b",
-        "name": "Random Wait",
-        "disabled": false,
-        "parameters": {
-          "unit": "seconds",
-          "min": 1,
-          "max": 5
-        }
+        "name": "Random Wait"
       },
       {
+        "parameters": {
+          "inputSource": "passthrough"
+        },
         "id": "20d56431-97b4-49d6-8788-cfe4a479c4e9",
         "typeVersion": 1.1,
         "name": "Start",
         "type": "n8n-nodes-base.executeWorkflowTrigger",
         "position": [
           -800,
-          1880
-        ],
-        "parameters": {
-          "inputSource": "passthrough"
-        }
+          1888
+        ]
       }
     ],
     "connections": {
@@ -358,12 +335,63 @@
             }
           ]
         ]
+      },
+      "loopStories1": {
+        "main": [
+          [
+            {
+              "node": "Random Wait",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "creatingStory",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "creatingStory": {
+        "main": [
+          [
+            {
+              "node": "Wait4",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Wait4": {
+        "main": [
+          [
+            {
+              "node": "publishStory2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "publishStory2": {
+        "main": [
+          [
+            {
+              "node": "loopStories1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Argentum Orchesta",
-    "name": null,
-    "description": null,
-    "autosaved": false
+    "name": "Version 0b43f5e8",
+    "description": "",
+    "autosaved": true
   },
   "tags": []
 }
