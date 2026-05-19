@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-09T09:22:09.615Z",
+  "updatedAt": "2026-05-18T12:25:45.345Z",
   "createdAt": "2026-05-09T09:20:25.085Z",
   "id": "KpE1S1EUwS70OucO",
   "name": "createPublicLinks",
@@ -13,10 +13,10 @@
         "filter": {
           "folderId": {
             "__rl": true,
-            "value": "159nyX_hFCoOPDfrqbofpKiHQK_IRZBA9",
+            "value": "",
             "mode": "list",
-            "cachedResultName": "Images",
-            "cachedResultUrl": "https://drive.google.com/drive/folders/159nyX_hFCoOPDfrqbofpKiHQK_IRZBA9"
+            "cachedResultName": "",
+            "cachedResultUrl": ""
           }
         },
         "options": {}
@@ -32,7 +32,7 @@
       "credentials": {
         "googleDriveOAuth2Api": {
           "id": "4gTN8vYbGOZpLixv",
-          "name": "Google Drive account"
+          "name": "Google Drive account 2"
         }
       }
     },
@@ -94,7 +94,7 @@
       "credentials": {
         "googleDriveOAuth2Api": {
           "id": "4gTN8vYbGOZpLixv",
-          "name": "Google Drive account"
+          "name": "Google Drive account 2"
         }
       },
       "notes": "Uploads each image to the folder ID from the LoRAs sheet.\nPre-create these folders in Drive and paste their IDs:\n  AIGirls sheet ? LoRAs tab ? posts_folder_id / reels_folder_id"
@@ -131,7 +131,7 @@
       "typeVersion": 1,
       "position": [
         -432,
-        1968
+        2096
       ],
       "id": "f5809fdc-4b5b-4fcd-b5ac-23b581264714",
       "name": "Random Wait"
@@ -233,8 +233,8 @@
   "staticData": null,
   "meta": null,
   "pinData": {},
-  "versionId": "a9750cc1-7be4-475e-b397-f6c5351ef97d",
-  "activeVersionId": "ee18f108-0393-4e06-9a8a-8eb81206ca22",
+  "versionId": "87b2cc86-9465-4c58-927f-1676c3ece16b",
+  "activeVersionId": "91e22320-ec3f-4f6c-b01e-a17971bcb480",
   "triggerCount": 0,
   "shared": [
     {
@@ -246,20 +246,15 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-05-09T09:20:25.092Z",
-    "createdAt": "2026-05-09T09:20:25.092Z",
-    "versionId": "ee18f108-0393-4e06-9a8a-8eb81206ca22",
+    "updatedAt": "2026-05-17T10:35:46.000Z",
+    "createdAt": "2026-05-17T10:35:45.135Z",
+    "versionId": "91e22320-ec3f-4f6c-b01e-a17971bcb480",
     "workflowId": "KpE1S1EUwS70OucO",
     "nodes": [
       {
         "parameters": {
-          "authentication": "oAuth2",
           "resource": "fileFolder",
-          "operation": "search",
-          "searchMethod": "name",
           "queryString": "={{ $json.id }}",
-          "returnAll": false,
-          "limit": 50,
           "filter": {
             "folderId": {
               "__rl": true,
@@ -288,9 +283,7 @@
       },
       {
         "parameters": {
-          "authentication": "accessToken",
           "resource": "file",
-          "operation": "create",
           "owner": {
             "__rl": true,
             "value": "argentumorchesta-rgb",
@@ -305,9 +298,7 @@
           },
           "filePath": "=images/{{ $json.name }}",
           "binaryData": true,
-          "binaryPropertyName": "data",
-          "commitMessage": "xyz",
-          "additionalParameters": {}
+          "commitMessage": "xyz"
         },
         "type": "n8n-nodes-base.github",
         "typeVersion": 1.1,
@@ -327,8 +318,6 @@
       },
       {
         "parameters": {
-          "authentication": "oAuth2",
-          "resource": "file",
           "operation": "download",
           "fileId": {
             "__rl": true,
@@ -357,8 +346,6 @@
       },
       {
         "parameters": {
-          "splitInBatchesNotice": "",
-          "batchSize": 1,
           "options": {}
         },
         "type": "n8n-nodes-base.splitInBatches",
@@ -372,10 +359,7 @@
       },
       {
         "parameters": {
-          "mode": "runOnceForAllItems",
-          "language": "javaScript",
-          "jsCode": "// ?? Grab data from the Download File node ????????????????????????????????????\nconst downloadData = $node[\"Download file1\"].json;\n\n// ?? Grab girl and id from the loop input ?????????????????????????????????????\nconst loopInput = $node[\"loopUpload1\"].json;\n\n// ?? Extract the fields we want to report ?????????????????????????????????????\nconst fileName = downloadData?.name ?? null;\n\n\nreturn [{\n  json: {\n    girl:        loopInput.girl,   // \"maeve\" | \"elara\" | \"amara\"\n    file_name:   fileName,         // IMAGE_MO5L3Z3MENI.png\n  }\n}];",
-          "notice": ""
+          "jsCode": "// ?? Grab data from the Download File node ????????????????????????????????????\nconst downloadData = $node[\"Download file1\"].json;\n\n// ?? Grab girl and id from the loop input ?????????????????????????????????????\nconst loopInput = $node[\"loopUpload1\"].json;\n\n// ?? Extract the fields we want to report ?????????????????????????????????????\nconst fileName = downloadData?.name ?? null;\n\n\nreturn [{\n  json: {\n    girl:        loopInput.girl,   // \"maeve\" | \"elara\" | \"amara\"\n    file_name:   fileName,         // IMAGE_MO5L3Z3MENI.png\n  }\n}];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -387,21 +371,20 @@
         "name": "packImages1"
       },
       {
-        "parameters": {
-          "unit": "seconds",
-          "min": 1,
-          "max": 5
-        },
+        "parameters": {},
         "type": "n8n-nodes-random-wait.randomWait",
         "typeVersion": 1,
         "position": [
           -432,
-          1968
+          2096
         ],
         "id": "f5809fdc-4b5b-4fcd-b5ac-23b581264714",
         "name": "Random Wait"
       },
       {
+        "parameters": {
+          "inputSource": "passthrough"
+        },
         "id": "720f2a1a-7d0c-4531-8029-0c8b6557c1eb",
         "typeVersion": 1.1,
         "name": "Start",
@@ -409,10 +392,7 @@
         "position": [
           -864,
           2352
-        ],
-        "parameters": {
-          "inputSource": "passthrough"
-        }
+        ]
       }
     ],
     "connections": {
@@ -426,11 +406,73 @@
             }
           ]
         ]
+      },
+      "loopUpload1": {
+        "main": [
+          [
+            {
+              "node": "Random Wait",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Search file1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Search file1": {
+        "main": [
+          [
+            {
+              "node": "Download file1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Download file1": {
+        "main": [
+          [
+            {
+              "node": "Create a file1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create a file1": {
+        "main": [
+          [
+            {
+              "node": "packImages1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "packImages1": {
+        "main": [
+          [
+            {
+              "node": "loopUpload1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Argentum Orchesta",
-    "name": null,
-    "description": null,
+    "name": "Version 91e22320",
+    "description": "",
     "autosaved": false
   },
   "tags": []
