@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-18T12:41:12.030Z",
+  "updatedAt": "2026-05-24T20:47:44.634Z",
   "createdAt": "2026-05-04T08:05:03.846Z",
   "id": "V1wzIXcLIXW5BC1I",
   "name": "mediaPoster",
@@ -72,19 +72,19 @@
             {
               "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
               "name": "maeveToken",
-              "value": "IGAAXVb07ZCZBz9BZAGJCX1c3eGdhM01FZAU1xNm5oVUY2ZAjhzT1ItZAlpqRE8wZA3BhTmFrQkJlM3dDVXBDUmdTc211bnBWNzhidHp1UWh3U0tjRDQyQ1JYVVZAxRjd3cGpJTEZAvOUU3WS1ZAbGd2Y0R6WGlIaTR6WnhoSGgxejZAnaWlCSQZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGJoVThhcm02Tl9GeElJRl9PZAUJZARmhyRUdzNjRIYW1YaFNEYVo4a1gwRG1lRFFGQXJOUm9qY0haM0dTWDlUbS1TTkhmeThEeXJEdWstUlJIbEVWSkZAwVDk4a0tuRE9xZADVfLWtCb1FnLVVQMUFtdUtNeldrWQZDZD",
               "type": "string"
             },
             {
               "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
               "name": "elaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAGI4RnF5aE1ybVBXaUNzQ0VQOXFnckN0b283dXg1elg4bUhFdENzM2VXNk5Rbng5RWdtVTlCa21uZA0I2X05mM0xEM2hvVjh1Mm5vS1hXYXlPZAXVQQS1ua1BCZAzBMemZAkQnc4SGw5cVU5UjdYdlk0MmNOZAHNiMAZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAFpOTzNZAajh3WUh5MnVhX2NRQWctaHpyT1BUcnJ0NHNaVTNOSUNueTljNzN0eWZAMVmJfcXlNdFZASSEgyaW9KM3BsazVmUzVUZAkNoYXhMS1lQRUxmY1lfQ1QxMFJXZAzUxbXJyUC10a1Nya2pvTjJLc2J1bVVjTQZDZD",
               "type": "string"
             },
             {
               "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
               "name": "amaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAFpyYXFoVjVkUzJWZA1U1dG1pWGgzSVUyclBENmFwV29IbE9LU2FoN2ljTE1OX3RVOUltMGpTYm1ocjVKQThsSHBsS3lCay10ZAFMzNEJVUk9yNEVfMGN6UHRHOXNMNUYwelc4c0xTNTlYOTFEYTZAaNURoVHpzYwZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGJwbl9UaGQ1QWlSSlJ1SHB3OER0YVJrVlJUVW0wbm9QVE1aaUpNNUFiNThKNkxIdUo1N0dGMk94YnpGYzl6LXJINXZA3RkwwdlFIbGFCSkZAZAaHltdGZApXzVKVW9MMkFZAX2E3UUFleDktUWh0WjJMOGcxS3AxMAZDZD",
               "type": "string"
             },
             {
@@ -345,19 +345,19 @@
             {
               "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
               "name": "maeveToken",
-              "value": "IGAAXVb07ZCZBz9BZAGJCX1c3eGdhM01FZAU1xNm5oVUY2ZAjhzT1ItZAlpqRE8wZA3BhTmFrQkJlM3dDVXBDUmdTc211bnBWNzhidHp1UWh3U0tjRDQyQ1JYVVZAxRjd3cGpJTEZAvOUU3WS1ZAbGd2Y0R6WGlIaTR6WnhoSGgxejZAnaWlCSQZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGJoVThhcm02Tl9GeElJRl9PZAUJZARmhyRUdzNjRIYW1YaFNEYVo4a1gwRG1lRFFGQXJOUm9qY0haM0dTWDlUbS1TTkhmeThEeXJEdWstUlJIbEVWSkZAwVDk4a0tuRE9xZADVfLWtCb1FnLVVQMUFtdUtNeldrWQZDZD",
               "type": "string"
             },
             {
               "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
               "name": "elaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAGI4RnF5aE1ybVBXaUNzQ0VQOXFnckN0b283dXg1elg4bUhFdENzM2VXNk5Rbng5RWdtVTlCa21uZA0I2X05mM0xEM2hvVjh1Mm5vS1hXYXlPZAXVQQS1ua1BCZAzBMemZAkQnc4SGw5cVU5UjdYdlk0MmNOZAHNiMAZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAFpOTzNZAajh3WUh5MnVhX2NRQWctaHpyT1BUcnJ0NHNaVTNOSUNueTljNzN0eWZAMVmJfcXlNdFZASSEgyaW9KM3BsazVmUzVUZAkNoYXhMS1lQRUxmY1lfQ1QxMFJXZAzUxbXJyUC10a1Nya2pvTjJLc2J1bVVjTQZDZD",
               "type": "string"
             },
             {
               "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
               "name": "amaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAFpyYXFoVjVkUzJWZA1U1dG1pWGgzSVUyclBENmFwV29IbE9LU2FoN2ljTE1OX3RVOUltMGpTYm1ocjVKQThsSHBsS3lCay10ZAFMzNEJVUk9yNEVfMGN6UHRHOXNMNUYwelc4c0xTNTlYOTFEYTZAaNURoVHpzYwZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGJwbl9UaGQ1QWlSSlJ1SHB3OER0YVJrVlJUVW0wbm9QVE1aaUpNNUFiNThKNkxIdUo1N0dGMk94YnpGYzl6LXJINXZA3RkwwdlFIbGFCSkZAZAaHltdGZApXzVKVW9MMkFZAX2E3UUFleDktUWh0WjJMOGcxS3AxMAZDZD",
               "type": "string"
             },
             {
@@ -830,7 +830,7 @@
       "typeVersion": 1.2,
       "position": [
         -800,
-        824
+        832
       ],
       "name": "Call publishStory",
       "id": "031c5f6b-7257-4142-9691-5e9d3f8f9a07"
@@ -843,7 +843,7 @@
       "typeVersion": 2,
       "position": [
         -128,
-        504
+        512
       ],
       "id": "0b75d93e-9fa7-4ee1-b72c-b7b9f775c30d",
       "name": "setMessage1"
@@ -867,7 +867,7 @@
       "typeVersion": 4.4,
       "position": [
         96,
-        504
+        512
       ],
       "id": "2190002b-d3cb-422e-80f4-236ae8b0b769",
       "name": "reportTelegram4"
@@ -979,7 +979,7 @@
       "typeVersion": 1.2,
       "position": [
         -352,
-        504
+        512
       ],
       "name": "Call publishCaroussel",
       "id": "cb492f97-b3ef-4990-9e23-bece2aafeb62"
@@ -992,7 +992,7 @@
       "typeVersion": 2,
       "position": [
         -576,
-        824
+        832
       ],
       "id": "a5cfdda8-247b-4c57-9ebd-495071af02d1",
       "name": "setMessage"
@@ -1016,7 +1016,7 @@
       "typeVersion": 4.4,
       "position": [
         -352,
-        824
+        832
       ],
       "id": "32826cc9-4e96-4f2c-a2b8-cbc8426f5961",
       "name": "reportTelegram"
@@ -1480,8 +1480,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "def7265e-9013-4a42-bf6c-52cf6e09d464",
-  "activeVersionId": "def7265e-9013-4a42-bf6c-52cf6e09d464",
+  "versionId": "fb07267f-9eb9-4a0e-a373-0a400abfe080",
+  "activeVersionId": "fb07267f-9eb9-4a0e-a373-0a400abfe080",
   "triggerCount": 2,
   "shared": [
     {
@@ -1493,9 +1493,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-05-18T12:41:13.000Z",
-    "createdAt": "2026-05-18T12:41:12.033Z",
-    "versionId": "def7265e-9013-4a42-bf6c-52cf6e09d464",
+    "updatedAt": "2026-05-24T20:47:47.000Z",
+    "createdAt": "2026-05-24T20:47:44.641Z",
+    "versionId": "fb07267f-9eb9-4a0e-a373-0a400abfe080",
     "workflowId": "V1wzIXcLIXW5BC1I",
     "nodes": [
       {
@@ -1564,19 +1564,19 @@
               {
                 "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
                 "name": "maeveToken",
-                "value": "IGAAXVb07ZCZBz9BZAGJCX1c3eGdhM01FZAU1xNm5oVUY2ZAjhzT1ItZAlpqRE8wZA3BhTmFrQkJlM3dDVXBDUmdTc211bnBWNzhidHp1UWh3U0tjRDQyQ1JYVVZAxRjd3cGpJTEZAvOUU3WS1ZAbGd2Y0R6WGlIaTR6WnhoSGgxejZAnaWlCSQZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGJoVThhcm02Tl9GeElJRl9PZAUJZARmhyRUdzNjRIYW1YaFNEYVo4a1gwRG1lRFFGQXJOUm9qY0haM0dTWDlUbS1TTkhmeThEeXJEdWstUlJIbEVWSkZAwVDk4a0tuRE9xZADVfLWtCb1FnLVVQMUFtdUtNeldrWQZDZD",
                 "type": "string"
               },
               {
                 "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
                 "name": "elaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAGI4RnF5aE1ybVBXaUNzQ0VQOXFnckN0b283dXg1elg4bUhFdENzM2VXNk5Rbng5RWdtVTlCa21uZA0I2X05mM0xEM2hvVjh1Mm5vS1hXYXlPZAXVQQS1ua1BCZAzBMemZAkQnc4SGw5cVU5UjdYdlk0MmNOZAHNiMAZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAFpOTzNZAajh3WUh5MnVhX2NRQWctaHpyT1BUcnJ0NHNaVTNOSUNueTljNzN0eWZAMVmJfcXlNdFZASSEgyaW9KM3BsazVmUzVUZAkNoYXhMS1lQRUxmY1lfQ1QxMFJXZAzUxbXJyUC10a1Nya2pvTjJLc2J1bVVjTQZDZD",
                 "type": "string"
               },
               {
                 "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
                 "name": "amaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAFpyYXFoVjVkUzJWZA1U1dG1pWGgzSVUyclBENmFwV29IbE9LU2FoN2ljTE1OX3RVOUltMGpTYm1ocjVKQThsSHBsS3lCay10ZAFMzNEJVUk9yNEVfMGN6UHRHOXNMNUYwelc4c0xTNTlYOTFEYTZAaNURoVHpzYwZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGJwbl9UaGQ1QWlSSlJ1SHB3OER0YVJrVlJUVW0wbm9QVE1aaUpNNUFiNThKNkxIdUo1N0dGMk94YnpGYzl6LXJINXZA3RkwwdlFIbGFCSkZAZAaHltdGZApXzVKVW9MMkFZAX2E3UUFleDktUWh0WjJMOGcxS3AxMAZDZD",
                 "type": "string"
               },
               {
@@ -1837,19 +1837,19 @@
               {
                 "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
                 "name": "maeveToken",
-                "value": "IGAAXVb07ZCZBz9BZAGJCX1c3eGdhM01FZAU1xNm5oVUY2ZAjhzT1ItZAlpqRE8wZA3BhTmFrQkJlM3dDVXBDUmdTc211bnBWNzhidHp1UWh3U0tjRDQyQ1JYVVZAxRjd3cGpJTEZAvOUU3WS1ZAbGd2Y0R6WGlIaTR6WnhoSGgxejZAnaWlCSQZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGJoVThhcm02Tl9GeElJRl9PZAUJZARmhyRUdzNjRIYW1YaFNEYVo4a1gwRG1lRFFGQXJOUm9qY0haM0dTWDlUbS1TTkhmeThEeXJEdWstUlJIbEVWSkZAwVDk4a0tuRE9xZADVfLWtCb1FnLVVQMUFtdUtNeldrWQZDZD",
                 "type": "string"
               },
               {
                 "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
                 "name": "elaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAGI4RnF5aE1ybVBXaUNzQ0VQOXFnckN0b283dXg1elg4bUhFdENzM2VXNk5Rbng5RWdtVTlCa21uZA0I2X05mM0xEM2hvVjh1Mm5vS1hXYXlPZAXVQQS1ua1BCZAzBMemZAkQnc4SGw5cVU5UjdYdlk0MmNOZAHNiMAZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAFpOTzNZAajh3WUh5MnVhX2NRQWctaHpyT1BUcnJ0NHNaVTNOSUNueTljNzN0eWZAMVmJfcXlNdFZASSEgyaW9KM3BsazVmUzVUZAkNoYXhMS1lQRUxmY1lfQ1QxMFJXZAzUxbXJyUC10a1Nya2pvTjJLc2J1bVVjTQZDZD",
                 "type": "string"
               },
               {
                 "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
                 "name": "amaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAFpyYXFoVjVkUzJWZA1U1dG1pWGgzSVUyclBENmFwV29IbE9LU2FoN2ljTE1OX3RVOUltMGpTYm1ocjVKQThsSHBsS3lCay10ZAFMzNEJVUk9yNEVfMGN6UHRHOXNMNUYwelc4c0xTNTlYOTFEYTZAaNURoVHpzYwZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGJwbl9UaGQ1QWlSSlJ1SHB3OER0YVJrVlJUVW0wbm9QVE1aaUpNNUFiNThKNkxIdUo1N0dGMk94YnpGYzl6LXJINXZA3RkwwdlFIbGFCSkZAZAaHltdGZApXzVKVW9MMkFZAX2E3UUFleDktUWh0WjJMOGcxS3AxMAZDZD",
                 "type": "string"
               },
               {
@@ -2322,7 +2322,7 @@
         "typeVersion": 1.2,
         "position": [
           -800,
-          824
+          832
         ],
         "name": "Call publishStory",
         "id": "031c5f6b-7257-4142-9691-5e9d3f8f9a07"
@@ -2335,7 +2335,7 @@
         "typeVersion": 2,
         "position": [
           -128,
-          504
+          512
         ],
         "id": "0b75d93e-9fa7-4ee1-b72c-b7b9f775c30d",
         "name": "setMessage1"
@@ -2359,7 +2359,7 @@
         "typeVersion": 4.4,
         "position": [
           96,
-          504
+          512
         ],
         "id": "2190002b-d3cb-422e-80f4-236ae8b0b769",
         "name": "reportTelegram4"
@@ -2471,7 +2471,7 @@
         "typeVersion": 1.2,
         "position": [
           -352,
-          504
+          512
         ],
         "name": "Call publishCaroussel",
         "id": "cb492f97-b3ef-4990-9e23-bece2aafeb62"
@@ -2484,7 +2484,7 @@
         "typeVersion": 2,
         "position": [
           -576,
-          824
+          832
         ],
         "id": "a5cfdda8-247b-4c57-9ebd-495071af02d1",
         "name": "setMessage"
@@ -2508,7 +2508,7 @@
         "typeVersion": 4.4,
         "position": [
           -352,
-          824
+          832
         ],
         "id": "32826cc9-4e96-4f2c-a2b8-cbc8426f5961",
         "name": "reportTelegram"
@@ -2964,7 +2964,7 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version def7265e",
+    "name": "Version fb07267f",
     "description": "",
     "autosaved": true
   },
