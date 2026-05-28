@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-17T10:18:19.000Z",
+  "updatedAt": "2026-05-28T12:29:37.763Z",
   "createdAt": "2026-05-08T08:29:45.507Z",
   "id": "oo6JjWbpUndw5o2b",
   "name": "calendar",
@@ -293,7 +293,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        -256
+        -224
       ],
       "id": "6638f8f8-16f0-4b4b-864b-0fef2c4af390",
       "name": "getUpdate"
@@ -406,15 +406,15 @@
   },
   "staticData": {
     "node:Google Calendar Trigger": {
-      "lastTimeChecked": "2026-05-25T21:01:00Z"
+      "lastTimeChecked": "2026-05-28T12:29:39Z"
     }
   },
   "meta": {
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "d2d99cb4-ce1c-4ce5-87d9-03b633cb267a",
-  "activeVersionId": "d2d99cb4-ce1c-4ce5-87d9-03b633cb267a",
+  "versionId": "3254d460-a0a1-4bc2-bbde-65c125924ff9",
+  "activeVersionId": "3254d460-a0a1-4bc2-bbde-65c125924ff9",
   "triggerCount": 1,
   "shared": [
     {
@@ -426,9 +426,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-05-17T10:21:27.000Z",
-    "createdAt": "2026-05-17T10:18:15.588Z",
-    "versionId": "d2d99cb4-ce1c-4ce5-87d9-03b633cb267a",
+    "updatedAt": "2026-05-28T12:29:39.000Z",
+    "createdAt": "2026-05-28T12:29:37.765Z",
+    "versionId": "3254d460-a0a1-4bc2-bbde-65c125924ff9",
     "workflowId": "oo6JjWbpUndw5o2b",
     "nodes": [
       {
@@ -718,7 +718,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          -256
+          -224
         ],
         "id": "6638f8f8-16f0-4b4b-864b-0fef2c4af390",
         "name": "getUpdate"
@@ -826,9 +826,9 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version d2d99cb4",
+    "name": "Version 3254d460",
     "description": "",
-    "autosaved": true
+    "autosaved": false
   },
   "tags": []
 }
