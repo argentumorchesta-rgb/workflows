@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-24T20:47:44.634Z",
+  "updatedAt": "2026-05-28T11:09:18.055Z",
   "createdAt": "2026-05-04T08:05:03.846Z",
   "id": "V1wzIXcLIXW5BC1I",
   "name": "mediaPoster",
@@ -40,7 +40,7 @@
       "typeVersion": 4.7,
       "position": [
         -1920,
-        432
+        272
       ],
       "id": "de972c17-fc1f-4c13-afe8-3cf58daa3ff9",
       "name": "getImages",
@@ -60,7 +60,7 @@
       "typeVersion": 2,
       "position": [
         -1472,
-        432
+        272
       ],
       "id": "3338c497-5d8c-4e12-89d7-aa69161e2c2d",
       "name": "selectCaroussel"
@@ -131,7 +131,7 @@
       "typeVersion": 3.4,
       "position": [
         -2144,
-        432
+        272
       ],
       "id": "0ff9bf08-a3a3-4693-8f5d-ed9914c1e170",
       "name": "Tokens"
@@ -144,7 +144,7 @@
       "typeVersion": 2,
       "position": [
         -576,
-        432
+        272
       ],
       "id": "8527f3d3-0b03-4b6c-bd18-53e2724c21a8",
       "name": "reGroup"
@@ -179,7 +179,7 @@
       "typeVersion": 4.7,
       "position": [
         768,
-        432
+        272
       ],
       "id": "6e991482-d7bd-496a-bb90-108781a5afbc",
       "name": "getImagesStatus",
@@ -199,7 +199,7 @@
       "typeVersion": 2,
       "position": [
         992,
-        432
+        272
       ],
       "id": "d0880fc4-04d2-49c0-97d6-cb0a420d5135",
       "name": "updateStatus"
@@ -314,7 +314,7 @@
       "typeVersion": 4.7,
       "position": [
         1216,
-        432
+        272
       ],
       "id": "9ff0f755-6bcd-4cc6-ba89-c12fb2f7e6d5",
       "name": "updateSheet",
@@ -333,7 +333,7 @@
       "typeVersion": 2,
       "position": [
         -1024,
-        432
+        272
       ],
       "id": "8516dd02-69f1-4d34-a1ca-7b2bdef2a2bf",
       "name": "packCaroussel"
@@ -404,7 +404,7 @@
       "typeVersion": 3.4,
       "position": [
         -2144,
-        752
+        568
       ],
       "id": "0ebb780f-d1a8-4331-9498-cec285d848b3",
       "name": "Tokens1"
@@ -443,7 +443,7 @@
       "typeVersion": 4.7,
       "position": [
         -1920,
-        752
+        568
       ],
       "id": "fc200356-0cc8-47ab-8c4c-b1fe307b3e21",
       "name": "getImages1",
@@ -483,7 +483,7 @@
       "typeVersion": 2.3,
       "position": [
         -1696,
-        432
+        272
       ],
       "id": "b10ee40d-7767-4f98-92ee-1b1358dc3983",
       "name": "filterCarousels"
@@ -516,7 +516,7 @@
       "typeVersion": 2.3,
       "position": [
         -1696,
-        752
+        568
       ],
       "id": "a5a0a045-ca2f-4b09-a54d-a1daaf89c6cf",
       "name": "filterStories"
@@ -529,7 +529,7 @@
       "typeVersion": 2,
       "position": [
         -1472,
-        752
+        568
       ],
       "id": "84d80d09-9ce9-4c86-8759-d8d93d0a56bb",
       "name": "selectStory"
@@ -542,7 +542,7 @@
       "typeVersion": 2,
       "position": [
         -1024,
-        752
+        568
       ],
       "id": "5fc47eff-3a02-442b-805f-e1efcdcbd070",
       "name": "packStory"
@@ -577,7 +577,7 @@
       "typeVersion": 4.7,
       "position": [
         96,
-        752
+        568
       ],
       "id": "b0db117e-d362-42e2-8d23-1fcda5725fef",
       "name": "getImagesStatus1",
@@ -597,7 +597,7 @@
       "typeVersion": 2,
       "position": [
         320,
-        752
+        568
       ],
       "id": "f1b467f8-6324-4051-8a2e-c9277233c838",
       "name": "updateStatus1"
@@ -712,7 +712,7 @@
       "typeVersion": 4.7,
       "position": [
         544,
-        752
+        568
       ],
       "id": "bb0b1892-f441-4772-ac89-e1bcb21181e4",
       "name": "updateSheet1",
@@ -732,7 +732,7 @@
       "typeVersion": 3.2,
       "position": [
         -128,
-        752
+        568
       ],
       "id": "96dc37e3-65d8-4a3f-963c-fe71dc2549ed",
       "name": "Merge2"
@@ -746,7 +746,7 @@
       "typeVersion": 3.2,
       "position": [
         320,
-        432
+        272
       ],
       "id": "d98aaf2c-ce5a-4c34-9f5e-62790c7689f8",
       "name": "Merge"
@@ -774,7 +774,7 @@
       "typeVersion": 1.2,
       "position": [
         -1248,
-        752
+        568
       ],
       "name": "Call createPublicLinks",
       "id": "88e3970b-fc6b-42d4-a75e-ad29bab304ec"
@@ -802,7 +802,7 @@
       "typeVersion": 1.2,
       "position": [
         -1248,
-        432
+        272
       ],
       "name": "Call createPublicLinks1",
       "id": "78de5803-7b1f-4f2a-9762-6c396b5b5d5e"
@@ -830,7 +830,7 @@
       "typeVersion": 1.2,
       "position": [
         -800,
-        832
+        640
       ],
       "name": "Call publishStory",
       "id": "031c5f6b-7257-4142-9691-5e9d3f8f9a07"
@@ -843,7 +843,7 @@
       "typeVersion": 2,
       "position": [
         -128,
-        512
+        344
       ],
       "id": "0b75d93e-9fa7-4ee1-b72c-b7b9f775c30d",
       "name": "setMessage1"
@@ -867,7 +867,7 @@
       "typeVersion": 4.4,
       "position": [
         96,
-        512
+        344
       ],
       "id": "2190002b-d3cb-422e-80f4-236ae8b0b769",
       "name": "reportTelegram4"
@@ -909,7 +909,7 @@
       "typeVersion": 1.2,
       "position": [
         768,
-        752
+        568
       ],
       "name": "Call cleanGitHub",
       "id": "a6b8e3ac-552e-43b0-90f8-89afcfb1d903"
@@ -951,7 +951,7 @@
       "typeVersion": 1.2,
       "position": [
         1440,
-        432
+        272
       ],
       "name": "Call cleanGitHub1",
       "id": "deeab04c-be89-4d85-a8ff-1f4071a59714"
@@ -979,7 +979,7 @@
       "typeVersion": 1.2,
       "position": [
         -352,
-        512
+        344
       ],
       "name": "Call publishCaroussel",
       "id": "cb492f97-b3ef-4990-9e23-bece2aafeb62"
@@ -992,7 +992,7 @@
       "typeVersion": 2,
       "position": [
         -576,
-        832
+        640
       ],
       "id": "a5cfdda8-247b-4c57-9ebd-495071af02d1",
       "name": "setMessage"
@@ -1016,7 +1016,7 @@
       "typeVersion": 4.4,
       "position": [
         -352,
-        832
+        640
       ],
       "id": "32826cc9-4e96-4f2c-a2b8-cbc8426f5961",
       "name": "reportTelegram"
@@ -1044,7 +1044,7 @@
       "typeVersion": 1.2,
       "position": [
         -800,
-        432
+        272
       ],
       "name": "Call createContainer",
       "id": "c12f64aa-42da-4c3d-8fbf-f57ebec4fdd7"
@@ -1059,7 +1059,7 @@
       "typeVersion": 2.1,
       "position": [
         -2368,
-        336
+        272
       ],
       "id": "01f6a042-91b0-4d56-9e99-df5849dbb02f",
       "name": "Webhook1",
@@ -1075,22 +1075,11 @@
       "typeVersion": 2.1,
       "position": [
         -2368,
-        752
+        568
       ],
       "id": "40c255fd-2f46-46e0-a93e-ff174bc034bd",
       "name": "Webhook",
       "webhookId": "27c42971-5e1f-4086-8f71-5f56005ff377"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -2368,
-        528
-      ],
-      "id": "9cef98f0-cbf1-4d72-8639-8fbb207b8504",
-      "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
@@ -1101,7 +1090,7 @@
       "typeVersion": 1,
       "position": [
         544,
-        432
+        272
       ],
       "id": "8de143bc-5f7c-408f-be9d-916955c68098",
       "name": "Split Out"
@@ -1448,17 +1437,6 @@
         ]
       ]
     },
-    "When clicking ‘Execute workflow’": {
-      "main": [
-        [
-          {
-            "node": "Tokens",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Split Out": {
       "main": [
         [
@@ -1480,8 +1458,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "fb07267f-9eb9-4a0e-a373-0a400abfe080",
-  "activeVersionId": "fb07267f-9eb9-4a0e-a373-0a400abfe080",
+  "versionId": "f3e1d365-117a-4572-a088-04ec81236608",
+  "activeVersionId": "f3e1d365-117a-4572-a088-04ec81236608",
   "triggerCount": 2,
   "shared": [
     {
@@ -1493,9 +1471,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-05-24T20:47:47.000Z",
-    "createdAt": "2026-05-24T20:47:44.641Z",
-    "versionId": "fb07267f-9eb9-4a0e-a373-0a400abfe080",
+    "updatedAt": "2026-05-28T11:09:20.000Z",
+    "createdAt": "2026-05-28T11:09:18.058Z",
+    "versionId": "f3e1d365-117a-4572-a088-04ec81236608",
     "workflowId": "V1wzIXcLIXW5BC1I",
     "nodes": [
       {
@@ -1532,7 +1510,7 @@
         "typeVersion": 4.7,
         "position": [
           -1920,
-          432
+          272
         ],
         "id": "de972c17-fc1f-4c13-afe8-3cf58daa3ff9",
         "name": "getImages",
@@ -1552,7 +1530,7 @@
         "typeVersion": 2,
         "position": [
           -1472,
-          432
+          272
         ],
         "id": "3338c497-5d8c-4e12-89d7-aa69161e2c2d",
         "name": "selectCaroussel"
@@ -1623,7 +1601,7 @@
         "typeVersion": 3.4,
         "position": [
           -2144,
-          432
+          272
         ],
         "id": "0ff9bf08-a3a3-4693-8f5d-ed9914c1e170",
         "name": "Tokens"
@@ -1636,7 +1614,7 @@
         "typeVersion": 2,
         "position": [
           -576,
-          432
+          272
         ],
         "id": "8527f3d3-0b03-4b6c-bd18-53e2724c21a8",
         "name": "reGroup"
@@ -1671,7 +1649,7 @@
         "typeVersion": 4.7,
         "position": [
           768,
-          432
+          272
         ],
         "id": "6e991482-d7bd-496a-bb90-108781a5afbc",
         "name": "getImagesStatus",
@@ -1691,7 +1669,7 @@
         "typeVersion": 2,
         "position": [
           992,
-          432
+          272
         ],
         "id": "d0880fc4-04d2-49c0-97d6-cb0a420d5135",
         "name": "updateStatus"
@@ -1806,7 +1784,7 @@
         "typeVersion": 4.7,
         "position": [
           1216,
-          432
+          272
         ],
         "id": "9ff0f755-6bcd-4cc6-ba89-c12fb2f7e6d5",
         "name": "updateSheet",
@@ -1825,7 +1803,7 @@
         "typeVersion": 2,
         "position": [
           -1024,
-          432
+          272
         ],
         "id": "8516dd02-69f1-4d34-a1ca-7b2bdef2a2bf",
         "name": "packCaroussel"
@@ -1896,7 +1874,7 @@
         "typeVersion": 3.4,
         "position": [
           -2144,
-          752
+          568
         ],
         "id": "0ebb780f-d1a8-4331-9498-cec285d848b3",
         "name": "Tokens1"
@@ -1935,7 +1913,7 @@
         "typeVersion": 4.7,
         "position": [
           -1920,
-          752
+          568
         ],
         "id": "fc200356-0cc8-47ab-8c4c-b1fe307b3e21",
         "name": "getImages1",
@@ -1975,7 +1953,7 @@
         "typeVersion": 2.3,
         "position": [
           -1696,
-          432
+          272
         ],
         "id": "b10ee40d-7767-4f98-92ee-1b1358dc3983",
         "name": "filterCarousels"
@@ -2008,7 +1986,7 @@
         "typeVersion": 2.3,
         "position": [
           -1696,
-          752
+          568
         ],
         "id": "a5a0a045-ca2f-4b09-a54d-a1daaf89c6cf",
         "name": "filterStories"
@@ -2021,7 +1999,7 @@
         "typeVersion": 2,
         "position": [
           -1472,
-          752
+          568
         ],
         "id": "84d80d09-9ce9-4c86-8759-d8d93d0a56bb",
         "name": "selectStory"
@@ -2034,7 +2012,7 @@
         "typeVersion": 2,
         "position": [
           -1024,
-          752
+          568
         ],
         "id": "5fc47eff-3a02-442b-805f-e1efcdcbd070",
         "name": "packStory"
@@ -2069,7 +2047,7 @@
         "typeVersion": 4.7,
         "position": [
           96,
-          752
+          568
         ],
         "id": "b0db117e-d362-42e2-8d23-1fcda5725fef",
         "name": "getImagesStatus1",
@@ -2089,7 +2067,7 @@
         "typeVersion": 2,
         "position": [
           320,
-          752
+          568
         ],
         "id": "f1b467f8-6324-4051-8a2e-c9277233c838",
         "name": "updateStatus1"
@@ -2204,7 +2182,7 @@
         "typeVersion": 4.7,
         "position": [
           544,
-          752
+          568
         ],
         "id": "bb0b1892-f441-4772-ac89-e1bcb21181e4",
         "name": "updateSheet1",
@@ -2224,7 +2202,7 @@
         "typeVersion": 3.2,
         "position": [
           -128,
-          752
+          568
         ],
         "id": "96dc37e3-65d8-4a3f-963c-fe71dc2549ed",
         "name": "Merge2"
@@ -2238,7 +2216,7 @@
         "typeVersion": 3.2,
         "position": [
           320,
-          432
+          272
         ],
         "id": "d98aaf2c-ce5a-4c34-9f5e-62790c7689f8",
         "name": "Merge"
@@ -2266,7 +2244,7 @@
         "typeVersion": 1.2,
         "position": [
           -1248,
-          752
+          568
         ],
         "name": "Call createPublicLinks",
         "id": "88e3970b-fc6b-42d4-a75e-ad29bab304ec"
@@ -2294,7 +2272,7 @@
         "typeVersion": 1.2,
         "position": [
           -1248,
-          432
+          272
         ],
         "name": "Call createPublicLinks1",
         "id": "78de5803-7b1f-4f2a-9762-6c396b5b5d5e"
@@ -2322,7 +2300,7 @@
         "typeVersion": 1.2,
         "position": [
           -800,
-          832
+          640
         ],
         "name": "Call publishStory",
         "id": "031c5f6b-7257-4142-9691-5e9d3f8f9a07"
@@ -2335,7 +2313,7 @@
         "typeVersion": 2,
         "position": [
           -128,
-          512
+          344
         ],
         "id": "0b75d93e-9fa7-4ee1-b72c-b7b9f775c30d",
         "name": "setMessage1"
@@ -2359,7 +2337,7 @@
         "typeVersion": 4.4,
         "position": [
           96,
-          512
+          344
         ],
         "id": "2190002b-d3cb-422e-80f4-236ae8b0b769",
         "name": "reportTelegram4"
@@ -2401,7 +2379,7 @@
         "typeVersion": 1.2,
         "position": [
           768,
-          752
+          568
         ],
         "name": "Call cleanGitHub",
         "id": "a6b8e3ac-552e-43b0-90f8-89afcfb1d903"
@@ -2443,7 +2421,7 @@
         "typeVersion": 1.2,
         "position": [
           1440,
-          432
+          272
         ],
         "name": "Call cleanGitHub1",
         "id": "deeab04c-be89-4d85-a8ff-1f4071a59714"
@@ -2471,7 +2449,7 @@
         "typeVersion": 1.2,
         "position": [
           -352,
-          512
+          344
         ],
         "name": "Call publishCaroussel",
         "id": "cb492f97-b3ef-4990-9e23-bece2aafeb62"
@@ -2484,7 +2462,7 @@
         "typeVersion": 2,
         "position": [
           -576,
-          832
+          640
         ],
         "id": "a5cfdda8-247b-4c57-9ebd-495071af02d1",
         "name": "setMessage"
@@ -2508,7 +2486,7 @@
         "typeVersion": 4.4,
         "position": [
           -352,
-          832
+          640
         ],
         "id": "32826cc9-4e96-4f2c-a2b8-cbc8426f5961",
         "name": "reportTelegram"
@@ -2536,7 +2514,7 @@
         "typeVersion": 1.2,
         "position": [
           -800,
-          432
+          272
         ],
         "name": "Call createContainer",
         "id": "c12f64aa-42da-4c3d-8fbf-f57ebec4fdd7"
@@ -2551,7 +2529,7 @@
         "typeVersion": 2.1,
         "position": [
           -2368,
-          336
+          272
         ],
         "id": "01f6a042-91b0-4d56-9e99-df5849dbb02f",
         "name": "Webhook1",
@@ -2567,22 +2545,11 @@
         "typeVersion": 2.1,
         "position": [
           -2368,
-          752
+          568
         ],
         "id": "40c255fd-2f46-46e0-a93e-ff174bc034bd",
         "name": "Webhook",
         "webhookId": "27c42971-5e1f-4086-8f71-5f56005ff377"
-      },
-      {
-        "parameters": {},
-        "type": "n8n-nodes-base.manualTrigger",
-        "typeVersion": 1,
-        "position": [
-          -2368,
-          528
-        ],
-        "id": "9cef98f0-cbf1-4d72-8639-8fbb207b8504",
-        "name": "When clicking ‘Execute workflow’"
       },
       {
         "parameters": {
@@ -2593,7 +2560,7 @@
         "typeVersion": 1,
         "position": [
           544,
-          432
+          272
         ],
         "id": "8de143bc-5f7c-408f-be9d-916955c68098",
         "name": "Split Out"
@@ -2940,17 +2907,6 @@
           ]
         ]
       },
-      "When clicking ‘Execute workflow’": {
-        "main": [
-          [
-            {
-              "node": "Tokens",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
       "Split Out": {
         "main": [
           [
@@ -2964,9 +2920,9 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version fb07267f",
+    "name": "Version f3e1d365",
     "description": "",
-    "autosaved": true
+    "autosaved": false
   },
   "tags": []
 }
