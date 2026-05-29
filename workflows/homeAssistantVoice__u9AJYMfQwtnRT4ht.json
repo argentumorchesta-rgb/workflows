@@ -1,0 +1,420 @@
+{
+  "updatedAt": "2026-05-29T12:57:58.346Z",
+  "createdAt": "2026-05-28T12:05:16.924Z",
+  "id": "u9AJYMfQwtnRT4ht",
+  "name": "homeAssistantVoice",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "={{ $json.body.text }}"
+            },
+            {
+              "role": "system",
+              "content": "You are a home assistant. Answer concisely in one or two sentences maximum. You control smart home devices and answer home related questions."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        176,
+        -224
+      ],
+      "id": "a75df97b-4ad9-4079-887b-9547a9a38b1c",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "LnHSpVAITEYUaRiS",
+          "name": "OpenAI account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=={{ $json.message.content }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        528,
+        -224
+      ],
+      "id": "6ffda91b-366c-40d2-8004-0b090b75cdd6",
+      "name": "Respond to Webhook",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "service",
+        "operation": "call",
+        "domain": "tts",
+        "service": "speak",
+        "serviceAttributes": {
+          "attributes": [
+            {
+              "name": "media_player_entity_id",
+              "value": "media_player.home_assistant_voice_0aaedc_media_player"
+            },
+            {
+              "name": "message",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "entity_id",
+              "value": "tts.piper"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.homeAssistant",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        144
+      ],
+      "id": "f3a5385b-97c1-4f7f-8a75-cf6a36a84ac9",
+      "name": "Call a service",
+      "credentials": {
+        "homeAssistantApi": {
+          "id": "rfvRGegM4Wgfextc",
+          "name": "Home Assistant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "64e302c4-acea-47dc-b67d-1d5f445e7fd7",
+              "name": "text",
+              "value": "Hello World!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -272,
+        144
+      ],
+      "id": "2684118b-8c5a-48b5-b657-480bf7d40f1d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "homeAssistantVoice",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -528,
+        144
+      ],
+      "id": "9fe2874a-c7d2-4a02-98a5-1f5c5a3aeb7b",
+      "name": "Webhook",
+      "webhookId": "390727da-407a-4e9f-a899-22824a954dd1"
+    },
+    {
+      "parameters": {
+        "resource": "state",
+        "operation": "getAll",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.homeAssistant",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        -160
+      ],
+      "id": "416f55e2-989d-42c8-90cc-1b76fee8b02c",
+      "name": "Get many states",
+      "credentials": {
+        "homeAssistantApi": {
+          "id": "rfvRGegM4Wgfextc",
+          "name": "Home Assistant account"
+        }
+      },
+      "disabled": true
+    }
+  ],
+  "connections": {
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Call a service",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "f1b173b8-200e-4242-a45e-7b2ab0c8393f",
+  "activeVersionId": "f1b173b8-200e-4242-a45e-7b2ab0c8393f",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "updatedAt": "2026-05-28T12:05:16.930Z",
+      "createdAt": "2026-05-28T12:05:16.930Z",
+      "role": "workflow:owner",
+      "workflowId": "u9AJYMfQwtnRT4ht",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-05-29T12:57:59.000Z",
+    "createdAt": "2026-05-29T12:57:58.348Z",
+    "versionId": "f1b173b8-200e-4242-a45e-7b2ab0c8393f",
+    "workflowId": "u9AJYMfQwtnRT4ht",
+    "nodes": [
+      {
+        "parameters": {
+          "modelId": {
+            "__rl": true,
+            "value": "gpt-4o-mini",
+            "mode": "list",
+            "cachedResultName": "GPT-4O-MINI"
+          },
+          "responses": {
+            "values": [
+              {
+                "content": "={{ $json.body.text }}"
+              },
+              {
+                "role": "system",
+                "content": "You are a home assistant. Answer concisely in one or two sentences maximum. You control smart home devices and answer home related questions."
+              }
+            ]
+          },
+          "builtInTools": {},
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.openAi",
+        "typeVersion": 2.3,
+        "position": [
+          176,
+          -224
+        ],
+        "id": "a75df97b-4ad9-4079-887b-9547a9a38b1c",
+        "name": "Message a model",
+        "credentials": {
+          "openAiApi": {
+            "id": "LnHSpVAITEYUaRiS",
+            "name": "OpenAI account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "respondWith": "text",
+          "responseBody": "=={{ $json.message.content }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.5,
+        "position": [
+          528,
+          -224
+        ],
+        "id": "6ffda91b-366c-40d2-8004-0b090b75cdd6",
+        "name": "Respond to Webhook",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "resource": "service",
+          "operation": "call",
+          "domain": "tts",
+          "service": "speak",
+          "serviceAttributes": {
+            "attributes": [
+              {
+                "name": "media_player_entity_id",
+                "value": "media_player.home_assistant_voice_0aaedc_media_player"
+              },
+              {
+                "name": "message",
+                "value": "={{ $json.text }}"
+              },
+              {
+                "name": "entity_id",
+                "value": "tts.piper"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.homeAssistant",
+        "typeVersion": 1,
+        "position": [
+          -32,
+          144
+        ],
+        "id": "f3a5385b-97c1-4f7f-8a75-cf6a36a84ac9",
+        "name": "Call a service",
+        "credentials": {
+          "homeAssistantApi": {
+            "id": "rfvRGegM4Wgfextc",
+            "name": "Home Assistant account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "64e302c4-acea-47dc-b67d-1d5f445e7fd7",
+                "name": "text",
+                "value": "Hello World!",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -272,
+          144
+        ],
+        "id": "2684118b-8c5a-48b5-b657-480bf7d40f1d",
+        "name": "Edit Fields"
+      },
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "homeAssistantVoice",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "position": [
+          -528,
+          144
+        ],
+        "id": "9fe2874a-c7d2-4a02-98a5-1f5c5a3aeb7b",
+        "name": "Webhook",
+        "webhookId": "390727da-407a-4e9f-a899-22824a954dd1"
+      },
+      {
+        "parameters": {
+          "resource": "state",
+          "operation": "getAll",
+          "returnAll": true
+        },
+        "type": "n8n-nodes-base.homeAssistant",
+        "typeVersion": 1,
+        "position": [
+          -432,
+          -160
+        ],
+        "id": "416f55e2-989d-42c8-90cc-1b76fee8b02c",
+        "name": "Get many states",
+        "credentials": {
+          "homeAssistantApi": {
+            "id": "rfvRGegM4Wgfextc",
+            "name": "Home Assistant account"
+          }
+        },
+        "disabled": true
+      }
+    ],
+    "connections": {
+      "Message a model": {
+        "main": [
+          [
+            {
+              "node": "Respond to Webhook",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields": {
+        "main": [
+          [
+            {
+              "node": "Call a service",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Webhook": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Argentum Orchesta",
+    "name": "Version f1b173b8",
+    "description": "",
+    "autosaved": true
+  },
+  "tags": []
+}
