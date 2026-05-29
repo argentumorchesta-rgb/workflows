@@ -1,0 +1,31 @@
+{
+  "updatedAt": "2026-05-29T11:48:43.000Z",
+  "createdAt": "2026-05-29T11:26:16.277Z",
+  "id": "rZxk4mdkIag0O5pI",
+  "name": "mcpServer",
+  "active": false,
+  "isArchived": true,
+  "nodes": [],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "8324657d-2f6c-48a9-acea-4227b4bc48c9",
+  "activeVersionId": null,
+  "triggerCount": 1,
+  "shared": [
+    {
+      "updatedAt": "2026-05-29T11:26:16.281Z",
+      "createdAt": "2026-05-29T11:26:16.281Z",
+      "role": "workflow:owner",
+      "workflowId": "rZxk4mdkIag0O5pI",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}
