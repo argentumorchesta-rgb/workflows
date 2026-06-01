@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-17T10:47:18.628Z",
+  "updatedAt": "2026-06-01T10:18:12.754Z",
   "createdAt": "2026-05-09T09:49:07.259Z",
   "id": "IPnihWjOYJfjF2GM",
   "name": "cleanGitHub",
@@ -56,7 +56,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return $('Start').first().json.updateStatus1_allItems.map(({ json }) => ({\n  json: {\n    file_name: json.Id + \".png\",\n  }\n}));"
+        "jsCode": "return $('Start').first().json.updateStatus1_allItems.map(({ json }) => {\n  let ext;\n  if (json.Id.startsWith(\"REEL_\")) {\n    ext = \".mp4\";\n  } else if (json.Id.startsWith(\"IMAGE_\")) {\n    ext = \".png\";\n  } else {\n    throw new Error(`Unexpected Id prefix: ${json.Id}`);\n  }\n  return {\n    json: {\n      file_name: json.Id + ext,\n    }\n  };\n});"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -197,8 +197,8 @@
   "staticData": null,
   "meta": null,
   "pinData": {},
-  "versionId": "cf5a7385-e128-456e-b5c6-1343be98cf77",
-  "activeVersionId": "cf5a7385-e128-456e-b5c6-1343be98cf77",
+  "versionId": "7b27fcbd-754a-4746-90b8-92bf5574e949",
+  "activeVersionId": "7b27fcbd-754a-4746-90b8-92bf5574e949",
   "triggerCount": 0,
   "shared": [
     {
@@ -210,9 +210,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-05-17T10:47:21.000Z",
-    "createdAt": "2026-05-17T10:47:18.629Z",
-    "versionId": "cf5a7385-e128-456e-b5c6-1343be98cf77",
+    "updatedAt": "2026-06-01T10:18:16.000Z",
+    "createdAt": "2026-06-01T10:18:12.755Z",
+    "versionId": "7b27fcbd-754a-4746-90b8-92bf5574e949",
     "workflowId": "IPnihWjOYJfjF2GM",
     "nodes": [
       {
@@ -265,7 +265,7 @@
       },
       {
         "parameters": {
-          "jsCode": "return $('Start').first().json.updateStatus1_allItems.map(({ json }) => ({\n  json: {\n    file_name: json.Id + \".png\",\n  }\n}));"
+          "jsCode": "return $('Start').first().json.updateStatus1_allItems.map(({ json }) => {\n  let ext;\n  if (json.Id.startsWith(\"REEL_\")) {\n    ext = \".mp4\";\n  } else if (json.Id.startsWith(\"IMAGE_\")) {\n    ext = \".png\";\n  } else {\n    throw new Error(`Unexpected Id prefix: ${json.Id}`);\n  }\n  return {\n    json: {\n      file_name: json.Id + ext,\n    }\n  };\n});"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -399,7 +399,7 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version cf5a7385",
+    "name": "Version 7b27fcbd",
     "description": "",
     "autosaved": true
   },
