@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-28T12:29:37.763Z",
+  "updatedAt": "2026-06-01T10:24:49.650Z",
   "createdAt": "2026-05-08T08:29:45.507Z",
   "id": "oo6JjWbpUndw5o2b",
   "name": "calendar",
@@ -28,7 +28,7 @@
       "typeVersion": 1,
       "position": [
         -336,
-        224
+        368
       ],
       "id": "1060119d-983f-41c8-8b8d-c521bff35938",
       "name": "Google Calendar Trigger",
@@ -191,6 +191,31 @@
               },
               "renameOutput": true,
               "outputKey": "TikTok"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "e5bcdf21-7f1e-486a-a513-d8bbad5d1450",
+                    "leftValue": "={{ $json.summary }}",
+                    "rightValue": "Update",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Update"
             }
           ]
         },
@@ -200,7 +225,7 @@
       "typeVersion": 3.4,
       "position": [
         -112,
-        160
+        288
       ],
       "id": "62df02ab-3a4e-4da9-a3fb-bdf14662a7b2",
       "name": "Switch"
@@ -224,7 +249,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        320
+        368
       ],
       "id": "f330e100-2cd6-4d45-8f0a-8cf3ec9456ff",
       "name": "reportTelegram3"
@@ -248,7 +273,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        512
+        752
       ],
       "id": "6a295616-80e0-400a-bc86-e96b9f8576f8",
       "name": "reportTelegram4"
@@ -272,7 +297,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        704
+        944
       ],
       "id": "7846b0a1-3d87-4594-a147-4624964ae719",
       "name": "reportTelegram5"
@@ -293,7 +318,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        -224
+        560
       ],
       "id": "6638f8f8-16f0-4b4b-864b-0fef2c4af390",
       "name": "getUpdate"
@@ -314,7 +339,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        -64
+        -16
       ],
       "id": "f9614e88-f099-4ddc-b09a-3e51101b3acb",
       "name": "postCarousels"
@@ -335,10 +360,31 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        128
+        176
       ],
       "id": "7553e578-9088-4981-ab2f-1d0e6349e3d6",
       "name": "postStories"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.argentumorchesta.org/webhook/postReels",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        112,
+        -208
+      ],
+      "id": "765f0af8-9464-4e02-8e1c-61f66c90b175",
+      "name": "postReels"
     }
   ],
   "connections": {
@@ -364,7 +410,7 @@
         ],
         [
           {
-            "node": "getUpdate",
+            "node": "postReels",
             "type": "main",
             "index": 0
           }
@@ -396,6 +442,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "getUpdate",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     }
@@ -406,15 +459,15 @@
   },
   "staticData": {
     "node:Google Calendar Trigger": {
-      "lastTimeChecked": "2026-05-30T21:00:18Z"
+      "lastTimeChecked": "2026-06-01T10:24:53Z"
     }
   },
   "meta": {
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "3254d460-a0a1-4bc2-bbde-65c125924ff9",
-  "activeVersionId": "3254d460-a0a1-4bc2-bbde-65c125924ff9",
+  "versionId": "d0246de5-003a-41b0-b37f-6efd9d968e6b",
+  "activeVersionId": "d0246de5-003a-41b0-b37f-6efd9d968e6b",
   "triggerCount": 1,
   "shared": [
     {
@@ -426,9 +479,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-05-28T12:29:39.000Z",
-    "createdAt": "2026-05-28T12:29:37.765Z",
-    "versionId": "3254d460-a0a1-4bc2-bbde-65c125924ff9",
+    "updatedAt": "2026-06-01T10:24:54.000Z",
+    "createdAt": "2026-06-01T10:24:49.653Z",
+    "versionId": "d0246de5-003a-41b0-b37f-6efd9d968e6b",
     "workflowId": "oo6JjWbpUndw5o2b",
     "nodes": [
       {
@@ -453,7 +506,7 @@
         "typeVersion": 1,
         "position": [
           -336,
-          224
+          368
         ],
         "id": "1060119d-983f-41c8-8b8d-c521bff35938",
         "name": "Google Calendar Trigger",
@@ -616,6 +669,31 @@
                 },
                 "renameOutput": true,
                 "outputKey": "TikTok"
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "id": "e5bcdf21-7f1e-486a-a513-d8bbad5d1450",
+                      "leftValue": "={{ $json.summary }}",
+                      "rightValue": "Update",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "name": "filter.operator.equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "Update"
               }
             ]
           },
@@ -625,7 +703,7 @@
         "typeVersion": 3.4,
         "position": [
           -112,
-          160
+          288
         ],
         "id": "62df02ab-3a4e-4da9-a3fb-bdf14662a7b2",
         "name": "Switch"
@@ -649,7 +727,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          320
+          368
         ],
         "id": "f330e100-2cd6-4d45-8f0a-8cf3ec9456ff",
         "name": "reportTelegram3"
@@ -673,7 +751,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          512
+          752
         ],
         "id": "6a295616-80e0-400a-bc86-e96b9f8576f8",
         "name": "reportTelegram4"
@@ -697,7 +775,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          704
+          944
         ],
         "id": "7846b0a1-3d87-4594-a147-4624964ae719",
         "name": "reportTelegram5"
@@ -718,7 +796,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          -224
+          560
         ],
         "id": "6638f8f8-16f0-4b4b-864b-0fef2c4af390",
         "name": "getUpdate"
@@ -739,7 +817,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          -64
+          -16
         ],
         "id": "f9614e88-f099-4ddc-b09a-3e51101b3acb",
         "name": "postCarousels"
@@ -760,10 +838,31 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          128
+          176
         ],
         "id": "7553e578-9088-4981-ab2f-1d0e6349e3d6",
         "name": "postStories"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://n8n.argentumorchesta.org/webhook/postReels",
+          "sendBody": true,
+          "bodyParameters": {
+            "parameters": [
+              {}
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          112,
+          -208
+        ],
+        "id": "765f0af8-9464-4e02-8e1c-61f66c90b175",
+        "name": "postReels"
       }
     ],
     "connections": {
@@ -789,7 +888,7 @@
           ],
           [
             {
-              "node": "getUpdate",
+              "node": "postReels",
               "type": "main",
               "index": 0
             }
@@ -821,14 +920,21 @@
               "type": "main",
               "index": 0
             }
+          ],
+          [
+            {
+              "node": "getUpdate",
+              "type": "main",
+              "index": 0
+            }
           ]
         ]
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version 3254d460",
+    "name": "Version d0246de5",
     "description": "",
-    "autosaved": false
+    "autosaved": true
   },
   "tags": []
 }
