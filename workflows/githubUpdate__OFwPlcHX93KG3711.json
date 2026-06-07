@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-16T08:36:43.499Z",
+  "updatedAt": "2026-06-07T12:43:56.491Z",
   "createdAt": "2026-05-16T07:35:26.944Z",
   "id": "OFwPlcHX93KG3711",
   "name": "githubUpdate",
@@ -14,7 +14,7 @@
       "typeVersion": 1,
       "position": [
         112,
-        440
+        448
       ]
     },
     {
@@ -24,8 +24,7 @@
             {
               "field": "cronExpression",
               "expression": "0 3 * * *"
-            },
-            {}
+            }
           ]
         }
       },
@@ -35,7 +34,7 @@
       "typeVersion": 1.2,
       "position": [
         112,
-        632
+        640
       ]
     },
     {
@@ -62,7 +61,7 @@
       "typeVersion": 4.2,
       "position": [
         560,
-        536
+        544
       ]
     },
     {
@@ -75,7 +74,7 @@
       "typeVersion": 3,
       "position": [
         1008,
-        536
+        544
       ]
     },
     {
@@ -154,7 +153,7 @@
       "typeVersion": 3.4,
       "position": [
         336,
-        536
+        544
       ]
     },
     {
@@ -180,7 +179,7 @@
       "typeVersion": 1.1,
       "position": [
         1904,
-        440
+        448
       ],
       "id": "03808ee5-b041-4768-a88d-f2755585064e",
       "name": "Create a file1",
@@ -202,7 +201,7 @@
       "typeVersion": 2,
       "position": [
         784,
-        536
+        544
       ]
     },
     {
@@ -475,8 +474,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "4a916faf-7af9-47fa-8709-d4dc88551a2d",
-  "activeVersionId": "4a916faf-7af9-47fa-8709-d4dc88551a2d",
+  "versionId": "73254843-2140-4751-bb22-e2264c5c192e",
+  "activeVersionId": "73254843-2140-4751-bb22-e2264c5c192e",
   "triggerCount": 1,
   "shared": [
     {
@@ -488,9 +487,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-05-16T08:36:53.000Z",
-    "createdAt": "2026-05-16T08:36:43.501Z",
-    "versionId": "4a916faf-7af9-47fa-8709-d4dc88551a2d",
+    "updatedAt": "2026-06-07T12:44:05.000Z",
+    "createdAt": "2026-06-07T12:43:56.493Z",
+    "versionId": "73254843-2140-4751-bb22-e2264c5c192e",
     "workflowId": "OFwPlcHX93KG3711",
     "nodes": [
       {
@@ -501,7 +500,7 @@
         "typeVersion": 1,
         "position": [
           112,
-          440
+          448
         ]
       },
       {
@@ -511,8 +510,7 @@
               {
                 "field": "cronExpression",
                 "expression": "0 3 * * *"
-              },
-              {}
+              }
             ]
           }
         },
@@ -522,7 +520,7 @@
         "typeVersion": 1.2,
         "position": [
           112,
-          632
+          640
         ]
       },
       {
@@ -549,7 +547,7 @@
         "typeVersion": 4.2,
         "position": [
           560,
-          536
+          544
         ]
       },
       {
@@ -562,7 +560,7 @@
         "typeVersion": 3,
         "position": [
           1008,
-          536
+          544
         ]
       },
       {
@@ -641,7 +639,7 @@
         "typeVersion": 3.4,
         "position": [
           336,
-          536
+          544
         ]
       },
       {
@@ -667,7 +665,7 @@
         "typeVersion": 1.1,
         "position": [
           1904,
-          440
+          448
         ],
         "id": "03808ee5-b041-4768-a88d-f2755585064e",
         "name": "Create a file1",
@@ -689,7 +687,7 @@
         "typeVersion": 2,
         "position": [
           784,
-          536
+          544
         ]
       },
       {
@@ -950,7 +948,7 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version 4a916faf",
+    "name": "Version 73254843",
     "description": "",
     "autosaved": true
   },
