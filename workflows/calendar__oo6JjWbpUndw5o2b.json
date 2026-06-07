@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-01T10:24:49.650Z",
+  "updatedAt": "2026-06-06T23:58:22.127Z",
   "createdAt": "2026-05-08T08:29:45.507Z",
   "id": "oo6JjWbpUndw5o2b",
   "name": "calendar",
@@ -28,7 +28,7 @@
       "typeVersion": 1,
       "position": [
         -336,
-        368
+        640
       ],
       "id": "1060119d-983f-41c8-8b8d-c521bff35938",
       "name": "Google Calendar Trigger",
@@ -225,7 +225,7 @@
       "typeVersion": 3.4,
       "position": [
         -112,
-        288
+        560
       ],
       "id": "62df02ab-3a4e-4da9-a3fb-bdf14662a7b2",
       "name": "Switch"
@@ -249,7 +249,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        368
+        640
       ],
       "id": "f330e100-2cd6-4d45-8f0a-8cf3ec9456ff",
       "name": "reportTelegram3"
@@ -273,7 +273,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        752
+        1024
       ],
       "id": "6a295616-80e0-400a-bc86-e96b9f8576f8",
       "name": "reportTelegram4"
@@ -297,7 +297,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        944
+        1216
       ],
       "id": "7846b0a1-3d87-4594-a147-4624964ae719",
       "name": "reportTelegram5"
@@ -318,7 +318,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        560
+        832
       ],
       "id": "6638f8f8-16f0-4b4b-864b-0fef2c4af390",
       "name": "getUpdate"
@@ -339,7 +339,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        -16
+        64
       ],
       "id": "f9614e88-f099-4ddc-b09a-3e51101b3acb",
       "name": "postCarousels"
@@ -360,7 +360,7 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        176
+        448
       ],
       "id": "7553e578-9088-4981-ab2f-1d0e6349e3d6",
       "name": "postStories"
@@ -381,10 +381,32 @@
       "typeVersion": 4.4,
       "position": [
         112,
-        -208
+        256
       ],
       "id": "765f0af8-9464-4e02-8e1c-61f66c90b175",
       "name": "postReels"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.argentumorchesta.org/webhook/mediaUpdate",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -336,
+        -160
+      ],
+      "id": "a119784d-addd-4452-b697-bb2b56a79615",
+      "name": "getUpdate1",
+      "disabled": true
     }
   ],
   "connections": {
@@ -459,15 +481,15 @@
   },
   "staticData": {
     "node:Google Calendar Trigger": {
-      "lastTimeChecked": "2026-06-04T21:00:44Z"
+      "lastTimeChecked": "2026-06-06T23:58:23Z"
     }
   },
   "meta": {
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "d0246de5-003a-41b0-b37f-6efd9d968e6b",
-  "activeVersionId": "d0246de5-003a-41b0-b37f-6efd9d968e6b",
+  "versionId": "64df61f5-d7e2-480a-9d07-3789675ac7b7",
+  "activeVersionId": "64df61f5-d7e2-480a-9d07-3789675ac7b7",
   "triggerCount": 1,
   "shared": [
     {
@@ -479,9 +501,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-06-01T10:24:54.000Z",
-    "createdAt": "2026-06-01T10:24:49.653Z",
-    "versionId": "d0246de5-003a-41b0-b37f-6efd9d968e6b",
+    "updatedAt": "2026-06-06T23:58:23.000Z",
+    "createdAt": "2026-06-06T23:58:22.129Z",
+    "versionId": "64df61f5-d7e2-480a-9d07-3789675ac7b7",
     "workflowId": "oo6JjWbpUndw5o2b",
     "nodes": [
       {
@@ -506,7 +528,7 @@
         "typeVersion": 1,
         "position": [
           -336,
-          368
+          640
         ],
         "id": "1060119d-983f-41c8-8b8d-c521bff35938",
         "name": "Google Calendar Trigger",
@@ -703,7 +725,7 @@
         "typeVersion": 3.4,
         "position": [
           -112,
-          288
+          560
         ],
         "id": "62df02ab-3a4e-4da9-a3fb-bdf14662a7b2",
         "name": "Switch"
@@ -727,7 +749,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          368
+          640
         ],
         "id": "f330e100-2cd6-4d45-8f0a-8cf3ec9456ff",
         "name": "reportTelegram3"
@@ -751,7 +773,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          752
+          1024
         ],
         "id": "6a295616-80e0-400a-bc86-e96b9f8576f8",
         "name": "reportTelegram4"
@@ -775,7 +797,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          944
+          1216
         ],
         "id": "7846b0a1-3d87-4594-a147-4624964ae719",
         "name": "reportTelegram5"
@@ -796,7 +818,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          560
+          832
         ],
         "id": "6638f8f8-16f0-4b4b-864b-0fef2c4af390",
         "name": "getUpdate"
@@ -817,7 +839,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          -16
+          64
         ],
         "id": "f9614e88-f099-4ddc-b09a-3e51101b3acb",
         "name": "postCarousels"
@@ -838,7 +860,7 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          176
+          448
         ],
         "id": "7553e578-9088-4981-ab2f-1d0e6349e3d6",
         "name": "postStories"
@@ -859,10 +881,32 @@
         "typeVersion": 4.4,
         "position": [
           112,
-          -208
+          256
         ],
         "id": "765f0af8-9464-4e02-8e1c-61f66c90b175",
         "name": "postReels"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://n8n.argentumorchesta.org/webhook/mediaUpdate",
+          "sendBody": true,
+          "bodyParameters": {
+            "parameters": [
+              {}
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          -336,
+          -160
+        ],
+        "id": "a119784d-addd-4452-b697-bb2b56a79615",
+        "name": "getUpdate1",
+        "disabled": true
       }
     ],
     "connections": {
@@ -932,7 +976,7 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version d0246de5",
+    "name": "Version 64df61f5",
     "description": "",
     "autosaved": true
   },
