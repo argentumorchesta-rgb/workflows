@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-01T10:23:26.677Z",
+  "updatedAt": "2026-06-07T12:12:44.290Z",
   "createdAt": "2026-05-04T08:05:03.846Z",
   "id": "V1wzIXcLIXW5BC1I",
   "name": "mediaPoster",
@@ -40,7 +40,7 @@
       "typeVersion": 4.7,
       "position": [
         -1968,
-        -56
+        -64
       ],
       "id": "de972c17-fc1f-4c13-afe8-3cf58daa3ff9",
       "name": "getImages",
@@ -60,7 +60,7 @@
       "typeVersion": 2,
       "position": [
         -1520,
-        -56
+        -64
       ],
       "id": "3338c497-5d8c-4e12-89d7-aa69161e2c2d",
       "name": "selectCaroussel"
@@ -131,7 +131,7 @@
       "typeVersion": 3.4,
       "position": [
         -2192,
-        -56
+        -64
       ],
       "id": "0ff9bf08-a3a3-4693-8f5d-ed9914c1e170",
       "name": "Tokens"
@@ -144,7 +144,7 @@
       "typeVersion": 2,
       "position": [
         -624,
-        -56
+        -64
       ],
       "id": "8527f3d3-0b03-4b6c-bd18-53e2724c21a8",
       "name": "reGroup"
@@ -179,7 +179,7 @@
       "typeVersion": 4.7,
       "position": [
         720,
-        -56
+        -64
       ],
       "id": "6e991482-d7bd-496a-bb90-108781a5afbc",
       "name": "getImagesStatus",
@@ -199,7 +199,7 @@
       "typeVersion": 2,
       "position": [
         944,
-        -56
+        -64
       ],
       "id": "d0880fc4-04d2-49c0-97d6-cb0a420d5135",
       "name": "updateStatus"
@@ -314,7 +314,7 @@
       "typeVersion": 4.7,
       "position": [
         1168,
-        -56
+        -64
       ],
       "id": "9ff0f755-6bcd-4cc6-ba89-c12fb2f7e6d5",
       "name": "updateSheet",
@@ -333,7 +333,7 @@
       "typeVersion": 2,
       "position": [
         -1072,
-        -56
+        -64
       ],
       "id": "8516dd02-69f1-4d34-a1ca-7b2bdef2a2bf",
       "name": "packCaroussel"
@@ -483,7 +483,7 @@
       "typeVersion": 2.3,
       "position": [
         -1744,
-        -56
+        -64
       ],
       "id": "b10ee40d-7767-4f98-92ee-1b1358dc3983",
       "name": "filterCarousels"
@@ -746,7 +746,7 @@
       "typeVersion": 3.2,
       "position": [
         272,
-        -56
+        -64
       ],
       "id": "d98aaf2c-ce5a-4c34-9f5e-62790c7689f8",
       "name": "Merge"
@@ -802,7 +802,7 @@
       "typeVersion": 1.2,
       "position": [
         -1296,
-        -56
+        -64
       ],
       "name": "Call createPublicLinks1",
       "id": "78de5803-7b1f-4f2a-9762-6c396b5b5d5e"
@@ -830,7 +830,7 @@
       "typeVersion": 1.2,
       "position": [
         -848,
-        312
+        320
       ],
       "name": "Call publishStory",
       "id": "031c5f6b-7257-4142-9691-5e9d3f8f9a07"
@@ -951,7 +951,7 @@
       "typeVersion": 1.2,
       "position": [
         1392,
-        -56
+        -64
       ],
       "name": "Call cleanGitHub1",
       "id": "deeab04c-be89-4d85-a8ff-1f4071a59714"
@@ -992,7 +992,7 @@
       "typeVersion": 2,
       "position": [
         -624,
-        312
+        320
       ],
       "id": "a5cfdda8-247b-4c57-9ebd-495071af02d1",
       "name": "setMessage"
@@ -1016,7 +1016,7 @@
       "typeVersion": 4.4,
       "position": [
         -400,
-        312
+        320
       ],
       "id": "32826cc9-4e96-4f2c-a2b8-cbc8426f5961",
       "name": "reportTelegram"
@@ -1044,7 +1044,7 @@
       "typeVersion": 1.2,
       "position": [
         -848,
-        -56
+        -64
       ],
       "name": "Call createContainer",
       "id": "c12f64aa-42da-4c3d-8fbf-f57ebec4fdd7"
@@ -1059,7 +1059,7 @@
       "typeVersion": 2.1,
       "position": [
         -2416,
-        -56
+        -64
       ],
       "id": "01f6a042-91b0-4d56-9e99-df5849dbb02f",
       "name": "Webhook1",
@@ -1090,7 +1090,7 @@
       "typeVersion": 1,
       "position": [
         496,
-        -56
+        -64
       ],
       "id": "8de143bc-5f7c-408f-be9d-916955c68098",
       "name": "Split Out"
@@ -1138,19 +1138,19 @@
             {
               "id": "ddcc1a3e-b8ad-4086-999f-42a4606d1770",
               "name": "maeveCaption",
-              "value": "Quiet strength. Steady faith. ✝️🤍 #irishgirl #shygirl #quietconfidence #faithandgrace #catholicgirl",
+              "value": "Grace in the small things. ✝️🤍 #redheadsofinstagram #freckles #gingerbeauty #cottagecore #softgirlaesthetic",
               "type": "string"
             },
             {
               "id": "873d4245-fd4d-47a8-a8e6-2f3a84780952",
               "name": "elaraCaption",
-              "value": "Soft light. Sharp mind. 🤍🔮 #scandinaviangirl #darkacademia #glassesaesthetic #minimalistgirl #intellectualgirl",
+              "value": "Quiet authority, loud ideas. 🤍🔮 #violeteyes #glassesaesthetic #minimalistgirl #intellectualgirl #aimodel",
               "type": "string"
             },
             {
               "id": "8527a9a3-15a9-4aa7-9c69-c10c9e422e2a",
               "name": "amaraCaption",
-              "value": "Rooted in power. Born to stand out. 🖤✨ #afrofuturism #blackisbeautiful #editorialbeauty #melaninpoppin #nigeriangirl",
+              "value": "Built to be remembered.🖤✨ #nigeriangirl #darkskingirls #blackisbeautiful #africanqueen #aimodel ",
               "type": "string"
             }
           ]
@@ -1320,7 +1320,7 @@
       "typeVersion": 1.2,
       "position": [
         -848,
-        -280
+        -288
       ],
       "name": "Call publishReel",
       "id": "949c1619-64c9-4eb8-87ff-6a8a997d2865"
@@ -1540,7 +1540,7 @@
       "typeVersion": 2,
       "position": [
         -624,
-        -280
+        -288
       ],
       "id": "f18c6324-0b30-49ed-b61a-1d7a79c97e4c",
       "name": "setMessage2"
@@ -1564,7 +1564,7 @@
       "typeVersion": 4.4,
       "position": [
         -400,
-        -280
+        -288
       ],
       "id": "8517c648-8662-424a-9a99-0c4869b87494",
       "name": "reportTelegram1"
@@ -2149,8 +2149,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "e13fb3b8-a09e-4e4d-8764-1e47db5fc8be",
-  "activeVersionId": "e13fb3b8-a09e-4e4d-8764-1e47db5fc8be",
+  "versionId": "d789aec4-fda3-4787-bb49-0a9d8c275a7a",
+  "activeVersionId": "d789aec4-fda3-4787-bb49-0a9d8c275a7a",
   "triggerCount": 3,
   "shared": [
     {
@@ -2162,9 +2162,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-06-01T10:25:06.000Z",
-    "createdAt": "2026-06-01T10:23:26.680Z",
-    "versionId": "e13fb3b8-a09e-4e4d-8764-1e47db5fc8be",
+    "updatedAt": "2026-06-07T12:41:53.000Z",
+    "createdAt": "2026-06-07T12:12:44.294Z",
+    "versionId": "d789aec4-fda3-4787-bb49-0a9d8c275a7a",
     "workflowId": "V1wzIXcLIXW5BC1I",
     "nodes": [
       {
@@ -2201,7 +2201,7 @@
         "typeVersion": 4.7,
         "position": [
           -1968,
-          -56
+          -64
         ],
         "id": "de972c17-fc1f-4c13-afe8-3cf58daa3ff9",
         "name": "getImages",
@@ -2221,7 +2221,7 @@
         "typeVersion": 2,
         "position": [
           -1520,
-          -56
+          -64
         ],
         "id": "3338c497-5d8c-4e12-89d7-aa69161e2c2d",
         "name": "selectCaroussel"
@@ -2292,7 +2292,7 @@
         "typeVersion": 3.4,
         "position": [
           -2192,
-          -56
+          -64
         ],
         "id": "0ff9bf08-a3a3-4693-8f5d-ed9914c1e170",
         "name": "Tokens"
@@ -2305,7 +2305,7 @@
         "typeVersion": 2,
         "position": [
           -624,
-          -56
+          -64
         ],
         "id": "8527f3d3-0b03-4b6c-bd18-53e2724c21a8",
         "name": "reGroup"
@@ -2340,7 +2340,7 @@
         "typeVersion": 4.7,
         "position": [
           720,
-          -56
+          -64
         ],
         "id": "6e991482-d7bd-496a-bb90-108781a5afbc",
         "name": "getImagesStatus",
@@ -2360,7 +2360,7 @@
         "typeVersion": 2,
         "position": [
           944,
-          -56
+          -64
         ],
         "id": "d0880fc4-04d2-49c0-97d6-cb0a420d5135",
         "name": "updateStatus"
@@ -2475,7 +2475,7 @@
         "typeVersion": 4.7,
         "position": [
           1168,
-          -56
+          -64
         ],
         "id": "9ff0f755-6bcd-4cc6-ba89-c12fb2f7e6d5",
         "name": "updateSheet",
@@ -2494,7 +2494,7 @@
         "typeVersion": 2,
         "position": [
           -1072,
-          -56
+          -64
         ],
         "id": "8516dd02-69f1-4d34-a1ca-7b2bdef2a2bf",
         "name": "packCaroussel"
@@ -2644,7 +2644,7 @@
         "typeVersion": 2.3,
         "position": [
           -1744,
-          -56
+          -64
         ],
         "id": "b10ee40d-7767-4f98-92ee-1b1358dc3983",
         "name": "filterCarousels"
@@ -2907,7 +2907,7 @@
         "typeVersion": 3.2,
         "position": [
           272,
-          -56
+          -64
         ],
         "id": "d98aaf2c-ce5a-4c34-9f5e-62790c7689f8",
         "name": "Merge"
@@ -2963,7 +2963,7 @@
         "typeVersion": 1.2,
         "position": [
           -1296,
-          -56
+          -64
         ],
         "name": "Call createPublicLinks1",
         "id": "78de5803-7b1f-4f2a-9762-6c396b5b5d5e"
@@ -2991,7 +2991,7 @@
         "typeVersion": 1.2,
         "position": [
           -848,
-          312
+          320
         ],
         "name": "Call publishStory",
         "id": "031c5f6b-7257-4142-9691-5e9d3f8f9a07"
@@ -3112,7 +3112,7 @@
         "typeVersion": 1.2,
         "position": [
           1392,
-          -56
+          -64
         ],
         "name": "Call cleanGitHub1",
         "id": "deeab04c-be89-4d85-a8ff-1f4071a59714"
@@ -3153,7 +3153,7 @@
         "typeVersion": 2,
         "position": [
           -624,
-          312
+          320
         ],
         "id": "a5cfdda8-247b-4c57-9ebd-495071af02d1",
         "name": "setMessage"
@@ -3177,7 +3177,7 @@
         "typeVersion": 4.4,
         "position": [
           -400,
-          312
+          320
         ],
         "id": "32826cc9-4e96-4f2c-a2b8-cbc8426f5961",
         "name": "reportTelegram"
@@ -3205,7 +3205,7 @@
         "typeVersion": 1.2,
         "position": [
           -848,
-          -56
+          -64
         ],
         "name": "Call createContainer",
         "id": "c12f64aa-42da-4c3d-8fbf-f57ebec4fdd7"
@@ -3220,7 +3220,7 @@
         "typeVersion": 2.1,
         "position": [
           -2416,
-          -56
+          -64
         ],
         "id": "01f6a042-91b0-4d56-9e99-df5849dbb02f",
         "name": "Webhook1",
@@ -3251,7 +3251,7 @@
         "typeVersion": 1,
         "position": [
           496,
-          -56
+          -64
         ],
         "id": "8de143bc-5f7c-408f-be9d-916955c68098",
         "name": "Split Out"
@@ -3299,19 +3299,19 @@
               {
                 "id": "ddcc1a3e-b8ad-4086-999f-42a4606d1770",
                 "name": "maeveCaption",
-                "value": "Quiet strength. Steady faith. ✝️🤍 #irishgirl #shygirl #quietconfidence #faithandgrace #catholicgirl",
+                "value": "Grace in the small things. ✝️🤍 #redheadsofinstagram #freckles #gingerbeauty #cottagecore #softgirlaesthetic",
                 "type": "string"
               },
               {
                 "id": "873d4245-fd4d-47a8-a8e6-2f3a84780952",
                 "name": "elaraCaption",
-                "value": "Soft light. Sharp mind. 🤍🔮 #scandinaviangirl #darkacademia #glassesaesthetic #minimalistgirl #intellectualgirl",
+                "value": "Quiet authority, loud ideas. 🤍🔮 #violeteyes #glassesaesthetic #minimalistgirl #intellectualgirl #aimodel",
                 "type": "string"
               },
               {
                 "id": "8527a9a3-15a9-4aa7-9c69-c10c9e422e2a",
                 "name": "amaraCaption",
-                "value": "Rooted in power. Born to stand out. 🖤✨ #afrofuturism #blackisbeautiful #editorialbeauty #melaninpoppin #nigeriangirl",
+                "value": "Built to be remembered.🖤✨ #nigeriangirl #darkskingirls #blackisbeautiful #africanqueen #aimodel ",
                 "type": "string"
               }
             ]
@@ -3481,7 +3481,7 @@
         "typeVersion": 1.2,
         "position": [
           -848,
-          -280
+          -288
         ],
         "name": "Call publishReel",
         "id": "949c1619-64c9-4eb8-87ff-6a8a997d2865"
@@ -3701,7 +3701,7 @@
         "typeVersion": 2,
         "position": [
           -624,
-          -280
+          -288
         ],
         "id": "f18c6324-0b30-49ed-b61a-1d7a79c97e4c",
         "name": "setMessage2"
@@ -3725,7 +3725,7 @@
         "typeVersion": 4.4,
         "position": [
           -400,
-          -280
+          -288
         ],
         "id": "8517c648-8662-424a-9a99-0c4869b87494",
         "name": "reportTelegram1"
@@ -4302,7 +4302,7 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version e13fb3b8",
+    "name": "Version d789aec4",
     "description": "",
     "autosaved": true
   },
