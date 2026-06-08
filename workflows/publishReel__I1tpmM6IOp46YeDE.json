@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-01T10:03:44.270Z",
+  "updatedAt": "2026-06-08T03:08:34.834Z",
   "createdAt": "2026-06-01T09:41:10.134Z",
   "id": "I1tpmM6IOp46YeDE",
   "name": "publishReel",
@@ -76,6 +76,10 @@
             {
               "name": "access_token",
               "value": "={{ $json.token }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.caption }}"
             }
           ]
         },
@@ -192,8 +196,8 @@
   "staticData": null,
   "meta": null,
   "pinData": {},
-  "versionId": "3d9055da-4497-4f57-b513-f90b96d0f6bb",
-  "activeVersionId": "3d9055da-4497-4f57-b513-f90b96d0f6bb",
+  "versionId": "0db8fde1-3181-4067-beb0-121d32be5fd8",
+  "activeVersionId": "0db8fde1-3181-4067-beb0-121d32be5fd8",
   "triggerCount": 0,
   "shared": [
     {
@@ -205,9 +209,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-06-01T10:03:48.000Z",
-    "createdAt": "2026-06-01T10:03:38.002Z",
-    "versionId": "3d9055da-4497-4f57-b513-f90b96d0f6bb",
+    "updatedAt": "2026-06-08T03:08:40.000Z",
+    "createdAt": "2026-06-08T03:08:34.837Z",
+    "versionId": "0db8fde1-3181-4067-beb0-121d32be5fd8",
     "workflowId": "I1tpmM6IOp46YeDE",
     "nodes": [
       {
@@ -280,6 +284,10 @@
               {
                 "name": "access_token",
                 "value": "={{ $json.token }}"
+              },
+              {
+                "name": "caption",
+                "value": "={{ $json.caption }}"
               }
             ]
           },
@@ -389,7 +397,7 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version 3d9055da",
+    "name": "Version 0db8fde1",
     "description": "",
     "autosaved": true
   },
