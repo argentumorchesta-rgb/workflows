@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-07T00:31:32.596Z",
+  "updatedAt": "2026-06-08T20:23:04.022Z",
   "createdAt": "2026-05-03T07:17:21.681Z",
   "id": "FkBl1KSk0YRXEmv0",
   "name": "mediaMonitor",
@@ -24,19 +24,19 @@
             {
               "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
               "name": "maeveToken",
-              "value": "IGAAXVb07ZCZBz9BZAGJoVThhcm02Tl9GeElJRl9PZAUJZARmhyRUdzNjRIYW1YaFNEYVo4a1gwRG1lRFFGQXJOUm9qY0haM0dTWDlUbS1TTkhmeThEeXJEdWstUlJIbEVWSkZAwVDk4a0tuRE9xZADVfLWtCb1FnLVVQMUFtdUtNeldrWQZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGFMMmhJZAmI4M28tYXNiVGFNbXhZAamd1TjkxcVBucmhXR053eHlIcGFrRktYeGYzRWlsTjF2WXlEZAWpfOXVoWVNpamFwdGRlSFV4VDQwVTE3aVI3bU5mNnN6V21pZA1NYVDVVUXI3RVlkNW1fR1BYSjRCY1lLRQZDZD",
               "type": "string"
             },
             {
               "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
               "name": "elaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAFpOTzNZAajh3WUh5MnVhX2NRQWctaHpyT1BUcnJ0NHNaVTNOSUNueTljNzN0eWZAMVmJfcXlNdFZASSEgyaW9KM3BsazVmUzVUZAkNoYXhMS1lQRUxmY1lfQ1QxMFJXZAzUxbXJyUC10a1Nya2pvTjJLc2J1bVVjTQZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGJDZAGc0c05NUXBSbVJ2NFZA4ZA2dTNWRrbGp2REFIWFF1Wi1HQmUwY25LRk9FNUlWbkpOc2VtTkZASMmR3Ylg4dV9obUNNekJtNmRaTUlyakFucGNxWXk2Y0JyTWQ4MHRQVUp6cC1fR3d6bU5FN2xTTnU4S3pnQQZDZD",
               "type": "string"
             },
             {
               "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
               "name": "amaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAGJwbl9UaGQ1QWlSSlJ1SHB3OER0YVJrVlJUVW0wbm9QVE1aaUpNNUFiNThKNkxIdUo1N0dGMk94YnpGYzl6LXJINXZA3RkwwdlFIbGFCSkZAZAaHltdGZApXzVKVW9MMkFZAX2E3UUFleDktUWh0WjJMOGcxS3AxMAZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGIyZAHJMamZAkb3Y5ZAE1DRDduTmY3UDMwNnlJQ3hiVThtU2tLUkNHOEhOcWFYZAm54X2ZAhNkc2Ykc0Y1lleXRobDVJMVJfck5tWmZA1S0tONXZA0Yk01QmVfVl9wSzZAVZATg0cEZA5dm5JX1RIVi1pRE00U0dXRDNIUQZDZD",
               "type": "string"
             },
             {
@@ -1124,8 +1124,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "a5eed325-f6de-4217-8065-a1f07073263d",
-  "activeVersionId": "a5eed325-f6de-4217-8065-a1f07073263d",
+  "versionId": "7a9d1de5-859e-45e6-bd77-431e58c8f4d9",
+  "activeVersionId": "7a9d1de5-859e-45e6-bd77-431e58c8f4d9",
   "triggerCount": 1,
   "shared": [
     {
@@ -1137,9 +1137,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-06-07T00:33:09.000Z",
-    "createdAt": "2026-06-07T00:31:32.102Z",
-    "versionId": "a5eed325-f6de-4217-8065-a1f07073263d",
+    "updatedAt": "2026-06-08T20:23:14.000Z",
+    "createdAt": "2026-06-08T20:23:04.024Z",
+    "versionId": "7a9d1de5-859e-45e6-bd77-431e58c8f4d9",
     "workflowId": "FkBl1KSk0YRXEmv0",
     "nodes": [
       {
@@ -1160,19 +1160,19 @@
               {
                 "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
                 "name": "maeveToken",
-                "value": "IGAAXVb07ZCZBz9BZAGJoVThhcm02Tl9GeElJRl9PZAUJZARmhyRUdzNjRIYW1YaFNEYVo4a1gwRG1lRFFGQXJOUm9qY0haM0dTWDlUbS1TTkhmeThEeXJEdWstUlJIbEVWSkZAwVDk4a0tuRE9xZADVfLWtCb1FnLVVQMUFtdUtNeldrWQZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGFMMmhJZAmI4M28tYXNiVGFNbXhZAamd1TjkxcVBucmhXR053eHlIcGFrRktYeGYzRWlsTjF2WXlEZAWpfOXVoWVNpamFwdGRlSFV4VDQwVTE3aVI3bU5mNnN6V21pZA1NYVDVVUXI3RVlkNW1fR1BYSjRCY1lLRQZDZD",
                 "type": "string"
               },
               {
                 "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
                 "name": "elaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAFpOTzNZAajh3WUh5MnVhX2NRQWctaHpyT1BUcnJ0NHNaVTNOSUNueTljNzN0eWZAMVmJfcXlNdFZASSEgyaW9KM3BsazVmUzVUZAkNoYXhMS1lQRUxmY1lfQ1QxMFJXZAzUxbXJyUC10a1Nya2pvTjJLc2J1bVVjTQZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGJDZAGc0c05NUXBSbVJ2NFZA4ZA2dTNWRrbGp2REFIWFF1Wi1HQmUwY25LRk9FNUlWbkpOc2VtTkZASMmR3Ylg4dV9obUNNekJtNmRaTUlyakFucGNxWXk2Y0JyTWQ4MHRQVUp6cC1fR3d6bU5FN2xTTnU4S3pnQQZDZD",
                 "type": "string"
               },
               {
                 "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
                 "name": "amaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAGJwbl9UaGQ1QWlSSlJ1SHB3OER0YVJrVlJUVW0wbm9QVE1aaUpNNUFiNThKNkxIdUo1N0dGMk94YnpGYzl6LXJINXZA3RkwwdlFIbGFCSkZAZAaHltdGZApXzVKVW9MMkFZAX2E3UUFleDktUWh0WjJMOGcxS3AxMAZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGIyZAHJMamZAkb3Y5ZAE1DRDduTmY3UDMwNnlJQ3hiVThtU2tLUkNHOEhOcWFYZAm54X2ZAhNkc2Ykc0Y1lleXRobDVJMVJfck5tWmZA1S0tONXZA0Yk01QmVfVl9wSzZAVZATg0cEZA5dm5JX1RIVi1pRE00U0dXRDNIUQZDZD",
                 "type": "string"
               },
               {
@@ -2252,9 +2252,9 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version a5eed325",
+    "name": "Version 7a9d1de5",
     "description": "",
-    "autosaved": false
+    "autosaved": true
   },
   "tags": []
 }
