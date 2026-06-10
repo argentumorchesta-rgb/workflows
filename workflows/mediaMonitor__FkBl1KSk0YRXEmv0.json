@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-08T20:23:04.022Z",
+  "updatedAt": "2026-06-10T07:41:38.717Z",
   "createdAt": "2026-05-03T07:17:21.681Z",
   "id": "FkBl1KSk0YRXEmv0",
   "name": "mediaMonitor",
@@ -11,8 +11,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -352,
-        -512
+        -336,
+        -528
       ],
       "id": "0332c05e-a940-40e9-a354-31185e7ddef8",
       "name": "When clicking ‘Execute workflow’"
@@ -1124,8 +1124,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "7a9d1de5-859e-45e6-bd77-431e58c8f4d9",
-  "activeVersionId": "7a9d1de5-859e-45e6-bd77-431e58c8f4d9",
+  "versionId": "9e6469b9-2369-4ec7-a80c-9786451576ac",
+  "activeVersionId": "9e6469b9-2369-4ec7-a80c-9786451576ac",
   "triggerCount": 1,
   "shared": [
     {
@@ -1137,9 +1137,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-06-08T20:23:14.000Z",
-    "createdAt": "2026-06-08T20:23:04.024Z",
-    "versionId": "7a9d1de5-859e-45e6-bd77-431e58c8f4d9",
+    "updatedAt": "2026-06-10T07:41:43.000Z",
+    "createdAt": "2026-06-10T07:41:38.721Z",
+    "versionId": "9e6469b9-2369-4ec7-a80c-9786451576ac",
     "workflowId": "FkBl1KSk0YRXEmv0",
     "nodes": [
       {
@@ -1147,8 +1147,8 @@
         "type": "n8n-nodes-base.manualTrigger",
         "typeVersion": 1,
         "position": [
-          -352,
-          -512
+          -336,
+          -528
         ],
         "id": "0332c05e-a940-40e9-a354-31185e7ddef8",
         "name": "When clicking ‘Execute workflow’"
@@ -2252,9 +2252,9 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version 7a9d1de5",
+    "name": "Version 9e6469b9",
     "description": "",
-    "autosaved": true
+    "autosaved": false
   },
   "tags": []
 }
