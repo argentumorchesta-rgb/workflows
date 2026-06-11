@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-08T20:24:40.090Z",
+  "updatedAt": "2026-06-10T20:19:59.925Z",
   "createdAt": "2026-05-04T08:05:03.846Z",
   "id": "V1wzIXcLIXW5BC1I",
   "name": "mediaPoster",
@@ -1319,7 +1319,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -848,
+        -832,
         -288
       ],
       "name": "Call publishReel",
@@ -2171,8 +2171,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "8a8409ec-8c36-49e5-8ad5-b8308da504ce",
-  "activeVersionId": "8a8409ec-8c36-49e5-8ad5-b8308da504ce",
+  "versionId": "10677d79-e8ca-463a-bbaf-dbcf801808f6",
+  "activeVersionId": "10677d79-e8ca-463a-bbaf-dbcf801808f6",
   "triggerCount": 3,
   "shared": [
     {
@@ -2184,9 +2184,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-06-08T20:24:42.000Z",
-    "createdAt": "2026-06-08T20:24:40.093Z",
-    "versionId": "8a8409ec-8c36-49e5-8ad5-b8308da504ce",
+    "updatedAt": "2026-06-10T20:24:00.000Z",
+    "createdAt": "2026-06-10T20:19:59.929Z",
+    "versionId": "10677d79-e8ca-463a-bbaf-dbcf801808f6",
     "workflowId": "V1wzIXcLIXW5BC1I",
     "nodes": [
       {
@@ -3502,7 +3502,7 @@
         "type": "n8n-nodes-base.executeWorkflow",
         "typeVersion": 1.2,
         "position": [
-          -848,
+          -832,
           -288
         ],
         "name": "Call publishReel",
@@ -4346,7 +4346,7 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version 8a8409ec",
+    "name": "Version 10677d79",
     "description": "",
     "autosaved": true
   },
