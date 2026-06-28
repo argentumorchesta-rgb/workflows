@@ -1,0 +1,484 @@
+{
+  "updatedAt": "2026-06-28T08:17:58.369Z",
+  "createdAt": "2026-06-27T06:14:19.623Z",
+  "id": "grXcW1m7MC4fktqB",
+  "name": "instagramCommentDetector",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "verifyToken": "test123",
+        "eventsToInclude": [
+          "comments"
+        ]
+      },
+      "type": "@mookielianhd/n8n-nodes-instagram.instagramTrigger",
+      "typeVersion": 2,
+      "position": [
+        -1184,
+        -432
+      ],
+      "id": "331e91b5-9015-4671-9178-501cd8e18740",
+      "name": "Instagram Trigger",
+      "webhookId": "779c1950-b01b-4c40-8d93-5628da3bb0e4"
+    },
+    {
+      "parameters": {
+        "jsCode": "// === Maeve/Elara/Amara ? Instagram comments parser + self-reply filter ===\n// Code node mode: \"Run Once for All Items\"\n\nconst items = $input.all();\n\n// Map IG Business Account ID -> girl's name\nconst OWNERS = {\n  '17841478136820581': 'Maeve',\n  '17841480189765921': 'Elara',\n  '17841480706715642': 'Amara',\n};\n\nconst OWNER_OVERRIDE = ''; // optional: force an owner id, leave '' to auto-detect\n\nfunction getPayload(item) {\n  const j = item.json || {};\n  return j.body !== undefined ? j.body : j;\n}\n\nfunction extractChanges(payload) {\n  const out = [];\n  const blocks = Array.isArray(payload) ? payload : [payload];\n\n  for (const block of blocks) {\n    if (!block || typeof block !== 'object') continue;\n\n    // Shape A ? flattened shape\n    if (block.value && (block.field === 'comments' || block.value.text !== undefined)) {\n      out.push({ ownerId: String(block.id ?? ''), value: block.value, time: block.time });\n      continue;\n    }\n\n    // Shape B ? standard IG graph webhook\n    if (Array.isArray(block.entry)) {\n      for (const entry of block.entry) {\n        for (const change of (entry.changes || [])) {\n          if (change.field !== 'comments') continue;\n          out.push({ ownerId: String(entry.id ?? ''), value: change.value, time: entry.time });\n        }\n      }\n    }\n  }\n  return out;\n}\n\nconst results = [];\n\nfor (const item of items) {\n  for (const c of extractChanges(getPayload(item))) {\n    const v = c.value || {};\n    const from = v.from || {};\n\n    const commenterId   = String(from.id ?? '');\n    const commenterName = from.username ?? '';\n    const commentId     = String(v.id ?? '');\n    const text          = (v.text ?? '').trim();\n    const mediaId       = String(v.media?.id ?? '');\n    const ownerId       = OWNER_OVERRIDE || c.ownerId;\n    const ownerName     = OWNERS[ownerId] || 'Unknown';   // <-- new\n\n    const timeISO = DateTime.fromSeconds(Number(c.time)).toISO();              // 2026-06-...T...+00:00\n    const timeReadable = DateTime.fromSeconds(Number(c.time)).toFormat('yyyy-MM-dd HH:mm:ss');\n    \n    // Skip self-comments (owner === commenter) + loop prevention\n    if (ownerId && commenterId && ownerId === commenterId) {\n      console.log(`Skip self-comment from @${commenterName} on ${ownerName}'s post`);\n      continue;\n    }\n\n    // Skip empty / non-comment events\n    if (!commentId || !text) {\n      console.log('Skip: missing comment id or empty text');\n      continue;\n    }\n\n    results.push({\n      json: {\n        commentId,\n        text,\n        commenterId,\n        commenterName,\n        mediaId,\n        ownerId,\n        ownerName,        // <-- new\n        time: timeReadable,    // human-readable instead of epoch\n        timeISO,               // ISO version (handy for sorting/databases)\n      },\n    });\n  }\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -976,
+        -432
+      ],
+      "id": "cb19a335-3cfd-4fc3-8d69-dbc3a08701e3",
+      "name": "processMessage"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+          "mode": "list",
+          "cachedResultName": "Control",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1317395315,
+          "mode": "list",
+          "cachedResultName": "Comments",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=1317395315"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "time": "={{ $json.time }}",
+            "mediaId": "={{ $json.mediaId }}",
+            "CommenterName": "={{ $json.commenterName }}",
+            "CommenterId": "={{ $json.commenterId }}",
+            "CommentId": "={{ $json.commentId }}",
+            "Replied": "No",
+            "timeISO": "={{ $json.timeISO }}",
+            "Owner": "={{ $json.ownerName }}",
+            "OwnerId": "={{ $json.ownerId }}",
+            "CommentText": "={{ $json.text }}"
+          },
+          "matchingColumns": [
+            "CommentId"
+          ],
+          "schema": [
+            {
+              "id": "time",
+              "displayName": "time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "timeISO",
+              "displayName": "timeISO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CommentId",
+              "displayName": "CommentId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CommenterId",
+              "displayName": "CommenterId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CommenterName",
+              "displayName": "CommenterName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "mediaId",
+              "displayName": "mediaId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "OwnerId",
+              "displayName": "OwnerId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Owner",
+              "displayName": "Owner",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CommentText",
+              "displayName": "CommentText",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Reponse",
+              "displayName": "Reponse",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Replied",
+              "displayName": "Replied",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -784,
+        -432
+      ],
+      "id": "9c9aca93-aeff-4e17-9918-a68c53196a62",
+      "name": "updateSheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8staDpXz9g846djb",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Instagram Trigger": {
+      "main": [
+        [
+          {
+            "node": "processMessage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "processMessage": {
+      "main": [
+        [
+          {
+            "node": "updateSheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "5bd83920-0887-4e7b-ac49-d493db539390",
+  "activeVersionId": "5bd83920-0887-4e7b-ac49-d493db539390",
+  "triggerCount": 1,
+  "shared": [
+    {
+      "updatedAt": "2026-06-27T06:14:19.635Z",
+      "createdAt": "2026-06-27T06:14:19.635Z",
+      "role": "workflow:owner",
+      "workflowId": "grXcW1m7MC4fktqB",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-06-28T08:18:03.000Z",
+    "createdAt": "2026-06-28T08:17:58.371Z",
+    "versionId": "5bd83920-0887-4e7b-ac49-d493db539390",
+    "workflowId": "grXcW1m7MC4fktqB",
+    "nodes": [
+      {
+        "parameters": {
+          "verifyToken": "test123",
+          "eventsToInclude": [
+            "comments"
+          ]
+        },
+        "type": "@mookielianhd/n8n-nodes-instagram.instagramTrigger",
+        "typeVersion": 2,
+        "position": [
+          -1184,
+          -432
+        ],
+        "id": "331e91b5-9015-4671-9178-501cd8e18740",
+        "name": "Instagram Trigger",
+        "webhookId": "779c1950-b01b-4c40-8d93-5628da3bb0e4"
+      },
+      {
+        "parameters": {
+          "jsCode": "// === Maeve/Elara/Amara ? Instagram comments parser + self-reply filter ===\n// Code node mode: \"Run Once for All Items\"\n\nconst items = $input.all();\n\n// Map IG Business Account ID -> girl's name\nconst OWNERS = {\n  '17841478136820581': 'Maeve',\n  '17841480189765921': 'Elara',\n  '17841480706715642': 'Amara',\n};\n\nconst OWNER_OVERRIDE = ''; // optional: force an owner id, leave '' to auto-detect\n\nfunction getPayload(item) {\n  const j = item.json || {};\n  return j.body !== undefined ? j.body : j;\n}\n\nfunction extractChanges(payload) {\n  const out = [];\n  const blocks = Array.isArray(payload) ? payload : [payload];\n\n  for (const block of blocks) {\n    if (!block || typeof block !== 'object') continue;\n\n    // Shape A ? flattened shape\n    if (block.value && (block.field === 'comments' || block.value.text !== undefined)) {\n      out.push({ ownerId: String(block.id ?? ''), value: block.value, time: block.time });\n      continue;\n    }\n\n    // Shape B ? standard IG graph webhook\n    if (Array.isArray(block.entry)) {\n      for (const entry of block.entry) {\n        for (const change of (entry.changes || [])) {\n          if (change.field !== 'comments') continue;\n          out.push({ ownerId: String(entry.id ?? ''), value: change.value, time: entry.time });\n        }\n      }\n    }\n  }\n  return out;\n}\n\nconst results = [];\n\nfor (const item of items) {\n  for (const c of extractChanges(getPayload(item))) {\n    const v = c.value || {};\n    const from = v.from || {};\n\n    const commenterId   = String(from.id ?? '');\n    const commenterName = from.username ?? '';\n    const commentId     = String(v.id ?? '');\n    const text          = (v.text ?? '').trim();\n    const mediaId       = String(v.media?.id ?? '');\n    const ownerId       = OWNER_OVERRIDE || c.ownerId;\n    const ownerName     = OWNERS[ownerId] || 'Unknown';   // <-- new\n\n    const timeISO = DateTime.fromSeconds(Number(c.time)).toISO();              // 2026-06-...T...+00:00\n    const timeReadable = DateTime.fromSeconds(Number(c.time)).toFormat('yyyy-MM-dd HH:mm:ss');\n    \n    // Skip self-comments (owner === commenter) + loop prevention\n    if (ownerId && commenterId && ownerId === commenterId) {\n      console.log(`Skip self-comment from @${commenterName} on ${ownerName}'s post`);\n      continue;\n    }\n\n    // Skip empty / non-comment events\n    if (!commentId || !text) {\n      console.log('Skip: missing comment id or empty text');\n      continue;\n    }\n\n    results.push({\n      json: {\n        commentId,\n        text,\n        commenterId,\n        commenterName,\n        mediaId,\n        ownerId,\n        ownerName,        // <-- new\n        time: timeReadable,    // human-readable instead of epoch\n        timeISO,               // ISO version (handy for sorting/databases)\n      },\n    });\n  }\n}\n\nreturn results;"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -976,
+          -432
+        ],
+        "id": "cb19a335-3cfd-4fc3-8d69-dbc3a08701e3",
+        "name": "processMessage"
+      },
+      {
+        "parameters": {
+          "operation": "appendOrUpdate",
+          "documentId": {
+            "__rl": true,
+            "value": "1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c",
+            "mode": "list",
+            "cachedResultName": "Control",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": 1317395315,
+            "mode": "list",
+            "cachedResultName": "Comments",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WAE8cQ0vxpJiNst33p7hzhYIUR_Hx_seW4AFkdB539c/edit#gid=1317395315"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "time": "={{ $json.time }}",
+              "mediaId": "={{ $json.mediaId }}",
+              "CommenterName": "={{ $json.commenterName }}",
+              "CommenterId": "={{ $json.commenterId }}",
+              "CommentId": "={{ $json.commentId }}",
+              "Replied": "No",
+              "timeISO": "={{ $json.timeISO }}",
+              "Owner": "={{ $json.ownerName }}",
+              "OwnerId": "={{ $json.ownerId }}",
+              "CommentText": "={{ $json.text }}"
+            },
+            "matchingColumns": [
+              "CommentId"
+            ],
+            "schema": [
+              {
+                "id": "time",
+                "displayName": "time",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "timeISO",
+                "displayName": "timeISO",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "CommentId",
+                "displayName": "CommentId",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "CommenterId",
+                "displayName": "CommenterId",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "CommenterName",
+                "displayName": "CommenterName",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "mediaId",
+                "displayName": "mediaId",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "OwnerId",
+                "displayName": "OwnerId",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Owner",
+                "displayName": "Owner",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "CommentText",
+                "displayName": "CommentText",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Reponse",
+                "displayName": "Reponse",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "Replied",
+                "displayName": "Replied",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheets",
+        "typeVersion": 4.7,
+        "position": [
+          -784,
+          -432
+        ],
+        "id": "9c9aca93-aeff-4e17-9918-a68c53196a62",
+        "name": "updateSheet",
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "8staDpXz9g846djb",
+            "name": "Google Sheets account"
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Instagram Trigger": {
+        "main": [
+          [
+            {
+              "node": "processMessage",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "processMessage": {
+        "main": [
+          [
+            {
+              "node": "updateSheet",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Argentum Orchesta",
+    "name": "Version 5bd83920",
+    "description": "",
+    "autosaved": true
+  },
+  "tags": []
+}
