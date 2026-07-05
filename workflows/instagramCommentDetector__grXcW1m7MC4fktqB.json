@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T08:17:58.369Z",
+  "updatedAt": "2026-07-04T23:25:29.760Z",
   "createdAt": "2026-06-27T06:14:19.623Z",
   "id": "grXcW1m7MC4fktqB",
   "name": "instagramCommentDetector",
@@ -172,6 +172,16 @@
               "removed": false
             },
             {
+              "id": "RepliedAt",
+              "displayName": "RepliedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
               "id": "Replied",
               "displayName": "Replied",
               "required": false,
@@ -236,8 +246,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "5bd83920-0887-4e7b-ac49-d493db539390",
-  "activeVersionId": "5bd83920-0887-4e7b-ac49-d493db539390",
+  "versionId": "9eaf156e-210b-46d9-8330-fa43af5da26b",
+  "activeVersionId": "9eaf156e-210b-46d9-8330-fa43af5da26b",
   "triggerCount": 1,
   "shared": [
     {
@@ -249,9 +259,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-06-28T08:18:03.000Z",
-    "createdAt": "2026-06-28T08:17:58.371Z",
-    "versionId": "5bd83920-0887-4e7b-ac49-d493db539390",
+    "updatedAt": "2026-07-04T23:25:33.000Z",
+    "createdAt": "2026-07-04T23:25:29.761Z",
+    "versionId": "9eaf156e-210b-46d9-8330-fa43af5da26b",
     "workflowId": "grXcW1m7MC4fktqB",
     "nodes": [
       {
@@ -420,6 +430,16 @@
                 "removed": false
               },
               {
+                "id": "RepliedAt",
+                "displayName": "RepliedAt",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
                 "id": "Replied",
                 "displayName": "Replied",
                 "required": false,
@@ -476,7 +496,7 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version 5bd83920",
+    "name": "Version 9eaf156e",
     "description": "",
     "autosaved": true
   },
