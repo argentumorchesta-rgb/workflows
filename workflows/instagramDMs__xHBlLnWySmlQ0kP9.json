@@ -1,0 +1,31 @@
+{
+  "updatedAt": "2026-07-12T07:52:38.336Z",
+  "createdAt": "2026-07-12T07:41:06.660Z",
+  "id": "xHBlLnWySmlQ0kP9",
+  "name": "instagramDMs",
+  "active": false,
+  "isArchived": false,
+  "nodes": [],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "79b8be99-68e6-499b-95aa-28f2c294e358",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-07-12T07:41:06.666Z",
+      "createdAt": "2026-07-12T07:41:06.666Z",
+      "role": "workflow:owner",
+      "workflowId": "xHBlLnWySmlQ0kP9",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}
