@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-12T10:52:06.813Z",
+  "updatedAt": "2026-07-14T12:08:28.282Z",
   "createdAt": "2026-06-27T06:14:19.623Z",
   "id": "grXcW1m7MC4fktqB",
   "name": "instagramWebhook",
@@ -18,7 +18,7 @@
       "typeVersion": 2,
       "position": [
         -2064,
-        -152
+        -160
       ],
       "id": "331e91b5-9015-4671-9178-501cd8e18740",
       "name": "Instagram Trigger",
@@ -274,7 +274,7 @@
       "typeVersion": 3.4,
       "position": [
         -1840,
-        -152
+        -160
       ],
       "id": "c647d9db-e44d-4a60-8d04-ec08072c3164",
       "name": "Switch"
@@ -293,7 +293,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "CREATE TABLE personas (\n  id TEXT PRIMARY KEY,\n  name TEXT NOT NULL,\n  ig_account_id TEXT UNIQUE,\n  timezone TEXT NOT NULL,\n  awake_start TEXT NOT NULL,\n  awake_end TEXT NOT NULL,\n  per_user_daily_cap INT NOT NULL DEFAULT 10,\n  global_daily_cap INT NOT NULL DEFAULT 200\n);\n\nCREATE TABLE users (\n  id TEXT PRIMARY KEY,\n  platform_username TEXT,\n  created_at TIMESTAMPTZ DEFAULT now()\n);\n\nCREATE TABLE conversations (\n  id TEXT PRIMARY KEY,\n  user_id TEXT REFERENCES users(id),\n  persona_id TEXT REFERENCES personas(id),\n  manual_mode BOOLEAN DEFAULT false,\n  last_message_at TIMESTAMPTZ,\n  last_summarized_at TIMESTAMPTZ,\n  summary_text TEXT,\n  replies_today INT DEFAULT 0,\n  replies_today_date DATE,\n  pending_wake_reply BOOLEAN DEFAULT false\n);\n\nCREATE TABLE messages (\n  id SERIAL PRIMARY KEY,\n  conversation_id TEXT REFERENCES conversations(id),\n  role TEXT NOT NULL CHECK (role IN ('user','assistant')),\n  content TEXT NOT NULL,\n  platform_message_id TEXT UNIQUE,\n  created_at TIMESTAMPTZ DEFAULT now()\n);\n\nCREATE TABLE girl_daily_limits (\n  persona_id TEXT REFERENCES personas(id),\n  date DATE,\n  total_auto_replies INT DEFAULT 0,\n  PRIMARY KEY (persona_id, date)\n);\n\nINSERT INTO personas (id, name, ig_account_id, timezone, awake_start, awake_end, per_user_daily_cap, global_daily_cap) VALUES\n('maeve', 'Maeve', '17841478136820581', 'Europe/Dublin', '08:00', '01:00', 10, 150),\n('elara', 'Elara', NULL, 'Europe/Oslo', '07:00', '23:00', 10, 150),\n('amara', 'Amara', NULL, 'Africa/Lagos', '08:00', '00:00', 10, 150);",
+        "query": "DROP TABLE IF EXISTS messages CASCADE;\nDROP TABLE IF EXISTS conversations CASCADE;\nDROP TABLE IF EXISTS fans CASCADE;\nDROP TABLE IF EXISTS girls CASCADE;\nDROP TABLE IF EXISTS personas CASCADE;\nDROP TABLE IF EXISTS users CASCADE;\nDROP TABLE IF EXISTS girl_daily_limits CASCADE;\n\nCREATE TABLE girls (\n  id TEXT PRIMARY KEY,\n  name TEXT NOT NULL,\n  timezone TEXT NOT NULL,\n  awake_start TEXT NOT NULL,\n  awake_end TEXT NOT NULL,\n  default_fan_daily_cap INT NOT NULL DEFAULT 10,\n  max_fan_daily_cap INT NOT NULL DEFAULT 20,\n  global_daily_cap INT NOT NULL DEFAULT 150,\n  messages_sent_today INT NOT NULL DEFAULT 0,\n  messages_sent_date DATE NOT NULL DEFAULT CURRENT_DATE\n);\n\nCREATE TABLE fans (\n  fan_id TEXT PRIMARY KEY,\n  fan_name TEXT,\n  fan_nick TEXT NOT NULL DEFAULT 'sir',\n  girl_id TEXT REFERENCES girls(id),\n  manual_mode BOOLEAN NOT NULL DEFAULT false,\n  label TEXT,\n  summary_text TEXT,\n  last_summarized_at TIMESTAMPTZ,\n  daily_reply_cap INT NOT NULL DEFAULT 10,\n  replies_today INT NOT NULL DEFAULT 0,\n  replies_today_date DATE\n);\n\nCREATE TABLE conversations (\n  fan_id TEXT PRIMARY KEY REFERENCES fans(fan_id),\n  girl_id TEXT REFERENCES girls(id),\n  last_message_at TIMESTAMPTZ,\n  pending_reply BOOLEAN NOT NULL DEFAULT false\n);\n\nCREATE TABLE messages (\n  id SERIAL PRIMARY KEY,\n  conversation_id TEXT REFERENCES conversations(fan_id),\n  role TEXT NOT NULL CHECK (role IN ('fan','girl')),\n  content TEXT NOT NULL,\n  platform_message_id TEXT UNIQUE,\n  created_at TIMESTAMPTZ\n);\n\nINSERT INTO girls (id, name, timezone, awake_start, awake_end, default_fan_daily_cap, max_fan_daily_cap, global_daily_cap) VALUES\n('17841478136820581', 'Maeve', 'Europe/Dublin', '08:00', '01:00', 10, 20, 150),\n('17841480189765921', 'Elara', 'Europe/Oslo', '07:00', '23:00', 10, 20, 150),\n('17841480706715642', 'Amara', 'Africa/Lagos', '08:00', '00:00', 10, 20, 150);",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
@@ -422,7 +422,7 @@
             {
               "id": "389b69e7-112e-469b-85f1-3d9a65b02e2b",
               "name": "role",
-              "value": "={{ $json.message.is_echo ? 'persona' : 'fan' }}",
+              "value": "={{ $json.message.is_echo ? 'girl' : 'fan' }}",
               "type": "string"
             },
             {
@@ -459,90 +459,6 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT id FROM personas WHERE ig_account_id = '{{ $('Set Fields').item.json.igAccountId }}';",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        -1168,
-        -48
-      ],
-      "id": "009e9b8f-f0d3-456b-9c9e-d082a719fe47",
-      "name": "Resolve Persona",
-      "credentials": {
-        "postgres": {
-          "id": "PlkpKDh3ZUPtl1UI",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "INSERT INTO users (id, created_at)\nVALUES ('{{ $('Set Fields').item.json.otherPartyId }}', now())\nON CONFLICT (id) DO NOTHING;",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        -944,
-        -48
-      ],
-      "id": "7baddf70-3fb6-49d9-a103-1fc30a464299",
-      "name": "Upsert User",
-      "credentials": {
-        "postgres": {
-          "id": "PlkpKDh3ZUPtl1UI",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "INSERT INTO conversations (id, user_id, persona_id, last_message_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}:{{ $('Resolve Persona').item.json.id }}',\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('Resolve Persona').item.json.id }}',\n  now()\n)\nON CONFLICT (id) DO UPDATE\n  SET last_message_at = CASE\n    WHEN '{{ $('Set Fields').item.json.role }}' = 'fan' THEN now()\n    ELSE conversations.last_message_at\n  END;",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        -720,
-        -48
-      ],
-      "id": "cc22c897-12db-419d-860b-acf1974b4def",
-      "name": "Upsert Conversation",
-      "credentials": {
-        "postgres": {
-          "id": "PlkpKDh3ZUPtl1UI",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "INSERT INTO messages (conversation_id, role, content, platform_message_id, created_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}:{{ $('Resolve Persona').item.json.id }}',\n  '{{ $('Set Fields').item.json.role }}',\n  '{{ $('Set Fields').item.json.text }}',\n  '{{ $('Set Fields').item.json.mid }}',\n  to_timestamp({{ $('Set Fields').item.json.eventTimestamp }}::bigint / 1000.0)\n)\nON CONFLICT (platform_message_id) DO NOTHING;",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        -496,
-        -48
-      ],
-      "id": "6ad64163-84cb-46d3-846d-030bf38c4823",
-      "name": "Insert Message",
-      "credentials": {
-        "postgres": {
-          "id": "PlkpKDh3ZUPtl1UI",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
         "query": "SELECT pg_size_pretty(SUM(pg_total_relation_size(relid))) AS my_data_size\nFROM pg_catalog.pg_statio_user_tables;",
         "options": {}
       },
@@ -575,6 +491,111 @@
       ],
       "id": "2c41e53f-7eb0-4460-be00-28a29d4d3571",
       "name": "monitorSizePerTable",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT role, content, created_at FROM messages ORDER BY created_at DESC LIMIT 5;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1440,
+        -656
+      ],
+      "id": "6acb4f25-2cc5-4b11-918d-dd46c0fea67a",
+      "name": "Test",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, default_fan_daily_cap FROM girls WHERE id = '{{ $('Set Fields').item.json.igAccountId }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1168,
+        -48
+      ],
+      "id": "009e9b8f-f0d3-456b-9c9e-d082a719fe47",
+      "name": "updateGirls",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO conversations (fan_id, girl_id, last_message_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  now()\n)\nON CONFLICT (fan_id) DO UPDATE\n  SET last_message_at = CASE\n    WHEN '{{ $('Set Fields').item.json.role }}' = 'fan' THEN now()\n    ELSE conversations.last_message_at\n  END;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -720,
+        -48
+      ],
+      "id": "cc22c897-12db-419d-860b-acf1974b4def",
+      "name": "updateConversations",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO messages (conversation_id, role, content, platform_message_id, created_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('Set Fields').item.json.role }}',\n  '{{ $('Set Fields').item.json.text.replace(/'/g, \"''\") }}',\n  '{{ $('Set Fields').item.json.mid }}',\n  to_timestamp({{ $('Set Fields').item.json.eventTimestamp }}::bigint / 1000.0)\n)\nON CONFLICT (platform_message_id) DO NOTHING;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -496,
+        -48
+      ],
+      "id": "6ad64163-84cb-46d3-846d-030bf38c4823",
+      "name": "updateMessages",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO fans (fan_id, girl_id, daily_reply_cap, replies_today_date)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  {{ $('updateGirls').item.json.default_fan_daily_cap }},\n  CURRENT_DATE\n)\nON CONFLICT (fan_id) DO NOTHING;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -944,
+        -48
+      ],
+      "id": "7baddf70-3fb6-49d9-a103-1fc30a464299",
+      "name": "updateFans",
       "credentials": {
         "postgres": {
           "id": "PlkpKDh3ZUPtl1UI",
@@ -636,6 +657,11 @@
             "node": "monitorSize",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Test",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -663,40 +689,40 @@
       "main": [
         [
           {
-            "node": "Resolve Persona",
+            "node": "updateGirls",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Resolve Persona": {
+    "updateGirls": {
       "main": [
         [
           {
-            "node": "Upsert User",
+            "node": "updateFans",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Upsert User": {
+    "updateConversations": {
       "main": [
         [
           {
-            "node": "Upsert Conversation",
+            "node": "updateMessages",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Upsert Conversation": {
+    "updateFans": {
       "main": [
         [
           {
-            "node": "Insert Message",
+            "node": "updateConversations",
             "type": "main",
             "index": 0
           }
@@ -713,8 +739,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "d83b091a-6727-4db8-ace6-061f541fd81f",
-  "activeVersionId": "d83b091a-6727-4db8-ace6-061f541fd81f",
+  "versionId": "67219772-45db-4814-8509-1b53e072916c",
+  "activeVersionId": "67219772-45db-4814-8509-1b53e072916c",
   "triggerCount": 1,
   "shared": [
     {
@@ -726,9 +752,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-07-12T10:54:52.000Z",
-    "createdAt": "2026-07-12T10:52:06.814Z",
-    "versionId": "d83b091a-6727-4db8-ace6-061f541fd81f",
+    "updatedAt": "2026-07-14T12:08:32.000Z",
+    "createdAt": "2026-07-14T12:08:28.284Z",
+    "versionId": "67219772-45db-4814-8509-1b53e072916c",
     "workflowId": "grXcW1m7MC4fktqB",
     "nodes": [
       {
@@ -743,7 +769,7 @@
         "typeVersion": 2,
         "position": [
           -2064,
-          -152
+          -160
         ],
         "id": "331e91b5-9015-4671-9178-501cd8e18740",
         "name": "Instagram Trigger",
@@ -999,7 +1025,7 @@
         "typeVersion": 3.4,
         "position": [
           -1840,
-          -152
+          -160
         ],
         "id": "c647d9db-e44d-4a60-8d04-ec08072c3164",
         "name": "Switch"
@@ -1018,7 +1044,7 @@
       {
         "parameters": {
           "operation": "executeQuery",
-          "query": "CREATE TABLE personas (\n  id TEXT PRIMARY KEY,\n  name TEXT NOT NULL,\n  ig_account_id TEXT UNIQUE,\n  timezone TEXT NOT NULL,\n  awake_start TEXT NOT NULL,\n  awake_end TEXT NOT NULL,\n  per_user_daily_cap INT NOT NULL DEFAULT 10,\n  global_daily_cap INT NOT NULL DEFAULT 200\n);\n\nCREATE TABLE users (\n  id TEXT PRIMARY KEY,\n  platform_username TEXT,\n  created_at TIMESTAMPTZ DEFAULT now()\n);\n\nCREATE TABLE conversations (\n  id TEXT PRIMARY KEY,\n  user_id TEXT REFERENCES users(id),\n  persona_id TEXT REFERENCES personas(id),\n  manual_mode BOOLEAN DEFAULT false,\n  last_message_at TIMESTAMPTZ,\n  last_summarized_at TIMESTAMPTZ,\n  summary_text TEXT,\n  replies_today INT DEFAULT 0,\n  replies_today_date DATE,\n  pending_wake_reply BOOLEAN DEFAULT false\n);\n\nCREATE TABLE messages (\n  id SERIAL PRIMARY KEY,\n  conversation_id TEXT REFERENCES conversations(id),\n  role TEXT NOT NULL CHECK (role IN ('user','assistant')),\n  content TEXT NOT NULL,\n  platform_message_id TEXT UNIQUE,\n  created_at TIMESTAMPTZ DEFAULT now()\n);\n\nCREATE TABLE girl_daily_limits (\n  persona_id TEXT REFERENCES personas(id),\n  date DATE,\n  total_auto_replies INT DEFAULT 0,\n  PRIMARY KEY (persona_id, date)\n);\n\nINSERT INTO personas (id, name, ig_account_id, timezone, awake_start, awake_end, per_user_daily_cap, global_daily_cap) VALUES\n('maeve', 'Maeve', '17841478136820581', 'Europe/Dublin', '08:00', '01:00', 10, 150),\n('elara', 'Elara', NULL, 'Europe/Oslo', '07:00', '23:00', 10, 150),\n('amara', 'Amara', NULL, 'Africa/Lagos', '08:00', '00:00', 10, 150);",
+          "query": "DROP TABLE IF EXISTS messages CASCADE;\nDROP TABLE IF EXISTS conversations CASCADE;\nDROP TABLE IF EXISTS fans CASCADE;\nDROP TABLE IF EXISTS girls CASCADE;\nDROP TABLE IF EXISTS personas CASCADE;\nDROP TABLE IF EXISTS users CASCADE;\nDROP TABLE IF EXISTS girl_daily_limits CASCADE;\n\nCREATE TABLE girls (\n  id TEXT PRIMARY KEY,\n  name TEXT NOT NULL,\n  timezone TEXT NOT NULL,\n  awake_start TEXT NOT NULL,\n  awake_end TEXT NOT NULL,\n  default_fan_daily_cap INT NOT NULL DEFAULT 10,\n  max_fan_daily_cap INT NOT NULL DEFAULT 20,\n  global_daily_cap INT NOT NULL DEFAULT 150,\n  messages_sent_today INT NOT NULL DEFAULT 0,\n  messages_sent_date DATE NOT NULL DEFAULT CURRENT_DATE\n);\n\nCREATE TABLE fans (\n  fan_id TEXT PRIMARY KEY,\n  fan_name TEXT,\n  fan_nick TEXT NOT NULL DEFAULT 'sir',\n  girl_id TEXT REFERENCES girls(id),\n  manual_mode BOOLEAN NOT NULL DEFAULT false,\n  label TEXT,\n  summary_text TEXT,\n  last_summarized_at TIMESTAMPTZ,\n  daily_reply_cap INT NOT NULL DEFAULT 10,\n  replies_today INT NOT NULL DEFAULT 0,\n  replies_today_date DATE\n);\n\nCREATE TABLE conversations (\n  fan_id TEXT PRIMARY KEY REFERENCES fans(fan_id),\n  girl_id TEXT REFERENCES girls(id),\n  last_message_at TIMESTAMPTZ,\n  pending_reply BOOLEAN NOT NULL DEFAULT false\n);\n\nCREATE TABLE messages (\n  id SERIAL PRIMARY KEY,\n  conversation_id TEXT REFERENCES conversations(fan_id),\n  role TEXT NOT NULL CHECK (role IN ('fan','girl')),\n  content TEXT NOT NULL,\n  platform_message_id TEXT UNIQUE,\n  created_at TIMESTAMPTZ\n);\n\nINSERT INTO girls (id, name, timezone, awake_start, awake_end, default_fan_daily_cap, max_fan_daily_cap, global_daily_cap) VALUES\n('17841478136820581', 'Maeve', 'Europe/Dublin', '08:00', '01:00', 10, 20, 150),\n('17841480189765921', 'Elara', 'Europe/Oslo', '07:00', '23:00', 10, 20, 150),\n('17841480706715642', 'Amara', 'Africa/Lagos', '08:00', '00:00', 10, 20, 150);",
           "options": {}
         },
         "type": "n8n-nodes-base.postgres",
@@ -1147,7 +1173,7 @@
               {
                 "id": "389b69e7-112e-469b-85f1-3d9a65b02e2b",
                 "name": "role",
-                "value": "={{ $json.message.is_echo ? 'persona' : 'fan' }}",
+                "value": "={{ $json.message.is_echo ? 'girl' : 'fan' }}",
                 "type": "string"
               },
               {
@@ -1184,90 +1210,6 @@
       {
         "parameters": {
           "operation": "executeQuery",
-          "query": "SELECT id FROM personas WHERE ig_account_id = '{{ $('Set Fields').item.json.igAccountId }}';",
-          "options": {}
-        },
-        "type": "n8n-nodes-base.postgres",
-        "typeVersion": 2.6,
-        "position": [
-          -1168,
-          -48
-        ],
-        "id": "009e9b8f-f0d3-456b-9c9e-d082a719fe47",
-        "name": "Resolve Persona",
-        "credentials": {
-          "postgres": {
-            "id": "PlkpKDh3ZUPtl1UI",
-            "name": "Postgres account"
-          }
-        }
-      },
-      {
-        "parameters": {
-          "operation": "executeQuery",
-          "query": "INSERT INTO users (id, created_at)\nVALUES ('{{ $('Set Fields').item.json.otherPartyId }}', now())\nON CONFLICT (id) DO NOTHING;",
-          "options": {}
-        },
-        "type": "n8n-nodes-base.postgres",
-        "typeVersion": 2.6,
-        "position": [
-          -944,
-          -48
-        ],
-        "id": "7baddf70-3fb6-49d9-a103-1fc30a464299",
-        "name": "Upsert User",
-        "credentials": {
-          "postgres": {
-            "id": "PlkpKDh3ZUPtl1UI",
-            "name": "Postgres account"
-          }
-        }
-      },
-      {
-        "parameters": {
-          "operation": "executeQuery",
-          "query": "INSERT INTO conversations (id, user_id, persona_id, last_message_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}:{{ $('Resolve Persona').item.json.id }}',\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('Resolve Persona').item.json.id }}',\n  now()\n)\nON CONFLICT (id) DO UPDATE\n  SET last_message_at = CASE\n    WHEN '{{ $('Set Fields').item.json.role }}' = 'fan' THEN now()\n    ELSE conversations.last_message_at\n  END;",
-          "options": {}
-        },
-        "type": "n8n-nodes-base.postgres",
-        "typeVersion": 2.6,
-        "position": [
-          -720,
-          -48
-        ],
-        "id": "cc22c897-12db-419d-860b-acf1974b4def",
-        "name": "Upsert Conversation",
-        "credentials": {
-          "postgres": {
-            "id": "PlkpKDh3ZUPtl1UI",
-            "name": "Postgres account"
-          }
-        }
-      },
-      {
-        "parameters": {
-          "operation": "executeQuery",
-          "query": "INSERT INTO messages (conversation_id, role, content, platform_message_id, created_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}:{{ $('Resolve Persona').item.json.id }}',\n  '{{ $('Set Fields').item.json.role }}',\n  '{{ $('Set Fields').item.json.text }}',\n  '{{ $('Set Fields').item.json.mid }}',\n  to_timestamp({{ $('Set Fields').item.json.eventTimestamp }}::bigint / 1000.0)\n)\nON CONFLICT (platform_message_id) DO NOTHING;",
-          "options": {}
-        },
-        "type": "n8n-nodes-base.postgres",
-        "typeVersion": 2.6,
-        "position": [
-          -496,
-          -48
-        ],
-        "id": "6ad64163-84cb-46d3-846d-030bf38c4823",
-        "name": "Insert Message",
-        "credentials": {
-          "postgres": {
-            "id": "PlkpKDh3ZUPtl1UI",
-            "name": "Postgres account"
-          }
-        }
-      },
-      {
-        "parameters": {
-          "operation": "executeQuery",
           "query": "SELECT pg_size_pretty(SUM(pg_total_relation_size(relid))) AS my_data_size\nFROM pg_catalog.pg_statio_user_tables;",
           "options": {}
         },
@@ -1300,6 +1242,111 @@
         ],
         "id": "2c41e53f-7eb0-4460-be00-28a29d4d3571",
         "name": "monitorSizePerTable",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT role, content, created_at FROM messages ORDER BY created_at DESC LIMIT 5;",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -1440,
+          -656
+        ],
+        "id": "6acb4f25-2cc5-4b11-918d-dd46c0fea67a",
+        "name": "Test",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT id, default_fan_daily_cap FROM girls WHERE id = '{{ $('Set Fields').item.json.igAccountId }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -1168,
+          -48
+        ],
+        "id": "009e9b8f-f0d3-456b-9c9e-d082a719fe47",
+        "name": "updateGirls",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "INSERT INTO conversations (fan_id, girl_id, last_message_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  now()\n)\nON CONFLICT (fan_id) DO UPDATE\n  SET last_message_at = CASE\n    WHEN '{{ $('Set Fields').item.json.role }}' = 'fan' THEN now()\n    ELSE conversations.last_message_at\n  END;",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -720,
+          -48
+        ],
+        "id": "cc22c897-12db-419d-860b-acf1974b4def",
+        "name": "updateConversations",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "INSERT INTO messages (conversation_id, role, content, platform_message_id, created_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('Set Fields').item.json.role }}',\n  '{{ $('Set Fields').item.json.text.replace(/'/g, \"''\") }}',\n  '{{ $('Set Fields').item.json.mid }}',\n  to_timestamp({{ $('Set Fields').item.json.eventTimestamp }}::bigint / 1000.0)\n)\nON CONFLICT (platform_message_id) DO NOTHING;",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -496,
+          -48
+        ],
+        "id": "6ad64163-84cb-46d3-846d-030bf38c4823",
+        "name": "updateMessages",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "INSERT INTO fans (fan_id, girl_id, daily_reply_cap, replies_today_date)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  {{ $('updateGirls').item.json.default_fan_daily_cap }},\n  CURRENT_DATE\n)\nON CONFLICT (fan_id) DO NOTHING;",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -944,
+          -48
+        ],
+        "id": "7baddf70-3fb6-49d9-a103-1fc30a464299",
+        "name": "updateFans",
         "credentials": {
           "postgres": {
             "id": "PlkpKDh3ZUPtl1UI",
@@ -1361,6 +1408,11 @@
               "node": "monitorSize",
               "type": "main",
               "index": 0
+            },
+            {
+              "node": "Test",
+              "type": "main",
+              "index": 0
             }
           ]
         ]
@@ -1388,40 +1440,40 @@
         "main": [
           [
             {
-              "node": "Resolve Persona",
+              "node": "updateGirls",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "Resolve Persona": {
+      "updateGirls": {
         "main": [
           [
             {
-              "node": "Upsert User",
+              "node": "updateFans",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "Upsert User": {
+      "updateConversations": {
         "main": [
           [
             {
-              "node": "Upsert Conversation",
+              "node": "updateMessages",
               "type": "main",
               "index": 0
             }
           ]
         ]
       },
-      "Upsert Conversation": {
+      "updateFans": {
         "main": [
           [
             {
-              "node": "Insert Message",
+              "node": "updateConversations",
               "type": "main",
               "index": 0
             }
@@ -1430,7 +1482,7 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version d83b091a",
+    "name": "Version 67219772",
     "description": "",
     "autosaved": true
   },
