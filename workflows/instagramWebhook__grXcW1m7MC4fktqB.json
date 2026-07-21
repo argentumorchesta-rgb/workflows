@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-16T11:38:10.500Z",
+  "updatedAt": "2026-07-21T10:48:21.744Z",
   "createdAt": "2026-06-27T06:14:19.623Z",
   "id": "grXcW1m7MC4fktqB",
   "name": "instagramWebhook",
@@ -309,7 +309,8 @@
           "id": "PlkpKDh3ZUPtl1UI",
           "name": "Postgres account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -507,8 +508,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -1440,
-        -656
+        -2064,
+        -1072
       ],
       "id": "6acb4f25-2cc5-4b11-918d-dd46c0fea67a",
       "name": "Test",
@@ -517,7 +518,8 @@
           "id": "PlkpKDh3ZUPtl1UI",
           "name": "Postgres account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -657,11 +659,6 @@
             "node": "monitorSize",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Test",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -739,8 +736,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "2e72508b-415e-4b5f-9d1c-c4e022092bac",
-  "activeVersionId": "2e72508b-415e-4b5f-9d1c-c4e022092bac",
+  "versionId": "17c0784f-7684-40ec-9c52-bde962ee1ddd",
+  "activeVersionId": "17c0784f-7684-40ec-9c52-bde962ee1ddd",
   "triggerCount": 1,
   "shared": [
     {
@@ -752,9 +749,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-07-16T11:38:12.000Z",
-    "createdAt": "2026-07-16T11:38:10.502Z",
-    "versionId": "2e72508b-415e-4b5f-9d1c-c4e022092bac",
+    "updatedAt": "2026-07-21T10:48:34.000Z",
+    "createdAt": "2026-07-21T10:48:21.746Z",
+    "versionId": "17c0784f-7684-40ec-9c52-bde962ee1ddd",
     "workflowId": "grXcW1m7MC4fktqB",
     "nodes": [
       {
@@ -1060,7 +1057,8 @@
             "id": "PlkpKDh3ZUPtl1UI",
             "name": "Postgres account"
           }
-        }
+        },
+        "disabled": true
       },
       {
         "parameters": {
@@ -1258,8 +1256,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -1440,
-          -656
+          -2064,
+          -1072
         ],
         "id": "6acb4f25-2cc5-4b11-918d-dd46c0fea67a",
         "name": "Test",
@@ -1268,7 +1266,8 @@
             "id": "PlkpKDh3ZUPtl1UI",
             "name": "Postgres account"
           }
-        }
+        },
+        "disabled": true
       },
       {
         "parameters": {
@@ -1408,11 +1407,6 @@
               "node": "monitorSize",
               "type": "main",
               "index": 0
-            },
-            {
-              "node": "Test",
-              "type": "main",
-              "index": 0
             }
           ]
         ]
@@ -1482,7 +1476,7 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version 2e72508b",
+    "name": "Version 17c0784f",
     "description": "",
     "autosaved": true
   },
