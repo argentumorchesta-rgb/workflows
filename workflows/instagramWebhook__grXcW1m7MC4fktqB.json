@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-27T11:46:48.523Z",
+  "updatedAt": "2026-07-29T11:56:49.444Z",
   "createdAt": "2026-06-27T06:14:19.623Z",
   "id": "grXcW1m7MC4fktqB",
   "name": "instagramWebhook",
@@ -406,59 +406,6 @@
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "e514ede7-ad49-4f36-83bd-64aea4ab4bee",
-              "name": "igAccountId",
-              "value": "={{ $json.id }}",
-              "type": "string"
-            },
-            {
-              "id": "110cf11b-0ebf-4eb1-8233-b10561edf226",
-              "name": "otherPartyId",
-              "value": "={{ $json.sender.id === $json.id ? $json.recipient.id : $json.sender.id }}",
-              "type": "string"
-            },
-            {
-              "id": "389b69e7-112e-469b-85f1-3d9a65b02e2b",
-              "name": "role",
-              "value": "={{ $json.message.is_echo ? 'girl' : 'fan' }}",
-              "type": "string"
-            },
-            {
-              "id": "d57a00c8-684f-4b70-ac44-33dddf4bdb65",
-              "name": "text",
-              "value": "={{ $json.message.text }}",
-              "type": "string"
-            },
-            {
-              "id": "35eae14b-ce91-4c5b-be46-69437e0a6408",
-              "name": "mid",
-              "value": "={{ $json.message.mid }}",
-              "type": "string"
-            },
-            {
-              "id": "8ccc2fde-3e4d-42bf-9a2c-8980c6693634",
-              "name": "eventTimestamp",
-              "value": "={{ $json.timestamp }}",
-              "type": "number"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -1776,
-        884
-      ],
-      "id": "0e59c290-8af4-4ded-9412-1dab1319ca41",
-      "name": "Set Fields"
-    },
-    {
-      "parameters": {
         "operation": "executeQuery",
         "query": "SELECT pg_size_pretty(SUM(pg_total_relation_size(relid))) AS my_data_size\nFROM pg_catalog.pg_statio_user_tables;",
         "options": {}
@@ -524,7 +471,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT id, default_fan_daily_cap FROM girls WHERE id = '{{ $('Set Fields').item.json.igAccountId }}';",
+        "query": "SELECT id, default_fan_daily_cap FROM girls WHERE id = '{{ $('setFields').item.json.igAccountId }}';",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
@@ -545,7 +492,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "INSERT INTO conversations (fan_id, girl_id, last_message_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  now()\n)\nON CONFLICT (fan_id) DO UPDATE\n  SET last_message_at = CASE\n    WHEN '{{ $('Set Fields').item.json.role }}' = 'fan' THEN now()\n    ELSE conversations.last_message_at\n  END;",
+        "query": "INSERT INTO conversations (fan_id, girl_id, last_message_at)\nVALUES (\n  '{{ $('setFields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  now()\n)\nON CONFLICT (fan_id) DO UPDATE\n  SET last_message_at = CASE\n    WHEN '{{ $('setFields').item.json.role }}' = 'fan' THEN now()\n    ELSE conversations.last_message_at\n  END;",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
@@ -566,7 +513,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "INSERT INTO messages (conversation_id, role, content, platform_message_id, created_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('Set Fields').item.json.role }}',\n  '{{ $('Set Fields').item.json.text.replace(/'/g, \"''\") }}',\n  '{{ $('Set Fields').item.json.mid }}',\n  to_timestamp({{ $('Set Fields').item.json.eventTimestamp }}::bigint / 1000.0)\n)\nON CONFLICT (platform_message_id) DO NOTHING;",
+        "query": "INSERT INTO messages (conversation_id, role, content, platform_message_id, created_at)\nVALUES (\n  '{{ $('setFields').item.json.otherPartyId }}',\n  '{{ $('setFields').item.json.role }}',\n  '{{ $('setFields').item.json.text.replace(/'/g, \"''\") }}',\n  '{{ $('setFields').item.json.mid }}',\n  to_timestamp({{ $('setFields').item.json.eventTimestamp }}::bigint / 1000.0)\n)\nON CONFLICT (platform_message_id) DO NOTHING;",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
@@ -587,7 +534,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "INSERT INTO fans (fan_id, girl_id, daily_reply_cap, replies_today_date)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  {{ $('updateGirls').item.json.default_fan_daily_cap }},\n  CURRENT_DATE\n)\nON CONFLICT (fan_id) DO NOTHING;",
+        "query": "INSERT INTO fans (fan_id, girl_id, daily_reply_cap, replies_today_date)\nVALUES (\n  '{{ $('setFields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  {{ $('updateGirls').item.json.default_fan_daily_cap }},\n  CURRENT_DATE\n)\nON CONFLICT (fan_id) DO NOTHING;",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
@@ -788,6 +735,308 @@
           "name": "Postgres account"
         }
       }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e514ede7-ad49-4f36-83bd-64aea4ab4bee",
+              "name": "igAccountId",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "110cf11b-0ebf-4eb1-8233-b10561edf226",
+              "name": "otherPartyId",
+              "value": "={{ $json.sender.id === $json.id ? $json.recipient.id : $json.sender.id }}",
+              "type": "string"
+            },
+            {
+              "id": "389b69e7-112e-469b-85f1-3d9a65b02e2b",
+              "name": "role",
+              "value": "={{ $json.message.is_echo ? 'girl' : 'fan' }}",
+              "type": "string"
+            },
+            {
+              "id": "d57a00c8-684f-4b70-ac44-33dddf4bdb65",
+              "name": "text",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "35eae14b-ce91-4c5b-be46-69437e0a6408",
+              "name": "mid",
+              "value": "={{ $json.message.mid }}",
+              "type": "string"
+            },
+            {
+              "id": "8ccc2fde-3e4d-42bf-9a2c-8980c6693634",
+              "name": "eventTimestamp",
+              "value": "={{ $json.timestamp }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1776,
+        884
+      ],
+      "id": "0e59c290-8af4-4ded-9412-1dab1319ca41",
+      "name": "setFields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+              "leftValue": "={{ $('setFields').item.json.role }}",
+              "rightValue": "fan",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -656,
+        884
+      ],
+      "id": "5d3a978a-ff5c-487e-bc5e-507d295cb25b",
+      "name": "checkRole"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+              "leftValue": "={{ $('updateFans').item.json.manual_mode }}",
+              "rightValue": "'fan'",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -208,
+        884
+      ],
+      "id": "2194c03c-2f58-448b-8104-b7ef6183fe3c",
+      "name": "checkMode",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n  f.daily_reply_cap, f.replies_today,\n  g.global_daily_cap, g.messages_sent_today\nFROM fans f JOIN girls g ON g.id = f.girl_id\nWHERE f.fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2000,
+        1124
+      ],
+      "id": "5b47aad1-6b51-44f6-bfd2-86bb84fb9e94",
+      "name": "fetchCaps",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+              "leftValue": "={{ $json.replies_today < $json.daily_reply_cap && $json.messages_sent_today < $json.global_daily_cap }}",
+              "rightValue": "'fan'",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1776,
+        1124
+      ],
+      "id": "6fc34c09-40db-42ea-87d3-766575286ce0",
+      "name": "capCheck",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "min": 15,
+        "max": 30
+      },
+      "type": "n8n-nodes-random-wait.randomWait",
+      "typeVersion": 1,
+      "position": [
+        -1552,
+        1124
+      ],
+      "id": "e8f86e70-e614-403b-a205-4a090f146e56",
+      "name": "Random Wait",
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "Replace Me",
+      "typeVersion": 1,
+      "position": [
+        -1328,
+        1124
+      ],
+      "id": "2f30927c-8a23-4d67-991b-b39751ff2076",
+      "placeholder": true,
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "Replace Me1",
+      "typeVersion": 1,
+      "position": [
+        -1104,
+        1124
+      ],
+      "id": "0592f683-b4ce-4f0d-85fc-6e38d7c6dd0e",
+      "placeholder": true,
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "Replace Me2",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        1124
+      ],
+      "id": "fa708f77-a8fb-4f8e-a3f4-40d39e2ecd20",
+      "placeholder": true,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const girl = $('updateGirls').item.json;\nconst nowLocal = DateTime.now().setZone(girl.timezone);\n\nconst [startH, startM] = girl.awake_start.split(':').map(Number);\nconst [endH, endM] = girl.awake_end.split(':').map(Number);\n\nconst start = nowLocal.set({ hour: startH, minute: startM, second: 0, millisecond: 0 });\nconst end = nowLocal.set({ hour: endH, minute: endM, second: 0, millisecond: 0 });\n\nlet isAwake;\nif (end > start) {\n  // Same-day window, e.g. Elara: 07:00?23:00\n  isAwake = nowLocal >= start && nowLocal <= end;\n} else {\n  // Wraps past midnight, e.g. Maeve: 08:00?01:00\n  isAwake = nowLocal >= start || nowLocal <= end;\n}\n\nreturn [{ json: { ...$json, isAwake } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2448,
+        1124
+      ],
+      "id": "dd9c3234-89d9-4ba1-94b0-fcac706ba5e5",
+      "name": "checkSleepHours",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+              "leftValue": "={{ $json.isAwake }}",
+              "rightValue": "'fan'",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -2224,
+        1124
+      ],
+      "id": "6e1c2440-fefb-4042-b578-29d6c1ba1aa3",
+      "name": "checkAwake",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -432,
+        884
+      ],
+      "id": "40793a7b-e049-4633-9f4e-0f03491d188b",
+      "name": "readFanMode",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
     }
   ],
   "connections": {
@@ -852,25 +1101,14 @@
         [],
         [
           {
-            "node": "Set Fields",
+            "node": "setFields",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Set Fields",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Set Fields": {
-      "main": [
-        [
-          {
-            "node": "updateGirls",
+            "node": "setFields",
             "type": "main",
             "index": 0
           }
@@ -1009,6 +1247,132 @@
           }
         ]
       ]
+    },
+    "setFields": {
+      "main": [
+        [
+          {
+            "node": "updateGirls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updateMessages": {
+      "main": [
+        [
+          {
+            "node": "checkRole",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "checkRole": {
+      "main": [
+        [
+          {
+            "node": "readFanMode",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "checkMode": {
+      "main": [
+        []
+      ]
+    },
+    "fetchCaps": {
+      "main": [
+        [
+          {
+            "node": "capCheck",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "capCheck": {
+      "main": [
+        [
+          {
+            "node": "Random Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Random Wait": {
+      "main": [
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me": {
+      "main": [
+        [
+          {
+            "node": "Replace Me1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me1": {
+      "main": [
+        [
+          {
+            "node": "Replace Me2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "checkSleepHours": {
+      "main": [
+        [
+          {
+            "node": "checkAwake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "checkAwake": {
+      "main": [
+        [
+          {
+            "node": "fetchCaps",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "readFanMode": {
+      "main": [
+        [
+          {
+            "node": "checkMode",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -1024,8 +1388,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "ebb4f9e8-e79d-45c8-8539-7cb8ba25c2a2",
-  "activeVersionId": "ebb4f9e8-e79d-45c8-8539-7cb8ba25c2a2",
+  "versionId": "c416cdd8-3dea-4d86-8f61-7c8407986e7a",
+  "activeVersionId": "c416cdd8-3dea-4d86-8f61-7c8407986e7a",
   "triggerCount": 2,
   "shared": [
     {
@@ -1037,9 +1401,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-07-27T11:47:05.000Z",
-    "createdAt": "2026-07-27T11:46:48.527Z",
-    "versionId": "ebb4f9e8-e79d-45c8-8539-7cb8ba25c2a2",
+    "updatedAt": "2026-07-29T11:56:51.000Z",
+    "createdAt": "2026-07-29T11:56:49.446Z",
+    "versionId": "c416cdd8-3dea-4d86-8f61-7c8407986e7a",
     "workflowId": "grXcW1m7MC4fktqB",
     "nodes": [
       {
@@ -1442,59 +1806,6 @@
       },
       {
         "parameters": {
-          "assignments": {
-            "assignments": [
-              {
-                "id": "e514ede7-ad49-4f36-83bd-64aea4ab4bee",
-                "name": "igAccountId",
-                "value": "={{ $json.id }}",
-                "type": "string"
-              },
-              {
-                "id": "110cf11b-0ebf-4eb1-8233-b10561edf226",
-                "name": "otherPartyId",
-                "value": "={{ $json.sender.id === $json.id ? $json.recipient.id : $json.sender.id }}",
-                "type": "string"
-              },
-              {
-                "id": "389b69e7-112e-469b-85f1-3d9a65b02e2b",
-                "name": "role",
-                "value": "={{ $json.message.is_echo ? 'girl' : 'fan' }}",
-                "type": "string"
-              },
-              {
-                "id": "d57a00c8-684f-4b70-ac44-33dddf4bdb65",
-                "name": "text",
-                "value": "={{ $json.message.text }}",
-                "type": "string"
-              },
-              {
-                "id": "35eae14b-ce91-4c5b-be46-69437e0a6408",
-                "name": "mid",
-                "value": "={{ $json.message.mid }}",
-                "type": "string"
-              },
-              {
-                "id": "8ccc2fde-3e4d-42bf-9a2c-8980c6693634",
-                "name": "eventTimestamp",
-                "value": "={{ $json.timestamp }}",
-                "type": "number"
-              }
-            ]
-          },
-          "options": {}
-        },
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 3.4,
-        "position": [
-          -1776,
-          884
-        ],
-        "id": "0e59c290-8af4-4ded-9412-1dab1319ca41",
-        "name": "Set Fields"
-      },
-      {
-        "parameters": {
           "operation": "executeQuery",
           "query": "SELECT pg_size_pretty(SUM(pg_total_relation_size(relid))) AS my_data_size\nFROM pg_catalog.pg_statio_user_tables;",
           "options": {}
@@ -1560,7 +1871,7 @@
       {
         "parameters": {
           "operation": "executeQuery",
-          "query": "SELECT id, default_fan_daily_cap FROM girls WHERE id = '{{ $('Set Fields').item.json.igAccountId }}';",
+          "query": "SELECT id, default_fan_daily_cap FROM girls WHERE id = '{{ $('setFields').item.json.igAccountId }}';",
           "options": {}
         },
         "type": "n8n-nodes-base.postgres",
@@ -1581,7 +1892,7 @@
       {
         "parameters": {
           "operation": "executeQuery",
-          "query": "INSERT INTO conversations (fan_id, girl_id, last_message_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  now()\n)\nON CONFLICT (fan_id) DO UPDATE\n  SET last_message_at = CASE\n    WHEN '{{ $('Set Fields').item.json.role }}' = 'fan' THEN now()\n    ELSE conversations.last_message_at\n  END;",
+          "query": "INSERT INTO conversations (fan_id, girl_id, last_message_at)\nVALUES (\n  '{{ $('setFields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  now()\n)\nON CONFLICT (fan_id) DO UPDATE\n  SET last_message_at = CASE\n    WHEN '{{ $('setFields').item.json.role }}' = 'fan' THEN now()\n    ELSE conversations.last_message_at\n  END;",
           "options": {}
         },
         "type": "n8n-nodes-base.postgres",
@@ -1602,7 +1913,7 @@
       {
         "parameters": {
           "operation": "executeQuery",
-          "query": "INSERT INTO messages (conversation_id, role, content, platform_message_id, created_at)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('Set Fields').item.json.role }}',\n  '{{ $('Set Fields').item.json.text.replace(/'/g, \"''\") }}',\n  '{{ $('Set Fields').item.json.mid }}',\n  to_timestamp({{ $('Set Fields').item.json.eventTimestamp }}::bigint / 1000.0)\n)\nON CONFLICT (platform_message_id) DO NOTHING;",
+          "query": "INSERT INTO messages (conversation_id, role, content, platform_message_id, created_at)\nVALUES (\n  '{{ $('setFields').item.json.otherPartyId }}',\n  '{{ $('setFields').item.json.role }}',\n  '{{ $('setFields').item.json.text.replace(/'/g, \"''\") }}',\n  '{{ $('setFields').item.json.mid }}',\n  to_timestamp({{ $('setFields').item.json.eventTimestamp }}::bigint / 1000.0)\n)\nON CONFLICT (platform_message_id) DO NOTHING;",
           "options": {}
         },
         "type": "n8n-nodes-base.postgres",
@@ -1623,7 +1934,7 @@
       {
         "parameters": {
           "operation": "executeQuery",
-          "query": "INSERT INTO fans (fan_id, girl_id, daily_reply_cap, replies_today_date)\nVALUES (\n  '{{ $('Set Fields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  {{ $('updateGirls').item.json.default_fan_daily_cap }},\n  CURRENT_DATE\n)\nON CONFLICT (fan_id) DO NOTHING;",
+          "query": "INSERT INTO fans (fan_id, girl_id, daily_reply_cap, replies_today_date)\nVALUES (\n  '{{ $('setFields').item.json.otherPartyId }}',\n  '{{ $('updateGirls').item.json.id }}',\n  {{ $('updateGirls').item.json.default_fan_daily_cap }},\n  CURRENT_DATE\n)\nON CONFLICT (fan_id) DO NOTHING;",
           "options": {}
         },
         "type": "n8n-nodes-base.postgres",
@@ -1824,6 +2135,308 @@
             "name": "Postgres account"
           }
         }
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "e514ede7-ad49-4f36-83bd-64aea4ab4bee",
+                "name": "igAccountId",
+                "value": "={{ $json.id }}",
+                "type": "string"
+              },
+              {
+                "id": "110cf11b-0ebf-4eb1-8233-b10561edf226",
+                "name": "otherPartyId",
+                "value": "={{ $json.sender.id === $json.id ? $json.recipient.id : $json.sender.id }}",
+                "type": "string"
+              },
+              {
+                "id": "389b69e7-112e-469b-85f1-3d9a65b02e2b",
+                "name": "role",
+                "value": "={{ $json.message.is_echo ? 'girl' : 'fan' }}",
+                "type": "string"
+              },
+              {
+                "id": "d57a00c8-684f-4b70-ac44-33dddf4bdb65",
+                "name": "text",
+                "value": "={{ $json.message.text }}",
+                "type": "string"
+              },
+              {
+                "id": "35eae14b-ce91-4c5b-be46-69437e0a6408",
+                "name": "mid",
+                "value": "={{ $json.message.mid }}",
+                "type": "string"
+              },
+              {
+                "id": "8ccc2fde-3e4d-42bf-9a2c-8980c6693634",
+                "name": "eventTimestamp",
+                "value": "={{ $json.timestamp }}",
+                "type": "number"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -1776,
+          884
+        ],
+        "id": "0e59c290-8af4-4ded-9412-1dab1319ca41",
+        "name": "setFields"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+                "leftValue": "={{ $('setFields').item.json.role }}",
+                "rightValue": "fan",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          -656,
+          884
+        ],
+        "id": "5d3a978a-ff5c-487e-bc5e-507d295cb25b",
+        "name": "checkRole"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+                "leftValue": "={{ $('updateFans').item.json.manual_mode }}",
+                "rightValue": "'fan'",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          -208,
+          884
+        ],
+        "id": "2194c03c-2f58-448b-8104-b7ef6183fe3c",
+        "name": "checkMode",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT\n  f.daily_reply_cap, f.replies_today,\n  g.global_daily_cap, g.messages_sent_today\nFROM fans f JOIN girls g ON g.id = f.girl_id\nWHERE f.fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -2000,
+          1124
+        ],
+        "id": "5b47aad1-6b51-44f6-bfd2-86bb84fb9e94",
+        "name": "fetchCaps",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+                "leftValue": "={{ $json.replies_today < $json.daily_reply_cap && $json.messages_sent_today < $json.global_daily_cap }}",
+                "rightValue": "'fan'",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          -1776,
+          1124
+        ],
+        "id": "6fc34c09-40db-42ea-87d3-766575286ce0",
+        "name": "capCheck",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "min": 15,
+          "max": 30
+        },
+        "type": "n8n-nodes-random-wait.randomWait",
+        "typeVersion": 1,
+        "position": [
+          -1552,
+          1124
+        ],
+        "id": "e8f86e70-e614-403b-a205-4a090f146e56",
+        "name": "Random Wait",
+        "disabled": true
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.noOp",
+        "name": "Replace Me",
+        "typeVersion": 1,
+        "position": [
+          -1328,
+          1124
+        ],
+        "id": "2f30927c-8a23-4d67-991b-b39751ff2076",
+        "placeholder": true,
+        "disabled": true
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.noOp",
+        "name": "Replace Me1",
+        "typeVersion": 1,
+        "position": [
+          -1104,
+          1124
+        ],
+        "id": "0592f683-b4ce-4f0d-85fc-6e38d7c6dd0e",
+        "placeholder": true,
+        "disabled": true
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.noOp",
+        "name": "Replace Me2",
+        "typeVersion": 1,
+        "position": [
+          -880,
+          1124
+        ],
+        "id": "fa708f77-a8fb-4f8e-a3f4-40d39e2ecd20",
+        "placeholder": true,
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "jsCode": "const girl = $('updateGirls').item.json;\nconst nowLocal = DateTime.now().setZone(girl.timezone);\n\nconst [startH, startM] = girl.awake_start.split(':').map(Number);\nconst [endH, endM] = girl.awake_end.split(':').map(Number);\n\nconst start = nowLocal.set({ hour: startH, minute: startM, second: 0, millisecond: 0 });\nconst end = nowLocal.set({ hour: endH, minute: endM, second: 0, millisecond: 0 });\n\nlet isAwake;\nif (end > start) {\n  // Same-day window, e.g. Elara: 07:00?23:00\n  isAwake = nowLocal >= start && nowLocal <= end;\n} else {\n  // Wraps past midnight, e.g. Maeve: 08:00?01:00\n  isAwake = nowLocal >= start || nowLocal <= end;\n}\n\nreturn [{ json: { ...$json, isAwake } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -2448,
+          1124
+        ],
+        "id": "dd9c3234-89d9-4ba1-94b0-fcac706ba5e5",
+        "name": "checkSleepHours",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+                "leftValue": "={{ $json.isAwake }}",
+                "rightValue": "'fan'",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          -2224,
+          1124
+        ],
+        "id": "6e1c2440-fefb-4042-b578-29d6c1ba1aa3",
+        "name": "checkAwake",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -432,
+          884
+        ],
+        "id": "40793a7b-e049-4633-9f4e-0f03491d188b",
+        "name": "readFanMode",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
       }
     ],
     "connections": {
@@ -1888,25 +2501,14 @@
           [],
           [
             {
-              "node": "Set Fields",
+              "node": "setFields",
               "type": "main",
               "index": 0
             }
           ],
           [
             {
-              "node": "Set Fields",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Set Fields": {
-        "main": [
-          [
-            {
-              "node": "updateGirls",
+              "node": "setFields",
               "type": "main",
               "index": 0
             }
@@ -2045,12 +2647,138 @@
             }
           ]
         ]
+      },
+      "setFields": {
+        "main": [
+          [
+            {
+              "node": "updateGirls",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "updateMessages": {
+        "main": [
+          [
+            {
+              "node": "checkRole",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "checkRole": {
+        "main": [
+          [
+            {
+              "node": "readFanMode",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "checkMode": {
+        "main": [
+          []
+        ]
+      },
+      "fetchCaps": {
+        "main": [
+          [
+            {
+              "node": "capCheck",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "capCheck": {
+        "main": [
+          [
+            {
+              "node": "Random Wait",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Random Wait": {
+        "main": [
+          [
+            {
+              "node": "Replace Me",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Replace Me": {
+        "main": [
+          [
+            {
+              "node": "Replace Me1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Replace Me1": {
+        "main": [
+          [
+            {
+              "node": "Replace Me2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "checkSleepHours": {
+        "main": [
+          [
+            {
+              "node": "checkAwake",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "checkAwake": {
+        "main": [
+          [
+            {
+              "node": "fetchCaps",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "readFanMode": {
+        "main": [
+          [
+            {
+              "node": "checkMode",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version ebb4f9e8",
+    "name": "Version c416cdd8",
     "description": "",
-    "autosaved": false
+    "autosaved": true
   },
   "tags": []
 }
