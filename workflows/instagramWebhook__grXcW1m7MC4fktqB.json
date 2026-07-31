@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-30T11:47:52.659Z",
+  "updatedAt": "2026-07-31T12:49:47.517Z",
   "createdAt": "2026-06-27T06:14:19.623Z",
   "id": "grXcW1m7MC4fktqB",
   "name": "instagramWebhook",
@@ -17,8 +17,8 @@
       "type": "@mookielianhd/n8n-nodes-instagram.instagramTrigger",
       "typeVersion": 2,
       "position": [
-        -2448,
-        780
+        -2688,
+        1452
       ],
       "id": "331e91b5-9015-4671-9178-501cd8e18740",
       "name": "Instagram Trigger",
@@ -31,8 +31,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2000,
-        676
+        -2240,
+        1348
       ],
       "id": "cb19a335-3cfd-4fc3-8d69-dbc3a08701e3",
       "name": "processMessage"
@@ -201,8 +201,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1776,
-        676
+        -2016,
+        1348
       ],
       "id": "9c9aca93-aeff-4e17-9918-a68c53196a62",
       "name": "updateSheet",
@@ -273,8 +273,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        -2224,
-        780
+        -2464,
+        1452
       ],
       "id": "c647d9db-e44d-4a60-8d04-ec08072c3164",
       "name": "Switch"
@@ -284,7 +284,7 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -2448,
+        -2688,
         -320
       ],
       "id": "6a66b411-617e-4370-a5ed-7f2477bebec1",
@@ -299,7 +299,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2448,
+        -2688,
         -640
       ],
       "id": "bc97e433-3547-4d97-893e-f18296266cbd",
@@ -352,7 +352,7 @@
                 "conditions": [
                   {
                     "id": "9912680f-a1a8-46f5-afcd-14e81b5e6853",
-                    "leftValue": "={{ $json.message.is_echo }}",
+                    "leftValue": "={{ $json.message !== undefined && $json.message.is_echo === true && $json.message.text !== undefined }}",
                     "rightValue": "messages",
                     "operator": {
                       "type": "boolean",
@@ -377,7 +377,7 @@
                 "conditions": [
                   {
                     "id": "eb525cd5-bf1b-44be-b29a-aa5afc4d5856",
-                    "leftValue": "={{ $json.message !== undefined && !$json.message.is_echo }}",
+                    "leftValue": "={{ $json.message !== undefined && $json.message.text !== undefined && !$json.message.is_echo && !$json.message.is_deleted }}",
                     "rightValue": "",
                     "operator": {
                       "type": "boolean",
@@ -398,8 +398,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        -2000,
-        868
+        -2240,
+        1540
       ],
       "id": "fa714106-15ad-4639-8cb4-1cbb0f86062b",
       "name": "Switch1"
@@ -413,7 +413,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2224,
+        -2464,
         -224
       ],
       "id": "9945bcdf-c36c-43eb-9a6b-bbeffbf0c86f",
@@ -434,7 +434,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2224,
+        -2464,
         -416
       ],
       "id": "2c41e53f-7eb0-4460-be00-28a29d4d3571",
@@ -449,13 +449,13 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "UPDATE girls SET\n  surname = 'O''Kane', age = 20, birthday = '2006-01-05', height_m = 1.55,\n  country = 'Ireland', religion = 'Catholic', hair = 'Long wavy red auburn',\n  eyes = 'Striking natural emerald green',\n  skin = 'Fair with light localised freckles (cheeks, nose bridge)',\n  breasts = 'Small-Medium', accessories = 'Silver cross necklace', lips = 'Soft natural pink',\n  personality = 'Introverted and quietly warm ? gentle, a little dreamy, and deeply spiritual. Speaks softly and blushes easily, but is fiercely loyal to those she trusts. Modest in both dress and manner; finds beauty in small, simple moments.',\n  interests = 'Reading Irish folklore & gothic novels; journaling & letter-writing; baking sourdough and soda bread; folk & Celtic music (tin whistle, fiddle); wildflower pressing & botanical art; knitting & crocheting; farmers markets & foraging; watercolour landscape painting; candle-making; herb gardening; hiking misty countryside; cosy fireside evenings; vintage thrift shopping; attending mass & quiet chapel visits; rainy days with tea',\n  voice_notes = 'Keep replies short and natural, like real Instagram DMs ? not essays. Write in first person, fully in character. Never break character or mention being an AI.'\nWHERE id = '17841478136820581';\n\nUPDATE girls SET\n  surname = 'Strand', age = 26, birthday = '2000-01-05', height_m = 1.70,\n  country = 'Norway', religion = 'Atheist', hair = 'Long straight platinum silver-white with soft violet-tinted ends',\n  eyes = 'Striking natural violet', skin = 'Fair porcelain', breasts = 'Medium-Large',\n  accessories = 'Thin wire-frame rectangular glasses', lips = 'Cool nude/soft mauve',\n  personality = 'Intellectually self-possessed and quietly confident ? introspective, aesthetically minded, values ideas as much as beauty. Independent and liberal in worldview, carries herself with understated authority. Minimalist in lifestyle but rich in thought.',\n  interests = 'Philosophy & Continental theory; Scandinavian design & architecture; specialty coffee (pour-over, siphon); rare books & vintage bookshops; contemporary art galleries; classical piano & chamber music; sustainable & ethical fashion; film photography (35mm); chess; museum visits & curation; typewriter writing; minimalist interior styling; Scandinavian nature walks (fjords, birch forests); learning French & Latin; astronomy & stargazing at night',\n  voice_notes = 'Keep replies short and natural, like real Instagram DMs ? not essays. Write in first person, fully in character. Never break character or mention being an AI.'\nWHERE id = '17841480189765921';\n\nUPDATE girls SET\n  surname = 'Odum', age = 25, birthday = '2001-01-05', height_m = 1.75,\n  country = 'Nigeria', religion = 'Catholic', hair = 'Medium black box braids',\n  eyes = 'Striking bright yellow', skin = 'Very dark ebony', breasts = 'Large',\n  accessories = 'Gold hoop earrings', lips = 'Terracota',\n  personality = 'Commanding and magnetically self-assured ? owns every room she enters. Fiercely proud of her Nigerian Igbo heritage, direct, ambitious, and intensely passionate. Protective of those she loves, leads with presence rather than volume.',\n  interests = 'Afrofuturism art & design; high fashion editorial & runway; Nigerian Igbo culture & traditions; Afrobeats & Afropop music; dance & strength training; bold interior design with African textiles; social advocacy & public speaking; cooking Nigerian cuisine (jollof, egusi, suya); travel to Lagos, Accra, Nairobi; luxury skincare routines; Ankara & aso-oke textile appreciation; poetry slams & spoken word; fashion styling & moodboarding; contemporary African art collecting; entrepreneurship; swimming',\n  voice_notes = 'Keep replies short and natural, like real Instagram DMs ? not essays. Write in first person, fully in character. Never break character or mention being an AI.'\nWHERE id = '17841480706715642';",
+        "query": "ALTER TABLE girls ADD COLUMN access_token TEXT;\n\nUPDATE girls SET access_token = 'IGAAXVb07ZCZBz9BZAGFMMmhJZAmI4M28tYXNiVGFNbXhZAamd1TjkxcVBucmhXR053eHlIcGFrRktYeGYzRWlsTjF2WXlEZAWpfOXVoWVNpamFwdGRlSFV4VDQwVTE3aVI3bU5mNnN6V21pZA1NYVDVVUXI3RVlkNW1fR1BYSjRCY1lLRQZDZD' WHERE id = '17841478136820581';\n\nUPDATE girls SET access_token = 'IGAAXVb07ZCZBz9BZAGJDZAGc0c05NUXBSbVJ2NFZA4ZA2dTNWRrbGp2REFIWFF1Wi1HQmUwY25LRk9FNUlWbkpOc2VtTkZASMmR3Ylg4dV9obUNNekJtNmRaTUlyakFucGNxWXk2Y0JyTWQ4MHRQVUp6cC1fR3d6bU5FN2xTTnU4S3pnQQZDZD' WHERE id = '17841480189765921';\n\nUPDATE girls SET access_token = 'IGAAXVb07ZCZBz9BZAGIyZAHJMamZAkb3Y5ZAE1DRDduTmY3UDMwNnlJQ3hiVThtU2tLUkNHOEhOcWFYZAm54X2ZAhNkc2Ykc0Y1lleXRobDVJMVJfck5tWmZA1S0tONXZA0Yk01QmVfVl9wSzZAVZATg0cEZA5dm5JX1RIVi1pRE00U0dXRDNIUQZDZD' WHERE id = '17841480706715642';",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2448,
+        -2688,
         0
       ],
       "id": "6acb4f25-2cc5-4b11-918d-dd46c0fea67a",
@@ -476,8 +476,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -1552,
-        884
+        -1792,
+        1556
       ],
       "id": "009e9b8f-f0d3-456b-9c9e-d082a719fe47",
       "name": "updateGirls",
@@ -497,8 +497,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -1104,
-        884
+        -1344,
+        1556
       ],
       "id": "cc22c897-12db-419d-860b-acf1974b4def",
       "name": "updateConversations",
@@ -518,8 +518,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -880,
-        884
+        -1120,
+        1556
       ],
       "id": "6ad64163-84cb-46d3-846d-030bf38c4823",
       "name": "updateMessages",
@@ -539,8 +539,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -1328,
-        884
+        -1568,
+        1556
       ],
       "id": "7baddf70-3fb6-49d9-a103-1fc30a464299",
       "name": "updateFans",
@@ -560,8 +560,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2224,
-        452
+        -2464,
+        1124
       ],
       "id": "ae71beb8-403e-4f93-b953-342250929095",
       "name": "candidateQuery",
@@ -579,8 +579,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -2000,
-        452
+        -2240,
+        1124
       ],
       "id": "1d843c50-a7cd-4bf7-af48-b16e58c07ce5",
       "name": "fansLoop"
@@ -594,8 +594,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -1776,
-        328
+        -2016,
+        1000
       ],
       "id": "14bb7f88-1e84-4e75-bde6-ac5adf79da01",
       "name": "messagePerFan",
@@ -615,8 +615,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -752,
-        452
+        -992,
+        1124
       ],
       "id": "9ab201e8-baab-406b-ad23-b3a9a2ce3e18",
       "name": "updateFanSummary",
@@ -634,53 +634,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1552,
-        328
+        -1792,
+        1000
       ],
       "id": "d84aeb54-dd1c-49fd-874e-547de5de7c45",
       "name": "packetFan"
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "value": "claude-haiku-4-5-20251001",
-          "mode": "list",
-          "cachedResultName": "Claude Haiku 4.5"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
-      "typeVersion": 1.3,
-      "position": [
-        -1256,
-        552
-      ],
-      "id": "11c3d216-d394-4483-ad36-74b1a80dd9f4",
-      "name": "Anthropic Chat Model",
-      "credentials": {
-        "anthropicApi": {
-          "id": "4LLfM18LVZ4nSWDx",
-          "name": "Anthropic account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.userPrompt }}",
-        "options": {
-          "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 3.1,
-      "position": [
-        -1328,
-        328
-      ],
-      "id": "3472a341-1e47-4f04-8e59-0b27c5832134",
-      "name": "Claude"
     },
     {
       "parameters": {
@@ -689,8 +647,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -976,
-        328
+        -1216,
+        1000
       ],
       "id": "f5694d16-316d-4c4f-9b54-a1d72d89b580",
       "name": "parseSummary"
@@ -708,8 +666,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        -2448,
-        452
+        -2688,
+        1124
       ],
       "id": "9ca6d533-ef81-420b-b0f1-bab70ddcf37d",
       "name": "Schedule Trigger"
@@ -761,8 +719,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1776,
-        884
+        -2016,
+        1556
       ],
       "id": "0e59c290-8af4-4ded-9412-1dab1319ca41",
       "name": "setFields"
@@ -794,8 +752,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -656,
-        884
+        -896,
+        1556
       ],
       "id": "5d3a978a-ff5c-487e-bc5e-507d295cb25b",
       "name": "checkRole"
@@ -828,8 +786,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -208,
-        884
+        -448,
+        1556
       ],
       "id": "2194c03c-2f58-448b-8104-b7ef6183fe3c",
       "name": "checkMode"
@@ -846,7 +804,7 @@
           "conditions": [
             {
               "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
-              "leftValue": "={{ $('fetchFan').item.json.replies_today < $('fetchFan').item.json.daily_reply_cap && $('fetchGirl').item.json.messages_sent_today < $('fetchGirl').item.json.global_daily_cap }}",
+              "leftValue": "={{ $('fetchFans').item.json.replies_today < $('fetchFans').item.json.daily_reply_cap && $('fetchGirl').item.json.messages_sent_today < $('fetchGirl').item.json.global_daily_cap }}",
               "rightValue": "'fan'",
               "operator": {
                 "type": "boolean",
@@ -862,22 +820,22 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        688,
-        884
+        448,
+        1460
       ],
       "id": "6fc34c09-40db-42ea-87d3-766575286ce0",
       "name": "capCheck"
     },
     {
       "parameters": {
-        "min": 15,
-        "max": 30
+        "unit": "minutes",
+        "max": 2
       },
       "type": "n8n-nodes-random-wait.randomWait",
       "typeVersion": 1,
       "position": [
-        912,
-        884
+        672,
+        1460
       ],
       "id": "e8f86e70-e614-403b-a205-4a090f146e56",
       "name": "Random Wait"
@@ -889,8 +847,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        240,
-        884
+        0,
+        1556
       ],
       "id": "dd9c3234-89d9-4ba1-94b0-fcac706ba5e5",
       "name": "checkSleepHours"
@@ -923,8 +881,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        464,
-        884
+        224,
+        1556
       ],
       "id": "6e1c2440-fefb-4042-b578-29d6c1ba1aa3",
       "name": "checkAwake"
@@ -932,35 +890,14 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT manual_mode, daily_reply_cap, replies_today\nFROM fans\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+        "query": "SELECT\n  f.summary_text, f.fan_name, f.fan_nick,\n  g.name AS girl_name, g.surname, g.age, g.height_m, g.country, g.religion,\n  g.hair, g.eyes, g.skin, g.breasts, g.accessories, g.lips,\n  g.personality, g.interests, g.access_token\nFROM fans f JOIN girls g ON g.id = f.girl_id\nWHERE f.fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -432,
-        880
-      ],
-      "id": "40793a7b-e049-4633-9f4e-0f03491d188b",
-      "name": "fetchFan",
-      "credentials": {
-        "postgres": {
-          "id": "PlkpKDh3ZUPtl1UI",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT\n  f.summary_text, f.fan_name, f.fan_nick,\n  g.name AS girl_name, g.surname, g.age, g.height_m, g.country, g.religion,\n  g.hair, g.eyes, g.skin, g.breasts, g.accessories, g.lips,\n  g.personality, g.interests\nFROM fans f JOIN girls g ON g.id = f.girl_id\nWHERE f.fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        1136,
-        884
+        1344,
+        1460
       ],
       "id": "6ab7b52c-01fc-4b3c-a40e-6b57349268a1",
       "name": "fetchFanContext",
@@ -980,8 +917,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1360,
-        884
+        1568,
+        1460
       ],
       "id": "acaa79a2-f83b-4d38-9978-816850542dc3",
       "name": "fetchRecentMessages",
@@ -994,13 +931,13 @@
     },
     {
       "parameters": {
-        "jsCode": "const c = $('fetchFanContext').item.json;\n\nconst systemPrompt = `You are ${c.girl_name} ${c.surname}, ${c.age}, from ${c.country}. Religion: ${c.religion}.\nAppearance: ${c.hair} hair, ${c.eyes} eyes, ${c.skin} skin, ${c.height_m}m tall. Wears: ${c.accessories}.\nPersonality: ${c.personality}\nInterests: ${c.interests}`;\n\nconst messages = $input.all().map(i => i.json);\nconst addressAs = (c.fan_nick && c.fan_nick !== 'sir') ? c.fan_nick : (c.fan_name || c.fan_nick || 'sir');\nconst transcript = messages.map(m => `${m.role === 'fan' ? 'Fan' : c.girl_name}: ${m.content}`).join('\\n');\n\nconst userPrompt = `Fan summary: ${c.summary_text || 'No summary yet ? new or lightly active fan.'}\n\nAddress this fan as: ${addressAs}\n\nRecent conversation:\n${transcript}\n\nWrite your next reply to the fan's most recent message. Reply with only the message text, nothing else.`;\n\nreturn [{ json: { systemPrompt, userPrompt } }];"
+        "jsCode": "const c = $('fetchFanContext').item.json;\n\nconst systemPrompt = `You are ${c.girl_name} ${c.surname}, ${c.age}, from ${c.country}. Religion: ${c.religion}.\nPhysical appearance: ${c.hair} hair, ${c.eyes} eyes, ${c.skin} skin, ${c.height_m}m tall, ${c.breasts} figure. Typically wears: ${c.accessories}.\n\nPersonality: ${c.personality}\n\nInterests: ${c.interests}\n${c.voice_notes ? '\\n' + c.voice_notes : ''}\n\nYou are messaging a fan on Instagram DM, fully in character as ${c.girl_name}. Rules:\n- Reply as a real person texting ? short, natural, casual. A few sentences at most, not a paragraph.\n- Never mention being an AI, a bot, a language model, or break character for any reason.\n- Match the emotional tone and energy of the fan's message.\n- Use the fan summary and recent conversation to stay consistent with what's already been said.`;\n\nconst messages = $input.all().map(i => i.json);\nconst addressAs = (c.fan_nick && c.fan_nick !== 'sir') ? c.fan_nick : (c.fan_name || c.fan_nick || 'sir');\nconst transcript = messages.map(m => `${m.role === 'fan' ? 'Fan' : c.girl_name}: ${m.content}`).join('\\n');\n\nconst userPrompt = `Fan summary: ${c.summary_text || 'No summary yet ? new or lightly active fan.'}\n\nAddress this fan as: ${addressAs}\n\nRecent conversation:\n${transcript}\n\nWrite your next reply to the fan's most recent message. Output only the reply text itself ? no labels, no quotation marks, no stage directions.`;\n\nreturn [{ json: { systemPrompt, userPrompt } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1584,
-        884
+        1792,
+        1460
       ],
       "id": "7fc753c1-e0d6-4ac5-a08b-142b889d3a7a",
       "name": "buildPrompt"
@@ -1014,8 +951,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        16,
-        884
+        -224,
+        1556
       ],
       "id": "d338ce43-8863-46b2-a033-1e1192e56b1e",
       "name": "fetchGirl",
@@ -1025,6 +962,752 @@
           "name": "Postgres account"
         }
       }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "options": {
+          "systemMessage": "={{ $json.systemPrompt }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        2016,
+        1460
+      ],
+      "id": "1383d3d3-b50f-40fd-b4ed-fe1995b7052a",
+      "name": "ClaudeForChat"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-haiku-4-5-20251001",
+          "mode": "list",
+          "cachedResultName": "Claude Haiku 4.5"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        2088,
+        1684
+      ],
+      "id": "bb752519-a48c-4200-b6e2-ea1e5ac449c5",
+      "name": "modelForChat",
+      "credentials": {
+        "anthropicApi": {
+          "id": "4LLfM18LVZ4nSWDx",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "options": {
+          "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1568,
+        1000
+      ],
+      "id": "3472a341-1e47-4f04-8e59-0b27c5832134",
+      "name": "ClaudeForComments"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-haiku-4-5-20251001",
+          "mode": "list",
+          "cachedResultName": "Claude Haiku 4.5"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -1496,
+        1224
+      ],
+      "id": "11c3d216-d394-4483-ad36-74b1a80dd9f4",
+      "name": "modelForComments",
+      "credentials": {
+        "anthropicApi": {
+          "id": "4LLfM18LVZ4nSWDx",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE fans SET replies_today = replies_today + 1\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';\n\nUPDATE girls SET messages_sent_today = messages_sent_today + 1\nWHERE id = '{{ $('setFields').item.json.igAccountId }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2816,
+        1460
+      ],
+      "id": "7cce55b2-dd71-43fe-a81a-43b83bb1e8f6",
+      "name": "incCounters",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.instagram.com/v25.0/{{ $('setFields').item.json.igAccountId }}/messages",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={\"text\": \"{{ $json.output }}\"}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('fetchFanContext').item.json.access_token }}"
+            },
+            {
+              "name": "recipient",
+              "value": "={\"id\": \"{{ $('setFields').item.json.otherPartyId }}\"}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2368,
+        1460
+      ],
+      "id": "0f3b533b-13a6-4460-86f1-820b03212eeb",
+      "name": "replyMessage",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Maeve's reset, 03:00 Europe/Dublin\nUPDATE fans SET replies_today = 0 WHERE girl_id = '17841478136820581';\nUPDATE girls SET messages_sent_today = 0 WHERE id = '17841478136820581';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2464,
+        224
+      ],
+      "id": "6cd3212c-e57a-4905-bff9-3df187e4ace8",
+      "name": "resetMaeve",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Elara's reset, 03:00 Europe/Oslo\nUPDATE fans SET replies_today = 0 WHERE girl_id = '17841480189765921';\nUPDATE girls SET messages_sent_today = 0 WHERE id = '17841480189765921';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2464,
+        448
+      ],
+      "id": "83360230-7704-42d4-a63b-d02576b0a221",
+      "name": "resetElara",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Amara's reset, 03:00 Africa/Lagos\nUPDATE fans SET replies_today = 0 WHERE girl_id = '17841480706715642';\nUPDATE girls SET messages_sent_today = 0 WHERE id = '17841480706715642';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2464,
+        672
+      ],
+      "id": "25b8df7b-cdd2-41f3-924e-0ff424c66959",
+      "name": "resetAmara",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE conversations SET pending_wake_reply = true\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        448,
+        1652
+      ],
+      "id": "d9bf1df3-e9ee-4ec8-92ff-60af437b16dc",
+      "name": "pendingReply",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE conversations SET pending_reply = false\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2592,
+        1460
+      ],
+      "id": "818557cf-aef7-4a25-80f5-a94ad1941d38",
+      "name": "pendingRemove",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 12
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -2688,
+        224
+      ],
+      "id": "440838da-7464-4b0c-914f-b1761588afd8",
+      "name": "sleepingMaeve"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 11
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -2688,
+        448
+      ],
+      "id": "3c40b5e4-529a-45ef-92eb-cb7b1fea01f0",
+      "name": "sleepingElara"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 15
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -2688,
+        672
+      ],
+      "id": "58575238-90b5-4652-bc0a-3b392ad3eca8",
+      "name": "sleepingAmara"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -2688,
+        1980
+      ],
+      "id": "cb2aabeb-2f8e-4ad6-ad4b-eeaa8c30144a",
+      "name": "checkPendings",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -2240,
+        1980
+      ],
+      "id": "ced4fda6-7b59-46c8-807d-64b68012b2b4",
+      "name": "fanLoop",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT manual_mode, daily_reply_cap, replies_today\nFROM fans\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -672,
+        1556
+      ],
+      "id": "40793a7b-e049-4633-9f4e-0f03491d188b",
+      "name": "fetchFans",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT manual_mode, daily_reply_cap, replies_today\nFROM fans WHERE fan_id = '{{ $json.fan_id }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2016,
+        1980
+      ],
+      "id": "6bd4cfb2-b281-4d4e-96b4-71ed85b55803",
+      "name": "fetchFan",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "min": 15,
+        "max": 30
+      },
+      "type": "n8n-nodes-random-wait.randomWait",
+      "typeVersion": 1,
+      "position": [
+        -1120,
+        1980
+      ],
+      "id": "a69534d1-256d-4337-ac9b-45c06a8c8c80",
+      "name": "Random Wait1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const c = $('fetchFanContexts').item.json;\n\nconst systemPrompt = `You are ${c.girl_name} ${c.surname}, ${c.age}, from ${c.country}. Religion: ${c.religion}.\nPhysical appearance: ${c.hair} hair, ${c.eyes} eyes, ${c.skin} skin, ${c.height_m}m tall, ${c.breasts} figure. Typically wears: ${c.accessories}.\n\nPersonality: ${c.personality}\n\nInterests: ${c.interests}\n${c.voice_notes ? '\\n' + c.voice_notes : ''}\n\nYou are messaging a fan on Instagram DM, fully in character as ${c.girl_name}. Rules:\n- Reply as a real person texting ? short, natural, casual. A few sentences at most, not a paragraph.\n- Never mention being an AI, a bot, a language model, or break character for any reason.\n- Match the emotional tone and energy of the fan's message.\n- Use the fan summary and recent conversation to stay consistent with what's already been said.`;\n\nconst messages = $input.all().map(i => i.json);\nconst addressAs = (c.fan_nick && c.fan_nick !== 'sir') ? c.fan_nick : (c.fan_name || c.fan_nick || 'sir');\nconst transcript = messages.map(m => `${m.role === 'fan' ? 'Fan' : c.girl_name}: ${m.content}`).join('\\n');\n\nconst userPrompt = `Fan summary: ${c.summary_text || 'No summary yet ? new or lightly active fan.'}\n\nAddress this fan as: ${addressAs}\n\nRecent conversation:\n${transcript}\n\nWrite your next reply to the fan's most recent message. Output only the reply text itself ? no labels, no quotation marks, no stage directions.`;\n\nreturn [{ json: { systemPrompt, userPrompt } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -448,
+        1980
+      ],
+      "id": "1ec78b45-4c11-4167-acd7-4e5d6d90ee87",
+      "name": "buildPrompt1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "options": {
+          "systemMessage": "={{ $json.systemPrompt }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -224,
+        1980
+      ],
+      "id": "8c3acaa2-3436-4c6a-b86c-3af73deddb29",
+      "name": "ClaudeForChat1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-haiku-4-5-20251001",
+          "mode": "list",
+          "cachedResultName": "Claude Haiku 4.5"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -152,
+        2204
+      ],
+      "id": "a6260c2a-0626-4bae-a31b-2a07601d4f85",
+      "name": "modelForChat1",
+      "credentials": {
+        "anthropicApi": {
+          "id": "4LLfM18LVZ4nSWDx",
+          "name": "Anthropic account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE fans SET replies_today = replies_today + 1 WHERE fan_id = '{{ $('candidatePending').item.json.fan_id }}';\nUPDATE girls SET messages_sent_today = messages_sent_today + 1 WHERE id = '{{ $('candidatePending').item.json.girl_id }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        576,
+        1980
+      ],
+      "id": "ecbfcd02-a92a-46c7-892f-e971582ce306",
+      "name": "incCounters1",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.instagram.com/v25.0/{{ $('candidatePending').item.json.igAccountId }}/messages",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message",
+              "value": "={\"text\": \"{{ $json.output }}\"}"
+            },
+            {
+              "name": "access_token",
+              "value": "={{ $('fetchFanContexts').item.json.access_token }}"
+            },
+            {
+              "name": "recipient",
+              "value": "={\"id\": \"{{ $('candidatePending').item.json.otherPartyId }}\"}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        128,
+        1980
+      ],
+      "id": "e59afbff-514a-4b70-ad09-b3cc23f7a5e4",
+      "name": "replyMessage1",
+      "disabled": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE conversations SET pending_wake_reply = false WHERE fan_id = '{{ $('candidatePending').item.json.fan_id }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        352,
+        1980
+      ],
+      "id": "b1fc3b86-2fa5-45ab-8382-b2356b13ccb7",
+      "name": "pendingRemove1",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT c.fan_id, c.girl_id\nFROM conversations c\nJOIN girls g ON g.id = c.girl_id\nWHERE c.pending_wake_reply = true\n  AND (\n    CASE WHEN g.awake_end::time > g.awake_start::time THEN\n      (now() AT TIME ZONE g.timezone)::time BETWEEN g.awake_start::time AND g.awake_end::time\n    ELSE\n      (now() AT TIME ZONE g.timezone)::time >= g.awake_start::time\n      OR (now() AT TIME ZONE g.timezone)::time <= g.awake_end::time\n    END\n  );",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -2464,
+        1980
+      ],
+      "id": "8c28d70f-f34e-4fe4-b8ee-f30c1b1fbcc1",
+      "name": "candidatePending",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+              "leftValue": "={{ $json.manual_mode }}",
+              "rightValue": "'fan'",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1792,
+        1980
+      ],
+      "id": "f522a9f3-d610-446a-ab9a-d123391fab8a",
+      "name": "checkMode1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+              "leftValue": "={{ $('fetchFan').item.json.replies_today < $('fetchFan').item.json.daily_reply_cap && $('fetchGirlCaps').item.json.messages_sent_today < $('fetchGirlCaps').item.json.global_daily_cap }}",
+              "rightValue": "'fan'",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1344,
+        1980
+      ],
+      "id": "dc1c2f19-14a7-4d88-a577-a311786fd6a5",
+      "name": "capCheck1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT global_daily_cap, messages_sent_today FROM girls WHERE id = '{{ $('candidatePending').item.json.girl_id }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1568,
+        1980
+      ],
+      "id": "7b78223c-0fc3-4a6d-9f8c-a018ed054f7e",
+      "name": "fetchGirlCaps",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n  f.summary_text, f.fan_name, f.fan_nick,\n  g.name AS girl_name, g.surname, g.age, g.height_m, g.country, g.religion,\n  g.hair, g.eyes, g.skin, g.breasts, g.accessories, g.lips,\n  g.personality, g.interests, g.access_token\nFROM fans f JOIN girls g ON g.id = f.girl_id\nWHERE f.fan_id = '{{ $('candidatePending').item.json.fan_id }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -896,
+        1980
+      ],
+      "id": "4e8a6902-99e9-479b-a8ca-4baed46afc27",
+      "name": "fetchFanContexts",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT role, content, created_at FROM (\n  SELECT role, content, created_at FROM messages\n  WHERE conversation_id = '{{ $('candidatePending').item.json.fan_id }}'\n  ORDER BY created_at DESC LIMIT 12\n) recent ORDER BY created_at ASC;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -672,
+        1980
+      ],
+      "id": "59f759fe-f063-41ac-8c28-552f2cd7a731",
+      "name": "fetchSleepMessages",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT last_message_at FROM conversations WHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        896,
+        1460
+      ],
+      "id": "54efc136-40ca-49eb-8809-3c210faa62b8",
+      "name": "checkDebouncer",
+      "credentials": {
+        "postgres": {
+          "id": "PlkpKDh3ZUPtl1UI",
+          "name": "Postgres account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+              "leftValue": "={{ new Date($json.last_message_at).getTime() <= Number($('setFields').item.json.eventTimestamp) }}",
+              "rightValue": "'fan'",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1120,
+        1460
+      ],
+      "id": "bb5b7c39-2581-4612-af1d-6e7fadd82a13",
+      "name": "antiDebouncer",
+      "disabled": true
     }
   ],
   "connections": {
@@ -1185,29 +1868,7 @@
       "main": [
         [
           {
-            "node": "Claude",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Anthropic Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Claude",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Claude": {
-      "main": [
-        [
-          {
-            "node": "parseSummary",
+            "node": "ClaudeForComments",
             "type": "main",
             "index": 0
           }
@@ -1262,7 +1923,7 @@
       "main": [
         [
           {
-            "node": "fetchFan",
+            "node": "fetchFans",
             "type": "main",
             "index": 0
           }
@@ -1296,7 +1957,7 @@
       "main": [
         [
           {
-            "node": "fetchFanContext",
+            "node": "checkDebouncer",
             "type": "main",
             "index": 0
           }
@@ -1322,14 +1983,10 @@
             "type": "main",
             "index": 0
           }
-        ]
-      ]
-    },
-    "fetchFan": {
-      "main": [
+        ],
         [
           {
-            "node": "checkMode",
+            "node": "pendingReply",
             "type": "main",
             "index": 0
           }
@@ -1368,6 +2025,315 @@
           }
         ]
       ]
+    },
+    "buildPrompt": {
+      "main": [
+        [
+          {
+            "node": "ClaudeForChat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "modelForChat": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "ClaudeForChat",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ClaudeForComments": {
+      "main": [
+        [
+          {
+            "node": "parseSummary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "modelForComments": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "ClaudeForComments",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ClaudeForChat": {
+      "main": [
+        [
+          {
+            "node": "replyMessage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "replyMessage": {
+      "main": [
+        [
+          {
+            "node": "pendingRemove",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pendingRemove": {
+      "main": [
+        [
+          {
+            "node": "incCounters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "sleepingMaeve": {
+      "main": [
+        [
+          {
+            "node": "resetMaeve",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "sleepingElara": {
+      "main": [
+        [
+          {
+            "node": "resetElara",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "sleepingAmara": {
+      "main": [
+        [
+          {
+            "node": "resetAmara",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "checkPendings": {
+      "main": [
+        [
+          {
+            "node": "candidatePending",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fanLoop": {
+      "main": [
+        [
+          {
+            "node": "fetchFan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fetchFans": {
+      "main": [
+        [
+          {
+            "node": "checkMode",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fetchFan": {
+      "main": [
+        [
+          {
+            "node": "checkMode1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Random Wait1": {
+      "main": [
+        [
+          {
+            "node": "fetchFanContexts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "buildPrompt1": {
+      "main": [
+        [
+          {
+            "node": "ClaudeForChat1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ClaudeForChat1": {
+      "main": [
+        [
+          {
+            "node": "replyMessage1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "modelForChat1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "ClaudeForChat1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "replyMessage1": {
+      "main": [
+        [
+          {
+            "node": "pendingRemove1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pendingRemove1": {
+      "main": [
+        [
+          {
+            "node": "incCounters1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "candidatePending": {
+      "main": [
+        [
+          {
+            "node": "fanLoop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "checkMode1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "fetchGirlCaps",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fetchGirlCaps": {
+      "main": [
+        [
+          {
+            "node": "capCheck1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "capCheck1": {
+      "main": [
+        [
+          {
+            "node": "Random Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fetchFanContexts": {
+      "main": [
+        [
+          {
+            "node": "fetchSleepMessages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fetchSleepMessages": {
+      "main": [
+        [
+          {
+            "node": "buildPrompt1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "checkDebouncer": {
+      "main": [
+        [
+          {
+            "node": "antiDebouncer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "antiDebouncer": {
+      "main": [
+        [
+          {
+            "node": "fetchFanContext",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -1377,15 +2343,24 @@
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": []
+    },
+    "node:sleepingMaeve": {
+      "recurrenceRules": []
+    },
+    "node:sleepingElara": {
+      "recurrenceRules": []
+    },
+    "node:sleepingAmara": {
+      "recurrenceRules": []
     }
   },
   "meta": {
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "79b03a94-7b37-4eed-91e7-91ca075e2374",
-  "activeVersionId": "79b03a94-7b37-4eed-91e7-91ca075e2374",
-  "triggerCount": 2,
+  "versionId": "a78ac1da-69b5-4be8-87b1-2edc1ed0746c",
+  "activeVersionId": "a78ac1da-69b5-4be8-87b1-2edc1ed0746c",
+  "triggerCount": 5,
   "shared": [
     {
       "updatedAt": "2026-06-27T06:14:19.635Z",
@@ -1396,9 +2371,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-07-30T11:47:54.000Z",
-    "createdAt": "2026-07-30T11:47:52.662Z",
-    "versionId": "79b03a94-7b37-4eed-91e7-91ca075e2374",
+    "updatedAt": "2026-07-31T12:49:50.000Z",
+    "createdAt": "2026-07-31T12:49:47.520Z",
+    "versionId": "a78ac1da-69b5-4be8-87b1-2edc1ed0746c",
     "workflowId": "grXcW1m7MC4fktqB",
     "nodes": [
       {
@@ -1412,8 +2387,8 @@
         "type": "@mookielianhd/n8n-nodes-instagram.instagramTrigger",
         "typeVersion": 2,
         "position": [
-          -2448,
-          780
+          -2688,
+          1452
         ],
         "id": "331e91b5-9015-4671-9178-501cd8e18740",
         "name": "Instagram Trigger",
@@ -1426,8 +2401,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -2000,
-          676
+          -2240,
+          1348
         ],
         "id": "cb19a335-3cfd-4fc3-8d69-dbc3a08701e3",
         "name": "processMessage"
@@ -1596,8 +2571,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          -1776,
-          676
+          -2016,
+          1348
         ],
         "id": "9c9aca93-aeff-4e17-9918-a68c53196a62",
         "name": "updateSheet",
@@ -1668,8 +2643,8 @@
         "type": "n8n-nodes-base.switch",
         "typeVersion": 3.4,
         "position": [
-          -2224,
-          780
+          -2464,
+          1452
         ],
         "id": "c647d9db-e44d-4a60-8d04-ec08072c3164",
         "name": "Switch"
@@ -1679,7 +2654,7 @@
         "type": "n8n-nodes-base.manualTrigger",
         "typeVersion": 1,
         "position": [
-          -2448,
+          -2688,
           -320
         ],
         "id": "6a66b411-617e-4370-a5ed-7f2477bebec1",
@@ -1694,7 +2669,7 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2448,
+          -2688,
           -640
         ],
         "id": "bc97e433-3547-4d97-893e-f18296266cbd",
@@ -1747,7 +2722,7 @@
                   "conditions": [
                     {
                       "id": "9912680f-a1a8-46f5-afcd-14e81b5e6853",
-                      "leftValue": "={{ $json.message.is_echo }}",
+                      "leftValue": "={{ $json.message !== undefined && $json.message.is_echo === true && $json.message.text !== undefined }}",
                       "rightValue": "messages",
                       "operator": {
                         "type": "boolean",
@@ -1772,7 +2747,7 @@
                   "conditions": [
                     {
                       "id": "eb525cd5-bf1b-44be-b29a-aa5afc4d5856",
-                      "leftValue": "={{ $json.message !== undefined && !$json.message.is_echo }}",
+                      "leftValue": "={{ $json.message !== undefined && $json.message.text !== undefined && !$json.message.is_echo && !$json.message.is_deleted }}",
                       "rightValue": "",
                       "operator": {
                         "type": "boolean",
@@ -1793,8 +2768,8 @@
         "type": "n8n-nodes-base.switch",
         "typeVersion": 3.4,
         "position": [
-          -2000,
-          868
+          -2240,
+          1540
         ],
         "id": "fa714106-15ad-4639-8cb4-1cbb0f86062b",
         "name": "Switch1"
@@ -1808,7 +2783,7 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2224,
+          -2464,
           -224
         ],
         "id": "9945bcdf-c36c-43eb-9a6b-bbeffbf0c86f",
@@ -1829,7 +2804,7 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2224,
+          -2464,
           -416
         ],
         "id": "2c41e53f-7eb0-4460-be00-28a29d4d3571",
@@ -1844,13 +2819,13 @@
       {
         "parameters": {
           "operation": "executeQuery",
-          "query": "UPDATE girls SET\n  surname = 'O''Kane', age = 20, birthday = '2006-01-05', height_m = 1.55,\n  country = 'Ireland', religion = 'Catholic', hair = 'Long wavy red auburn',\n  eyes = 'Striking natural emerald green',\n  skin = 'Fair with light localised freckles (cheeks, nose bridge)',\n  breasts = 'Small-Medium', accessories = 'Silver cross necklace', lips = 'Soft natural pink',\n  personality = 'Introverted and quietly warm ? gentle, a little dreamy, and deeply spiritual. Speaks softly and blushes easily, but is fiercely loyal to those she trusts. Modest in both dress and manner; finds beauty in small, simple moments.',\n  interests = 'Reading Irish folklore & gothic novels; journaling & letter-writing; baking sourdough and soda bread; folk & Celtic music (tin whistle, fiddle); wildflower pressing & botanical art; knitting & crocheting; farmers markets & foraging; watercolour landscape painting; candle-making; herb gardening; hiking misty countryside; cosy fireside evenings; vintage thrift shopping; attending mass & quiet chapel visits; rainy days with tea',\n  voice_notes = 'Keep replies short and natural, like real Instagram DMs ? not essays. Write in first person, fully in character. Never break character or mention being an AI.'\nWHERE id = '17841478136820581';\n\nUPDATE girls SET\n  surname = 'Strand', age = 26, birthday = '2000-01-05', height_m = 1.70,\n  country = 'Norway', religion = 'Atheist', hair = 'Long straight platinum silver-white with soft violet-tinted ends',\n  eyes = 'Striking natural violet', skin = 'Fair porcelain', breasts = 'Medium-Large',\n  accessories = 'Thin wire-frame rectangular glasses', lips = 'Cool nude/soft mauve',\n  personality = 'Intellectually self-possessed and quietly confident ? introspective, aesthetically minded, values ideas as much as beauty. Independent and liberal in worldview, carries herself with understated authority. Minimalist in lifestyle but rich in thought.',\n  interests = 'Philosophy & Continental theory; Scandinavian design & architecture; specialty coffee (pour-over, siphon); rare books & vintage bookshops; contemporary art galleries; classical piano & chamber music; sustainable & ethical fashion; film photography (35mm); chess; museum visits & curation; typewriter writing; minimalist interior styling; Scandinavian nature walks (fjords, birch forests); learning French & Latin; astronomy & stargazing at night',\n  voice_notes = 'Keep replies short and natural, like real Instagram DMs ? not essays. Write in first person, fully in character. Never break character or mention being an AI.'\nWHERE id = '17841480189765921';\n\nUPDATE girls SET\n  surname = 'Odum', age = 25, birthday = '2001-01-05', height_m = 1.75,\n  country = 'Nigeria', religion = 'Catholic', hair = 'Medium black box braids',\n  eyes = 'Striking bright yellow', skin = 'Very dark ebony', breasts = 'Large',\n  accessories = 'Gold hoop earrings', lips = 'Terracota',\n  personality = 'Commanding and magnetically self-assured ? owns every room she enters. Fiercely proud of her Nigerian Igbo heritage, direct, ambitious, and intensely passionate. Protective of those she loves, leads with presence rather than volume.',\n  interests = 'Afrofuturism art & design; high fashion editorial & runway; Nigerian Igbo culture & traditions; Afrobeats & Afropop music; dance & strength training; bold interior design with African textiles; social advocacy & public speaking; cooking Nigerian cuisine (jollof, egusi, suya); travel to Lagos, Accra, Nairobi; luxury skincare routines; Ankara & aso-oke textile appreciation; poetry slams & spoken word; fashion styling & moodboarding; contemporary African art collecting; entrepreneurship; swimming',\n  voice_notes = 'Keep replies short and natural, like real Instagram DMs ? not essays. Write in first person, fully in character. Never break character or mention being an AI.'\nWHERE id = '17841480706715642';",
+          "query": "ALTER TABLE girls ADD COLUMN access_token TEXT;\n\nUPDATE girls SET access_token = 'IGAAXVb07ZCZBz9BZAGFMMmhJZAmI4M28tYXNiVGFNbXhZAamd1TjkxcVBucmhXR053eHlIcGFrRktYeGYzRWlsTjF2WXlEZAWpfOXVoWVNpamFwdGRlSFV4VDQwVTE3aVI3bU5mNnN6V21pZA1NYVDVVUXI3RVlkNW1fR1BYSjRCY1lLRQZDZD' WHERE id = '17841478136820581';\n\nUPDATE girls SET access_token = 'IGAAXVb07ZCZBz9BZAGJDZAGc0c05NUXBSbVJ2NFZA4ZA2dTNWRrbGp2REFIWFF1Wi1HQmUwY25LRk9FNUlWbkpOc2VtTkZASMmR3Ylg4dV9obUNNekJtNmRaTUlyakFucGNxWXk2Y0JyTWQ4MHRQVUp6cC1fR3d6bU5FN2xTTnU4S3pnQQZDZD' WHERE id = '17841480189765921';\n\nUPDATE girls SET access_token = 'IGAAXVb07ZCZBz9BZAGIyZAHJMamZAkb3Y5ZAE1DRDduTmY3UDMwNnlJQ3hiVThtU2tLUkNHOEhOcWFYZAm54X2ZAhNkc2Ykc0Y1lleXRobDVJMVJfck5tWmZA1S0tONXZA0Yk01QmVfVl9wSzZAVZATg0cEZA5dm5JX1RIVi1pRE00U0dXRDNIUQZDZD' WHERE id = '17841480706715642';",
           "options": {}
         },
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2448,
+          -2688,
           0
         ],
         "id": "6acb4f25-2cc5-4b11-918d-dd46c0fea67a",
@@ -1871,8 +2846,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -1552,
-          884
+          -1792,
+          1556
         ],
         "id": "009e9b8f-f0d3-456b-9c9e-d082a719fe47",
         "name": "updateGirls",
@@ -1892,8 +2867,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -1104,
-          884
+          -1344,
+          1556
         ],
         "id": "cc22c897-12db-419d-860b-acf1974b4def",
         "name": "updateConversations",
@@ -1913,8 +2888,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -880,
-          884
+          -1120,
+          1556
         ],
         "id": "6ad64163-84cb-46d3-846d-030bf38c4823",
         "name": "updateMessages",
@@ -1934,8 +2909,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -1328,
-          884
+          -1568,
+          1556
         ],
         "id": "7baddf70-3fb6-49d9-a103-1fc30a464299",
         "name": "updateFans",
@@ -1955,8 +2930,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2224,
-          452
+          -2464,
+          1124
         ],
         "id": "ae71beb8-403e-4f93-b953-342250929095",
         "name": "candidateQuery",
@@ -1974,8 +2949,8 @@
         "type": "n8n-nodes-base.splitInBatches",
         "typeVersion": 3,
         "position": [
-          -2000,
-          452
+          -2240,
+          1124
         ],
         "id": "1d843c50-a7cd-4bf7-af48-b16e58c07ce5",
         "name": "fansLoop"
@@ -1989,8 +2964,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -1776,
-          328
+          -2016,
+          1000
         ],
         "id": "14bb7f88-1e84-4e75-bde6-ac5adf79da01",
         "name": "messagePerFan",
@@ -2010,8 +2985,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -752,
-          452
+          -992,
+          1124
         ],
         "id": "9ab201e8-baab-406b-ad23-b3a9a2ce3e18",
         "name": "updateFanSummary",
@@ -2029,53 +3004,11 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -1552,
-          328
+          -1792,
+          1000
         ],
         "id": "d84aeb54-dd1c-49fd-874e-547de5de7c45",
         "name": "packetFan"
-      },
-      {
-        "parameters": {
-          "model": {
-            "__rl": true,
-            "value": "claude-haiku-4-5-20251001",
-            "mode": "list",
-            "cachedResultName": "Claude Haiku 4.5"
-          },
-          "options": {}
-        },
-        "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
-        "typeVersion": 1.3,
-        "position": [
-          -1256,
-          552
-        ],
-        "id": "11c3d216-d394-4483-ad36-74b1a80dd9f4",
-        "name": "Anthropic Chat Model",
-        "credentials": {
-          "anthropicApi": {
-            "id": "4LLfM18LVZ4nSWDx",
-            "name": "Anthropic account"
-          }
-        }
-      },
-      {
-        "parameters": {
-          "promptType": "define",
-          "text": "={{ $json.userPrompt }}",
-          "options": {
-            "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
-          }
-        },
-        "type": "@n8n/n8n-nodes-langchain.agent",
-        "typeVersion": 3.1,
-        "position": [
-          -1328,
-          328
-        ],
-        "id": "3472a341-1e47-4f04-8e59-0b27c5832134",
-        "name": "Claude"
       },
       {
         "parameters": {
@@ -2084,8 +3017,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -976,
-          328
+          -1216,
+          1000
         ],
         "id": "f5694d16-316d-4c4f-9b54-a1d72d89b580",
         "name": "parseSummary"
@@ -2103,8 +3036,8 @@
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3,
         "position": [
-          -2448,
-          452
+          -2688,
+          1124
         ],
         "id": "9ca6d533-ef81-420b-b0f1-bab70ddcf37d",
         "name": "Schedule Trigger"
@@ -2156,8 +3089,8 @@
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4,
         "position": [
-          -1776,
-          884
+          -2016,
+          1556
         ],
         "id": "0e59c290-8af4-4ded-9412-1dab1319ca41",
         "name": "setFields"
@@ -2189,8 +3122,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          -656,
-          884
+          -896,
+          1556
         ],
         "id": "5d3a978a-ff5c-487e-bc5e-507d295cb25b",
         "name": "checkRole"
@@ -2223,8 +3156,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          -208,
-          884
+          -448,
+          1556
         ],
         "id": "2194c03c-2f58-448b-8104-b7ef6183fe3c",
         "name": "checkMode"
@@ -2241,7 +3174,7 @@
             "conditions": [
               {
                 "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
-                "leftValue": "={{ $('fetchFan').item.json.replies_today < $('fetchFan').item.json.daily_reply_cap && $('fetchGirl').item.json.messages_sent_today < $('fetchGirl').item.json.global_daily_cap }}",
+                "leftValue": "={{ $('fetchFans').item.json.replies_today < $('fetchFans').item.json.daily_reply_cap && $('fetchGirl').item.json.messages_sent_today < $('fetchGirl').item.json.global_daily_cap }}",
                 "rightValue": "'fan'",
                 "operator": {
                   "type": "boolean",
@@ -2257,22 +3190,22 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          688,
-          884
+          448,
+          1460
         ],
         "id": "6fc34c09-40db-42ea-87d3-766575286ce0",
         "name": "capCheck"
       },
       {
         "parameters": {
-          "min": 15,
-          "max": 30
+          "unit": "minutes",
+          "max": 2
         },
         "type": "n8n-nodes-random-wait.randomWait",
         "typeVersion": 1,
         "position": [
-          912,
-          884
+          672,
+          1460
         ],
         "id": "e8f86e70-e614-403b-a205-4a090f146e56",
         "name": "Random Wait"
@@ -2284,8 +3217,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          240,
-          884
+          0,
+          1556
         ],
         "id": "dd9c3234-89d9-4ba1-94b0-fcac706ba5e5",
         "name": "checkSleepHours"
@@ -2318,8 +3251,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          464,
-          884
+          224,
+          1556
         ],
         "id": "6e1c2440-fefb-4042-b578-29d6c1ba1aa3",
         "name": "checkAwake"
@@ -2327,35 +3260,14 @@
       {
         "parameters": {
           "operation": "executeQuery",
-          "query": "SELECT manual_mode, daily_reply_cap, replies_today\nFROM fans\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+          "query": "SELECT\n  f.summary_text, f.fan_name, f.fan_nick,\n  g.name AS girl_name, g.surname, g.age, g.height_m, g.country, g.religion,\n  g.hair, g.eyes, g.skin, g.breasts, g.accessories, g.lips,\n  g.personality, g.interests, g.access_token\nFROM fans f JOIN girls g ON g.id = f.girl_id\nWHERE f.fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
           "options": {}
         },
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -432,
-          880
-        ],
-        "id": "40793a7b-e049-4633-9f4e-0f03491d188b",
-        "name": "fetchFan",
-        "credentials": {
-          "postgres": {
-            "id": "PlkpKDh3ZUPtl1UI",
-            "name": "Postgres account"
-          }
-        }
-      },
-      {
-        "parameters": {
-          "operation": "executeQuery",
-          "query": "SELECT\n  f.summary_text, f.fan_name, f.fan_nick,\n  g.name AS girl_name, g.surname, g.age, g.height_m, g.country, g.religion,\n  g.hair, g.eyes, g.skin, g.breasts, g.accessories, g.lips,\n  g.personality, g.interests\nFROM fans f JOIN girls g ON g.id = f.girl_id\nWHERE f.fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
-          "options": {}
-        },
-        "type": "n8n-nodes-base.postgres",
-        "typeVersion": 2.6,
-        "position": [
-          1136,
-          884
+          1344,
+          1460
         ],
         "id": "6ab7b52c-01fc-4b3c-a40e-6b57349268a1",
         "name": "fetchFanContext",
@@ -2375,8 +3287,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          1360,
-          884
+          1568,
+          1460
         ],
         "id": "acaa79a2-f83b-4d38-9978-816850542dc3",
         "name": "fetchRecentMessages",
@@ -2389,13 +3301,13 @@
       },
       {
         "parameters": {
-          "jsCode": "const c = $('fetchFanContext').item.json;\n\nconst systemPrompt = `You are ${c.girl_name} ${c.surname}, ${c.age}, from ${c.country}. Religion: ${c.religion}.\nAppearance: ${c.hair} hair, ${c.eyes} eyes, ${c.skin} skin, ${c.height_m}m tall. Wears: ${c.accessories}.\nPersonality: ${c.personality}\nInterests: ${c.interests}`;\n\nconst messages = $input.all().map(i => i.json);\nconst addressAs = (c.fan_nick && c.fan_nick !== 'sir') ? c.fan_nick : (c.fan_name || c.fan_nick || 'sir');\nconst transcript = messages.map(m => `${m.role === 'fan' ? 'Fan' : c.girl_name}: ${m.content}`).join('\\n');\n\nconst userPrompt = `Fan summary: ${c.summary_text || 'No summary yet ? new or lightly active fan.'}\n\nAddress this fan as: ${addressAs}\n\nRecent conversation:\n${transcript}\n\nWrite your next reply to the fan's most recent message. Reply with only the message text, nothing else.`;\n\nreturn [{ json: { systemPrompt, userPrompt } }];"
+          "jsCode": "const c = $('fetchFanContext').item.json;\n\nconst systemPrompt = `You are ${c.girl_name} ${c.surname}, ${c.age}, from ${c.country}. Religion: ${c.religion}.\nPhysical appearance: ${c.hair} hair, ${c.eyes} eyes, ${c.skin} skin, ${c.height_m}m tall, ${c.breasts} figure. Typically wears: ${c.accessories}.\n\nPersonality: ${c.personality}\n\nInterests: ${c.interests}\n${c.voice_notes ? '\\n' + c.voice_notes : ''}\n\nYou are messaging a fan on Instagram DM, fully in character as ${c.girl_name}. Rules:\n- Reply as a real person texting ? short, natural, casual. A few sentences at most, not a paragraph.\n- Never mention being an AI, a bot, a language model, or break character for any reason.\n- Match the emotional tone and energy of the fan's message.\n- Use the fan summary and recent conversation to stay consistent with what's already been said.`;\n\nconst messages = $input.all().map(i => i.json);\nconst addressAs = (c.fan_nick && c.fan_nick !== 'sir') ? c.fan_nick : (c.fan_name || c.fan_nick || 'sir');\nconst transcript = messages.map(m => `${m.role === 'fan' ? 'Fan' : c.girl_name}: ${m.content}`).join('\\n');\n\nconst userPrompt = `Fan summary: ${c.summary_text || 'No summary yet ? new or lightly active fan.'}\n\nAddress this fan as: ${addressAs}\n\nRecent conversation:\n${transcript}\n\nWrite your next reply to the fan's most recent message. Output only the reply text itself ? no labels, no quotation marks, no stage directions.`;\n\nreturn [{ json: { systemPrompt, userPrompt } }];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          1584,
-          884
+          1792,
+          1460
         ],
         "id": "7fc753c1-e0d6-4ac5-a08b-142b889d3a7a",
         "name": "buildPrompt"
@@ -2409,8 +3321,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          16,
-          884
+          -224,
+          1556
         ],
         "id": "d338ce43-8863-46b2-a033-1e1192e56b1e",
         "name": "fetchGirl",
@@ -2420,6 +3332,752 @@
             "name": "Postgres account"
           }
         }
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "={{ $json.userPrompt }}",
+          "options": {
+            "systemMessage": "={{ $json.systemPrompt }}"
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 3.1,
+        "position": [
+          2016,
+          1460
+        ],
+        "id": "1383d3d3-b50f-40fd-b4ed-fe1995b7052a",
+        "name": "ClaudeForChat"
+      },
+      {
+        "parameters": {
+          "model": {
+            "__rl": true,
+            "value": "claude-haiku-4-5-20251001",
+            "mode": "list",
+            "cachedResultName": "Claude Haiku 4.5"
+          },
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+        "typeVersion": 1.3,
+        "position": [
+          2088,
+          1684
+        ],
+        "id": "bb752519-a48c-4200-b6e2-ea1e5ac449c5",
+        "name": "modelForChat",
+        "credentials": {
+          "anthropicApi": {
+            "id": "4LLfM18LVZ4nSWDx",
+            "name": "Anthropic account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "={{ $json.userPrompt }}",
+          "options": {
+            "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 3.1,
+        "position": [
+          -1568,
+          1000
+        ],
+        "id": "3472a341-1e47-4f04-8e59-0b27c5832134",
+        "name": "ClaudeForComments"
+      },
+      {
+        "parameters": {
+          "model": {
+            "__rl": true,
+            "value": "claude-haiku-4-5-20251001",
+            "mode": "list",
+            "cachedResultName": "Claude Haiku 4.5"
+          },
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+        "typeVersion": 1.3,
+        "position": [
+          -1496,
+          1224
+        ],
+        "id": "11c3d216-d394-4483-ad36-74b1a80dd9f4",
+        "name": "modelForComments",
+        "credentials": {
+          "anthropicApi": {
+            "id": "4LLfM18LVZ4nSWDx",
+            "name": "Anthropic account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "UPDATE fans SET replies_today = replies_today + 1\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';\n\nUPDATE girls SET messages_sent_today = messages_sent_today + 1\nWHERE id = '{{ $('setFields').item.json.igAccountId }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          2816,
+          1460
+        ],
+        "id": "7cce55b2-dd71-43fe-a81a-43b83bb1e8f6",
+        "name": "incCounters",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://graph.instagram.com/v25.0/{{ $('setFields').item.json.igAccountId }}/messages",
+          "sendBody": true,
+          "contentType": "form-urlencoded",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "message",
+                "value": "={\"text\": \"{{ $json.output }}\"}"
+              },
+              {
+                "name": "access_token",
+                "value": "={{ $('fetchFanContext').item.json.access_token }}"
+              },
+              {
+                "name": "recipient",
+                "value": "={\"id\": \"{{ $('setFields').item.json.otherPartyId }}\"}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          2368,
+          1460
+        ],
+        "id": "0f3b533b-13a6-4460-86f1-820b03212eeb",
+        "name": "replyMessage",
+        "onError": "continueErrorOutput"
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "-- Maeve's reset, 03:00 Europe/Dublin\nUPDATE fans SET replies_today = 0 WHERE girl_id = '17841478136820581';\nUPDATE girls SET messages_sent_today = 0 WHERE id = '17841478136820581';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -2464,
+          224
+        ],
+        "id": "6cd3212c-e57a-4905-bff9-3df187e4ace8",
+        "name": "resetMaeve",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "-- Elara's reset, 03:00 Europe/Oslo\nUPDATE fans SET replies_today = 0 WHERE girl_id = '17841480189765921';\nUPDATE girls SET messages_sent_today = 0 WHERE id = '17841480189765921';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -2464,
+          448
+        ],
+        "id": "83360230-7704-42d4-a63b-d02576b0a221",
+        "name": "resetElara",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "-- Amara's reset, 03:00 Africa/Lagos\nUPDATE fans SET replies_today = 0 WHERE girl_id = '17841480706715642';\nUPDATE girls SET messages_sent_today = 0 WHERE id = '17841480706715642';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -2464,
+          672
+        ],
+        "id": "25b8df7b-cdd2-41f3-924e-0ff424c66959",
+        "name": "resetAmara",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "UPDATE conversations SET pending_wake_reply = true\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          448,
+          1652
+        ],
+        "id": "d9bf1df3-e9ee-4ec8-92ff-60af437b16dc",
+        "name": "pendingReply",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "UPDATE conversations SET pending_reply = false\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          2592,
+          1460
+        ],
+        "id": "818557cf-aef7-4a25-80f5-a94ad1941d38",
+        "name": "pendingRemove",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "triggerAtHour": 12
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.3,
+        "position": [
+          -2688,
+          224
+        ],
+        "id": "440838da-7464-4b0c-914f-b1761588afd8",
+        "name": "sleepingMaeve"
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "triggerAtHour": 11
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.3,
+        "position": [
+          -2688,
+          448
+        ],
+        "id": "3c40b5e4-529a-45ef-92eb-cb7b1fea01f0",
+        "name": "sleepingElara"
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "triggerAtHour": 15
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.3,
+        "position": [
+          -2688,
+          672
+        ],
+        "id": "58575238-90b5-4652-bc0a-3b392ad3eca8",
+        "name": "sleepingAmara"
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "hours",
+                "hoursInterval": 2
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.3,
+        "position": [
+          -2688,
+          1980
+        ],
+        "id": "cb2aabeb-2f8e-4ad6-ad4b-eeaa8c30144a",
+        "name": "checkPendings",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          -2240,
+          1980
+        ],
+        "id": "ced4fda6-7b59-46c8-807d-64b68012b2b4",
+        "name": "fanLoop",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT manual_mode, daily_reply_cap, replies_today\nFROM fans\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -672,
+          1556
+        ],
+        "id": "40793a7b-e049-4633-9f4e-0f03491d188b",
+        "name": "fetchFans",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT manual_mode, daily_reply_cap, replies_today\nFROM fans WHERE fan_id = '{{ $json.fan_id }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -2016,
+          1980
+        ],
+        "id": "6bd4cfb2-b281-4d4e-96b4-71ed85b55803",
+        "name": "fetchFan",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "min": 15,
+          "max": 30
+        },
+        "type": "n8n-nodes-random-wait.randomWait",
+        "typeVersion": 1,
+        "position": [
+          -1120,
+          1980
+        ],
+        "id": "a69534d1-256d-4337-ac9b-45c06a8c8c80",
+        "name": "Random Wait1",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "jsCode": "const c = $('fetchFanContexts').item.json;\n\nconst systemPrompt = `You are ${c.girl_name} ${c.surname}, ${c.age}, from ${c.country}. Religion: ${c.religion}.\nPhysical appearance: ${c.hair} hair, ${c.eyes} eyes, ${c.skin} skin, ${c.height_m}m tall, ${c.breasts} figure. Typically wears: ${c.accessories}.\n\nPersonality: ${c.personality}\n\nInterests: ${c.interests}\n${c.voice_notes ? '\\n' + c.voice_notes : ''}\n\nYou are messaging a fan on Instagram DM, fully in character as ${c.girl_name}. Rules:\n- Reply as a real person texting ? short, natural, casual. A few sentences at most, not a paragraph.\n- Never mention being an AI, a bot, a language model, or break character for any reason.\n- Match the emotional tone and energy of the fan's message.\n- Use the fan summary and recent conversation to stay consistent with what's already been said.`;\n\nconst messages = $input.all().map(i => i.json);\nconst addressAs = (c.fan_nick && c.fan_nick !== 'sir') ? c.fan_nick : (c.fan_name || c.fan_nick || 'sir');\nconst transcript = messages.map(m => `${m.role === 'fan' ? 'Fan' : c.girl_name}: ${m.content}`).join('\\n');\n\nconst userPrompt = `Fan summary: ${c.summary_text || 'No summary yet ? new or lightly active fan.'}\n\nAddress this fan as: ${addressAs}\n\nRecent conversation:\n${transcript}\n\nWrite your next reply to the fan's most recent message. Output only the reply text itself ? no labels, no quotation marks, no stage directions.`;\n\nreturn [{ json: { systemPrompt, userPrompt } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          -448,
+          1980
+        ],
+        "id": "1ec78b45-4c11-4167-acd7-4e5d6d90ee87",
+        "name": "buildPrompt1",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "={{ $json.userPrompt }}",
+          "options": {
+            "systemMessage": "={{ $json.systemPrompt }}"
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 3.1,
+        "position": [
+          -224,
+          1980
+        ],
+        "id": "8c3acaa2-3436-4c6a-b86c-3af73deddb29",
+        "name": "ClaudeForChat1",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "model": {
+            "__rl": true,
+            "value": "claude-haiku-4-5-20251001",
+            "mode": "list",
+            "cachedResultName": "Claude Haiku 4.5"
+          },
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+        "typeVersion": 1.3,
+        "position": [
+          -152,
+          2204
+        ],
+        "id": "a6260c2a-0626-4bae-a31b-2a07601d4f85",
+        "name": "modelForChat1",
+        "credentials": {
+          "anthropicApi": {
+            "id": "4LLfM18LVZ4nSWDx",
+            "name": "Anthropic account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "UPDATE fans SET replies_today = replies_today + 1 WHERE fan_id = '{{ $('candidatePending').item.json.fan_id }}';\nUPDATE girls SET messages_sent_today = messages_sent_today + 1 WHERE id = '{{ $('candidatePending').item.json.girl_id }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          576,
+          1980
+        ],
+        "id": "ecbfcd02-a92a-46c7-892f-e971582ce306",
+        "name": "incCounters1",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://graph.instagram.com/v25.0/{{ $('candidatePending').item.json.igAccountId }}/messages",
+          "sendBody": true,
+          "contentType": "form-urlencoded",
+          "bodyParameters": {
+            "parameters": [
+              {
+                "name": "message",
+                "value": "={\"text\": \"{{ $json.output }}\"}"
+              },
+              {
+                "name": "access_token",
+                "value": "={{ $('fetchFanContexts').item.json.access_token }}"
+              },
+              {
+                "name": "recipient",
+                "value": "={\"id\": \"{{ $('candidatePending').item.json.otherPartyId }}\"}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          128,
+          1980
+        ],
+        "id": "e59afbff-514a-4b70-ad09-b3cc23f7a5e4",
+        "name": "replyMessage1",
+        "disabled": true,
+        "onError": "continueErrorOutput"
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "UPDATE conversations SET pending_wake_reply = false WHERE fan_id = '{{ $('candidatePending').item.json.fan_id }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          352,
+          1980
+        ],
+        "id": "b1fc3b86-2fa5-45ab-8382-b2356b13ccb7",
+        "name": "pendingRemove1",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT c.fan_id, c.girl_id\nFROM conversations c\nJOIN girls g ON g.id = c.girl_id\nWHERE c.pending_wake_reply = true\n  AND (\n    CASE WHEN g.awake_end::time > g.awake_start::time THEN\n      (now() AT TIME ZONE g.timezone)::time BETWEEN g.awake_start::time AND g.awake_end::time\n    ELSE\n      (now() AT TIME ZONE g.timezone)::time >= g.awake_start::time\n      OR (now() AT TIME ZONE g.timezone)::time <= g.awake_end::time\n    END\n  );",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -2464,
+          1980
+        ],
+        "id": "8c28d70f-f34e-4fe4-b8ee-f30c1b1fbcc1",
+        "name": "candidatePending",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+                "leftValue": "={{ $json.manual_mode }}",
+                "rightValue": "'fan'",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          -1792,
+          1980
+        ],
+        "id": "f522a9f3-d610-446a-ab9a-d123391fab8a",
+        "name": "checkMode1",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+                "leftValue": "={{ $('fetchFan').item.json.replies_today < $('fetchFan').item.json.daily_reply_cap && $('fetchGirlCaps').item.json.messages_sent_today < $('fetchGirlCaps').item.json.global_daily_cap }}",
+                "rightValue": "'fan'",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          -1344,
+          1980
+        ],
+        "id": "dc1c2f19-14a7-4d88-a577-a311786fd6a5",
+        "name": "capCheck1",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT global_daily_cap, messages_sent_today FROM girls WHERE id = '{{ $('candidatePending').item.json.girl_id }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -1568,
+          1980
+        ],
+        "id": "7b78223c-0fc3-4a6d-9f8c-a018ed054f7e",
+        "name": "fetchGirlCaps",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT\n  f.summary_text, f.fan_name, f.fan_nick,\n  g.name AS girl_name, g.surname, g.age, g.height_m, g.country, g.religion,\n  g.hair, g.eyes, g.skin, g.breasts, g.accessories, g.lips,\n  g.personality, g.interests, g.access_token\nFROM fans f JOIN girls g ON g.id = f.girl_id\nWHERE f.fan_id = '{{ $('candidatePending').item.json.fan_id }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -896,
+          1980
+        ],
+        "id": "4e8a6902-99e9-479b-a8ca-4baed46afc27",
+        "name": "fetchFanContexts",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT role, content, created_at FROM (\n  SELECT role, content, created_at FROM messages\n  WHERE conversation_id = '{{ $('candidatePending').item.json.fan_id }}'\n  ORDER BY created_at DESC LIMIT 12\n) recent ORDER BY created_at ASC;",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          -672,
+          1980
+        ],
+        "id": "59f759fe-f063-41ac-8c28-552f2cd7a731",
+        "name": "fetchSleepMessages",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "SELECT last_message_at FROM conversations WHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          896,
+          1460
+        ],
+        "id": "54efc136-40ca-49eb-8809-3c210faa62b8",
+        "name": "checkDebouncer",
+        "credentials": {
+          "postgres": {
+            "id": "PlkpKDh3ZUPtl1UI",
+            "name": "Postgres account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
+                "leftValue": "={{ new Date($json.last_message_at).getTime() <= Number($('setFields').item.json.eventTimestamp) }}",
+                "rightValue": "'fan'",
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          1120,
+          1460
+        ],
+        "id": "bb5b7c39-2581-4612-af1d-6e7fadd82a13",
+        "name": "antiDebouncer",
+        "disabled": true
       }
     ],
     "connections": {
@@ -2580,29 +4238,7 @@
         "main": [
           [
             {
-              "node": "Claude",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Anthropic Chat Model": {
-        "ai_languageModel": [
-          [
-            {
-              "node": "Claude",
-              "type": "ai_languageModel",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Claude": {
-        "main": [
-          [
-            {
-              "node": "parseSummary",
+              "node": "ClaudeForComments",
               "type": "main",
               "index": 0
             }
@@ -2657,7 +4293,7 @@
         "main": [
           [
             {
-              "node": "fetchFan",
+              "node": "fetchFans",
               "type": "main",
               "index": 0
             }
@@ -2691,7 +4327,7 @@
         "main": [
           [
             {
-              "node": "fetchFanContext",
+              "node": "checkDebouncer",
               "type": "main",
               "index": 0
             }
@@ -2717,14 +4353,10 @@
               "type": "main",
               "index": 0
             }
-          ]
-        ]
-      },
-      "fetchFan": {
-        "main": [
+          ],
           [
             {
-              "node": "checkMode",
+              "node": "pendingReply",
               "type": "main",
               "index": 0
             }
@@ -2763,10 +4395,319 @@
             }
           ]
         ]
+      },
+      "buildPrompt": {
+        "main": [
+          [
+            {
+              "node": "ClaudeForChat",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "modelForChat": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "ClaudeForChat",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "ClaudeForComments": {
+        "main": [
+          [
+            {
+              "node": "parseSummary",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "modelForComments": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "ClaudeForComments",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "ClaudeForChat": {
+        "main": [
+          [
+            {
+              "node": "replyMessage",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "replyMessage": {
+        "main": [
+          [
+            {
+              "node": "pendingRemove",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "pendingRemove": {
+        "main": [
+          [
+            {
+              "node": "incCounters",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "sleepingMaeve": {
+        "main": [
+          [
+            {
+              "node": "resetMaeve",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "sleepingElara": {
+        "main": [
+          [
+            {
+              "node": "resetElara",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "sleepingAmara": {
+        "main": [
+          [
+            {
+              "node": "resetAmara",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "checkPendings": {
+        "main": [
+          [
+            {
+              "node": "candidatePending",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "fanLoop": {
+        "main": [
+          [
+            {
+              "node": "fetchFan",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "fetchFans": {
+        "main": [
+          [
+            {
+              "node": "checkMode",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "fetchFan": {
+        "main": [
+          [
+            {
+              "node": "checkMode1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Random Wait1": {
+        "main": [
+          [
+            {
+              "node": "fetchFanContexts",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "buildPrompt1": {
+        "main": [
+          [
+            {
+              "node": "ClaudeForChat1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "ClaudeForChat1": {
+        "main": [
+          [
+            {
+              "node": "replyMessage1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "modelForChat1": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "ClaudeForChat1",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "replyMessage1": {
+        "main": [
+          [
+            {
+              "node": "pendingRemove1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "pendingRemove1": {
+        "main": [
+          [
+            {
+              "node": "incCounters1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "candidatePending": {
+        "main": [
+          [
+            {
+              "node": "fanLoop",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "checkMode1": {
+        "main": [
+          [],
+          [
+            {
+              "node": "fetchGirlCaps",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "fetchGirlCaps": {
+        "main": [
+          [
+            {
+              "node": "capCheck1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "capCheck1": {
+        "main": [
+          [
+            {
+              "node": "Random Wait1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "fetchFanContexts": {
+        "main": [
+          [
+            {
+              "node": "fetchSleepMessages",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "fetchSleepMessages": {
+        "main": [
+          [
+            {
+              "node": "buildPrompt1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "checkDebouncer": {
+        "main": [
+          [
+            {
+              "node": "antiDebouncer",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "antiDebouncer": {
+        "main": [
+          [
+            {
+              "node": "fetchFanContext",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version 79b03a94",
+    "name": "Version a78ac1da",
     "description": "",
     "autosaved": true
   },
