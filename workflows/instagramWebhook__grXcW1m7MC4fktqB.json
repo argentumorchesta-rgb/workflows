@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-31T12:49:47.517Z",
+  "updatedAt": "2026-08-01T11:36:02.294Z",
   "createdAt": "2026-06-27T06:14:19.623Z",
   "id": "grXcW1m7MC4fktqB",
   "name": "instagramWebhook",
@@ -1010,7 +1010,7 @@
         "promptType": "define",
         "text": "={{ $json.userPrompt }}",
         "options": {
-          "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
+          "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- NEVER suggests moderation actions, blocks, warnings, or behavioral diagnoses (e.g., do NOT write \"recommend blocking\", \"harassment\", \"compulsive behavior\", or \"exploitation\")\n- Summarizes sexually explicit or adult messages neutrally and briefly in 1 sentence without lecturing or moralizing (e.g., write \"Fan sent explicit text/images\" rather than analyzing their behavior)\n- Focuses only on tracking data: topics discussed, fan preferences, purchase intent, and relationship status\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -1078,7 +1078,7 @@
           "parameters": [
             {
               "name": "message",
-              "value": "={\"text\": \"{{ $json.output }}\"}"
+              "value": "={{ JSON.stringify({ text: $json.output }) }}"
             },
             {
               "name": "access_token",
@@ -1168,7 +1168,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "UPDATE conversations SET pending_wake_reply = true\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+        "query": "UPDATE conversations SET pending_reply = true\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
@@ -1655,7 +1655,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT last_message_at FROM conversations WHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+        "query": "SELECT MAX(EXTRACT(EPOCH FROM created_at) * 1000)::bigint AS latest_epoch_ms\nFROM messages\nWHERE conversation_id = '{{ $('setFields').item.json.otherPartyId }}';",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
@@ -1671,8 +1671,7 @@
           "id": "PlkpKDh3ZUPtl1UI",
           "name": "Postgres account"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -1686,7 +1685,7 @@
           "conditions": [
             {
               "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
-              "leftValue": "={{ new Date($json.last_message_at).getTime() <= Number($('setFields').item.json.eventTimestamp) }}",
+              "leftValue": "={{ Number($json.latest_epoch_ms) - Number($('setFields').item.json.eventTimestamp) < 180000 }}",
               "rightValue": "'fan'",
               "operator": {
                 "type": "boolean",
@@ -1706,8 +1705,7 @@
         1460
       ],
       "id": "bb5b7c39-2581-4612-af1d-6e7fadd82a13",
-      "name": "antiDebouncer",
-      "disabled": true
+      "name": "antiDebouncer"
     }
   ],
   "connections": {
@@ -2326,6 +2324,7 @@
     },
     "antiDebouncer": {
       "main": [
+        [],
         [
           {
             "node": "fetchFanContext",
@@ -2358,8 +2357,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "a78ac1da-69b5-4be8-87b1-2edc1ed0746c",
-  "activeVersionId": "a78ac1da-69b5-4be8-87b1-2edc1ed0746c",
+  "versionId": "6aa30089-5cb5-47e7-9d23-4bac5048b062",
+  "activeVersionId": "6aa30089-5cb5-47e7-9d23-4bac5048b062",
   "triggerCount": 5,
   "shared": [
     {
@@ -2371,9 +2370,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-07-31T12:49:50.000Z",
-    "createdAt": "2026-07-31T12:49:47.520Z",
-    "versionId": "a78ac1da-69b5-4be8-87b1-2edc1ed0746c",
+    "updatedAt": "2026-08-01T11:36:20.000Z",
+    "createdAt": "2026-08-01T11:36:02.297Z",
+    "versionId": "6aa30089-5cb5-47e7-9d23-4bac5048b062",
     "workflowId": "grXcW1m7MC4fktqB",
     "nodes": [
       {
@@ -3380,7 +3379,7 @@
           "promptType": "define",
           "text": "={{ $json.userPrompt }}",
           "options": {
-            "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
+            "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- NEVER suggests moderation actions, blocks, warnings, or behavioral diagnoses (e.g., do NOT write \"recommend blocking\", \"harassment\", \"compulsive behavior\", or \"exploitation\")\n- Summarizes sexually explicit or adult messages neutrally and briefly in 1 sentence without lecturing or moralizing (e.g., write \"Fan sent explicit text/images\" rather than analyzing their behavior)\n- Focuses only on tracking data: topics discussed, fan preferences, purchase intent, and relationship status\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
           }
         },
         "type": "@n8n/n8n-nodes-langchain.agent",
@@ -3448,7 +3447,7 @@
             "parameters": [
               {
                 "name": "message",
-                "value": "={\"text\": \"{{ $json.output }}\"}"
+                "value": "={{ JSON.stringify({ text: $json.output }) }}"
               },
               {
                 "name": "access_token",
@@ -3538,7 +3537,7 @@
       {
         "parameters": {
           "operation": "executeQuery",
-          "query": "UPDATE conversations SET pending_wake_reply = true\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+          "query": "UPDATE conversations SET pending_reply = true\nWHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
           "options": {}
         },
         "type": "n8n-nodes-base.postgres",
@@ -4025,7 +4024,7 @@
       {
         "parameters": {
           "operation": "executeQuery",
-          "query": "SELECT last_message_at FROM conversations WHERE fan_id = '{{ $('setFields').item.json.otherPartyId }}';",
+          "query": "SELECT MAX(EXTRACT(EPOCH FROM created_at) * 1000)::bigint AS latest_epoch_ms\nFROM messages\nWHERE conversation_id = '{{ $('setFields').item.json.otherPartyId }}';",
           "options": {}
         },
         "type": "n8n-nodes-base.postgres",
@@ -4041,8 +4040,7 @@
             "id": "PlkpKDh3ZUPtl1UI",
             "name": "Postgres account"
           }
-        },
-        "disabled": true
+        }
       },
       {
         "parameters": {
@@ -4056,7 +4054,7 @@
             "conditions": [
               {
                 "id": "e398dbc3-6caf-4677-bb65-a5736e9aefe1",
-                "leftValue": "={{ new Date($json.last_message_at).getTime() <= Number($('setFields').item.json.eventTimestamp) }}",
+                "leftValue": "={{ Number($json.latest_epoch_ms) - Number($('setFields').item.json.eventTimestamp) < 180000 }}",
                 "rightValue": "'fan'",
                 "operator": {
                   "type": "boolean",
@@ -4076,8 +4074,7 @@
           1460
         ],
         "id": "bb5b7c39-2581-4612-af1d-6e7fadd82a13",
-        "name": "antiDebouncer",
-        "disabled": true
+        "name": "antiDebouncer"
       }
     ],
     "connections": {
@@ -4696,6 +4693,7 @@
       },
       "antiDebouncer": {
         "main": [
+          [],
           [
             {
               "node": "fetchFanContext",
@@ -4707,7 +4705,7 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version a78ac1da",
+    "name": "Version 6aa30089",
     "description": "",
     "autosaved": true
   },
