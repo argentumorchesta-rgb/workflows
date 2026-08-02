@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-10T07:41:38.717Z",
+  "updatedAt": "2026-08-02T04:04:02.421Z",
   "createdAt": "2026-05-03T07:17:21.681Z",
   "id": "FkBl1KSk0YRXEmv0",
   "name": "mediaMonitor",
@@ -87,7 +87,7 @@
     },
     {
       "parameters": {
-        "url": "=https://graph.instagram.com/v25.0/me/media?fields=id,media_type&limit=100& access_token={{ $('packTokens').item.json.token }}",
+        "url": "=https://graph.instagram.com/v25.0/me/media?fields=id,media_type&limit=500& access_token={{ $('packTokens').item.json.token }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -1124,8 +1124,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "9e6469b9-2369-4ec7-a80c-9786451576ac",
-  "activeVersionId": "9e6469b9-2369-4ec7-a80c-9786451576ac",
+  "versionId": "f156fe24-2401-4242-80e4-49e884cd0ecd",
+  "activeVersionId": "f156fe24-2401-4242-80e4-49e884cd0ecd",
   "triggerCount": 1,
   "shared": [
     {
@@ -1137,9 +1137,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-06-10T07:41:43.000Z",
-    "createdAt": "2026-06-10T07:41:38.721Z",
-    "versionId": "9e6469b9-2369-4ec7-a80c-9786451576ac",
+    "updatedAt": "2026-08-02T04:04:05.000Z",
+    "createdAt": "2026-08-02T04:04:02.430Z",
+    "versionId": "f156fe24-2401-4242-80e4-49e884cd0ecd",
     "workflowId": "FkBl1KSk0YRXEmv0",
     "nodes": [
       {
@@ -1223,7 +1223,7 @@
       },
       {
         "parameters": {
-          "url": "=https://graph.instagram.com/v25.0/me/media?fields=id,media_type&limit=100& access_token={{ $('packTokens').item.json.token }}",
+          "url": "=https://graph.instagram.com/v25.0/me/media?fields=id,media_type&limit=500& access_token={{ $('packTokens').item.json.token }}",
           "options": {}
         },
         "type": "n8n-nodes-base.httpRequest",
@@ -2252,9 +2252,9 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version 9e6469b9",
+    "name": "Version f156fe24",
     "description": "",
-    "autosaved": false
+    "autosaved": true
   },
   "tags": []
 }
