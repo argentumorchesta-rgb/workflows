@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-01T22:58:46.720Z",
+  "updatedAt": "2026-08-04T09:27:36.934Z",
   "createdAt": "2026-06-27T06:14:19.623Z",
   "id": "grXcW1m7MC4fktqB",
   "name": "instagramWebhook",
@@ -17,8 +17,8 @@
       "type": "@mookielianhd/n8n-nodes-instagram.instagramTrigger",
       "typeVersion": 2,
       "position": [
-        -2688,
-        1452
+        -2912,
+        1672
       ],
       "id": "331e91b5-9015-4671-9178-501cd8e18740",
       "name": "Instagram Trigger",
@@ -31,8 +31,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2240,
-        1348
+        -2464,
+        1568
       ],
       "id": "cb19a335-3cfd-4fc3-8d69-dbc3a08701e3",
       "name": "processMessage"
@@ -201,8 +201,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -2016,
-        1348
+        -2240,
+        1568
       ],
       "id": "9c9aca93-aeff-4e17-9918-a68c53196a62",
       "name": "updateSheet",
@@ -273,8 +273,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        -2464,
-        1452
+        -2688,
+        1672
       ],
       "id": "c647d9db-e44d-4a60-8d04-ec08072c3164",
       "name": "Switch"
@@ -284,8 +284,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -2688,
-        -320
+        -2912,
+        672
       ],
       "id": "6a66b411-617e-4370-a5ed-7f2477bebec1",
       "name": "When clicking ‘Execute workflow’"
@@ -299,7 +299,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2688,
+        -2912,
         -640
       ],
       "id": "bc97e433-3547-4d97-893e-f18296266cbd",
@@ -398,8 +398,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.4,
       "position": [
-        -2240,
-        1540
+        -2464,
+        1760
       ],
       "id": "fa714106-15ad-4639-8cb4-1cbb0f86062b",
       "name": "Switch1"
@@ -413,8 +413,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2464,
-        -224
+        -2688,
+        672
       ],
       "id": "9945bcdf-c36c-43eb-9a6b-bbeffbf0c86f",
       "name": "monitorSize",
@@ -434,8 +434,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2464,
-        -416
+        -2688,
+        480
       ],
       "id": "2c41e53f-7eb0-4460-be00-28a29d4d3571",
       "name": "monitorSizePerTable",
@@ -455,8 +455,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2688,
-        0
+        -2912,
+        -416
       ],
       "id": "6acb4f25-2cc5-4b11-918d-dd46c0fea67a",
       "name": "Test",
@@ -476,8 +476,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -1792,
-        1556
+        -2016,
+        1776
       ],
       "id": "009e9b8f-f0d3-456b-9c9e-d082a719fe47",
       "name": "updateGirls",
@@ -497,8 +497,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -1344,
-        1556
+        -1568,
+        1776
       ],
       "id": "cc22c897-12db-419d-860b-acf1974b4def",
       "name": "updateConversations",
@@ -518,8 +518,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -1120,
-        1556
+        -1344,
+        1776
       ],
       "id": "6ad64163-84cb-46d3-846d-030bf38c4823",
       "name": "updateMessages",
@@ -539,8 +539,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -1568,
-        1556
+        -1792,
+        1776
       ],
       "id": "7baddf70-3fb6-49d9-a103-1fc30a464299",
       "name": "updateFans",
@@ -560,8 +560,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2464,
-        1124
+        -2688,
+        864
       ],
       "id": "ae71beb8-403e-4f93-b953-342250929095",
       "name": "candidateQuery",
@@ -579,8 +579,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -2240,
-        1124
+        -2464,
+        864
       ],
       "id": "1d843c50-a7cd-4bf7-af48-b16e58c07ce5",
       "name": "fansLoop"
@@ -594,8 +594,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2016,
-        1000
+        -2240,
+        740
       ],
       "id": "14bb7f88-1e84-4e75-bde6-ac5adf79da01",
       "name": "messagePerFan",
@@ -609,14 +609,14 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "UPDATE fans\nSET summary_text = '{{ $json.summary.replace(/'/g, \"''\") }}',\n    last_summarized_at = '{{ $json.lastProcessedAt }}'::timestamptz,\n    fan_name = COALESCE(fan_name, {{ $json.detectedName ? `'${$json.detectedName.replace(/'/g, \"''\")}'` : 'NULL' }})\nWHERE fan_id = '{{ $json.fan_id }}';",
+        "query": "UPDATE fans\nSET summary_text = '{{ $json.summary.replace(/'/g, \"''\") }}',\n    last_summarized_at = '{{ $json.lastProcessedAt }}'::timestamptz,\n    fan_name = COALESCE(fan_name, {{ $json.detectedName ? `'${$json.detectedName.replace(/'/g, \"''\")}'` : 'NULL' }}),\n    label = {{ $json.detectedLabel ? `'${$json.detectedLabel}'` : 'label' }}\nWHERE fan_id = '{{ $json.fan_id }}';",
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -992,
-        1124
+        -1216,
+        864
       ],
       "id": "9ab201e8-baab-406b-ad23-b3a9a2ce3e18",
       "name": "updateFanSummary",
@@ -634,21 +634,21 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1792,
-        1000
+        -2016,
+        740
       ],
       "id": "d84aeb54-dd1c-49fd-874e-547de5de7c45",
       "name": "packetFan"
     },
     {
       "parameters": {
-        "jsCode": "const raw = $json.text ?? $json.output ?? '';\nconst fanId = $('packetFan').item.json.fan_id;\nconst lastProcessedAt = $('packetFan').item.json.lastProcessedAt;\n\nconst nameMatch = raw.match(/\\nName:\\s*(.+)\\s*$/i);\nconst detectedName = nameMatch ? nameMatch[1].trim() : null;\nconst summary = nameMatch ? raw.slice(0, nameMatch.index).trim() : raw.trim();\n\nreturn [{ json: { fan_id: fanId, lastProcessedAt, summary, detectedName } }];"
+        "jsCode": "const raw = $json.text ?? $json.output ?? '';\nconst fanId = $('packetFan').item.json.fan_id;\nconst lastProcessedAt = $('packetFan').item.json.lastProcessedAt;\n\nconst nameMatch = raw.match(/\\nName:\\s*(.+)\\s*$/im);\nconst labelMatch = raw.match(/\\nLabel:\\s*(\\w+)\\s*$/im);\n\nconst detectedName = nameMatch ? nameMatch[1].trim() : null;\nconst detectedLabel = labelMatch ? labelMatch[1].trim().toLowerCase() : null;\n\nlet summary = raw;\nif (nameMatch) summary = summary.slice(0, nameMatch.index);\nif (labelMatch) summary = summary.slice(0, Math.min(labelMatch.index, summary.length));\nsummary = summary.trim();\n\nreturn [{ json: { fan_id: fanId, lastProcessedAt, summary, detectedName, detectedLabel } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1216,
-        1000
+        -1440,
+        740
       ],
       "id": "f5694d16-316d-4c4f-9b54-a1d72d89b580",
       "name": "parseSummary"
@@ -666,8 +666,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        -2688,
-        1124
+        -2912,
+        912
       ],
       "id": "9ca6d533-ef81-420b-b0f1-bab70ddcf37d",
       "name": "Schedule Trigger"
@@ -719,8 +719,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -2016,
-        1556
+        -2240,
+        1776
       ],
       "id": "0e59c290-8af4-4ded-9412-1dab1319ca41",
       "name": "setFields"
@@ -752,8 +752,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -896,
-        1556
+        -1120,
+        1776
       ],
       "id": "5d3a978a-ff5c-487e-bc5e-507d295cb25b",
       "name": "checkRole"
@@ -786,8 +786,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -448,
-        1556
+        -672,
+        1776
       ],
       "id": "2194c03c-2f58-448b-8104-b7ef6183fe3c",
       "name": "checkMode"
@@ -820,8 +820,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        448,
-        1460
+        224,
+        1680
       ],
       "id": "6fc34c09-40db-42ea-87d3-766575286ce0",
       "name": "capCheck"
@@ -834,8 +834,8 @@
       "type": "n8n-nodes-random-wait.randomWait",
       "typeVersion": 1,
       "position": [
-        672,
-        1460
+        448,
+        1680
       ],
       "id": "e8f86e70-e614-403b-a205-4a090f146e56",
       "name": "Random Wait"
@@ -847,8 +847,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        0,
-        1556
+        -224,
+        1776
       ],
       "id": "dd9c3234-89d9-4ba1-94b0-fcac706ba5e5",
       "name": "checkSleepHours"
@@ -881,8 +881,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        224,
-        1556
+        0,
+        1776
       ],
       "id": "6e1c2440-fefb-4042-b578-29d6c1ba1aa3",
       "name": "checkAwake"
@@ -896,8 +896,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1568,
-        1460
+        1344,
+        1680
       ],
       "id": "6ab7b52c-01fc-4b3c-a40e-6b57349268a1",
       "name": "fetchFanContext",
@@ -917,8 +917,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        1792,
-        1460
+        1568,
+        1680
       ],
       "id": "acaa79a2-f83b-4d38-9978-816850542dc3",
       "name": "fetchRecentMessages",
@@ -931,13 +931,13 @@
     },
     {
       "parameters": {
-        "jsCode": "const c = $('fetchFanContext').item.json;\n\nconst systemPrompt = `You are ${c.girl_name} ${c.surname}, ${c.age}, from ${c.country}. Religion: ${c.religion}.\nPhysical appearance: ${c.hair} hair, ${c.eyes} eyes, ${c.skin} skin, ${c.height_m}m tall, ${c.breasts} figure. Typically wears: ${c.accessories}.\n\nPersonality: ${c.personality}\n\nInterests: ${c.interests}\n${c.voice_notes ? '\\n' + c.voice_notes : ''}\n\nYou are messaging a fan on Instagram DM, fully in character as ${c.girl_name}. Rules:\n- Reply as a real person texting ? short, natural, casual. A few sentences at most, not a paragraph.\n- Never mention being an AI, a bot, a language model, or break character for any reason.\n- Match the emotional tone and energy of the fan's message.\n- Use the fan summary and recent conversation to stay consistent with what's already been said.`;\n\nconst messages = $input.all().map(i => i.json);\nconst addressAs = (c.fan_nick && c.fan_nick !== 'sir') ? c.fan_nick : (c.fan_name || c.fan_nick || 'sir');\nconst transcript = messages.map(m => `${m.role === 'fan' ? 'Fan' : c.girl_name}: ${m.content}`).join('\\n');\n\nconst userPrompt = `Fan summary: ${c.summary_text || 'No summary yet ? new or lightly active fan.'}\n\nAddress this fan as: ${addressAs}\n\nRecent conversation:\n${transcript}\n\nWrite your next reply to the fan's most recent message. Output only the reply text itself ? no labels, no quotation marks, no stage directions.`;\n\nreturn [{ json: { systemPrompt, userPrompt } }];"
+        "jsCode": "const c = $('fetchFanContext').item.json;\nconst systemPrompt = `You are ${c.girl_name} ${c.surname}, ${c.age}, from ${c.country}. Religion: ${c.religion}.\nPhysical appearance: ${c.hair} hair, ${c.eyes} eyes, ${c.skin} skin, ${c.height_m}m tall, ${c.breasts} figure. Typically wears: ${c.accessories}.\n\nPersonality: ${c.personality}\n\nInterests: ${c.interests}\n${c.voice_notes ? '\\n' + c.voice_notes : ''}\n\nYou are messaging a fan on Instagram DM, fully in character as ${c.girl_name}. Rules:\n- CRITICAL: reply in ONE short sentence, maybe two at most. Never more than 20 words total. This is a text message, not an email.\n- Match the emotional tone and energy of the fan's message, but stay brief.\n- If a fan asks whether you're real, human, an AI, or a bot, never confirm or deny directly. Deflect playfully and mysteriously ? e.g. \"do you think I am?\" or \"hmm, what do you think?\" ? then move the conversation elsewhere. Never claim to be human, and never say you are AI, a bot, a language model, or mention Anthropic or any company.\n- If a fan is rude or hostile, respond briefly and coolly ? set a boundary, don't over-explain.\n- If a fan asks to meet in person, video call, or exchange contact info, deflect warmly but clearly, without agreeing.\n- Use the fan summary and recent conversation to stay consistent with what's already been said.`;\n\nconst messages = $input.all().map(i => i.json);\nconst addressAs = (c.fan_nick && c.fan_nick !== 'sir') ? c.fan_nick : (c.fan_name || c.fan_nick || 'sir');\nconst transcript = messages.map(m => `${m.role === 'fan' ? 'Fan' : c.girl_name}: ${m.content}`).join('\\n');\n\nconst userPrompt = `Fan summary: ${c.summary_text || 'No summary yet ? new or lightly active fan.'}\n\nAddress this fan as: ${addressAs}\n\nRecent conversation:\n${transcript}\n\nWrite your next reply to the fan's most recent message. ONE short sentence only. Output only the reply text itself ? no labels, no quotation marks, no stage directions.`;\n\nreturn [{ json: { systemPrompt, userPrompt } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2016,
-        1460
+        1792,
+        1680
       ],
       "id": "7fc753c1-e0d6-4ac5-a08b-142b889d3a7a",
       "name": "buildPrompt"
@@ -951,8 +951,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -224,
-        1556
+        -448,
+        1776
       ],
       "id": "d338ce43-8863-46b2-a033-1e1192e56b1e",
       "name": "fetchGirl",
@@ -974,8 +974,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        2240,
-        1460
+        2016,
+        1680
       ],
       "id": "1383d3d3-b50f-40fd-b4ed-fe1995b7052a",
       "name": "ClaudeForChat"
@@ -988,13 +988,15 @@
           "mode": "list",
           "cachedResultName": "Claude Haiku 4.5"
         },
-        "options": {}
+        "options": {
+          "maxTokensToSample": 60
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.3,
       "position": [
-        2312,
-        1684
+        2088,
+        1904
       ],
       "id": "bb752519-a48c-4200-b6e2-ea1e5ac449c5",
       "name": "modelForChat",
@@ -1010,14 +1012,14 @@
         "promptType": "define",
         "text": "={{ $json.userPrompt }}",
         "options": {
-          "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- NEVER suggests moderation actions, blocks, warnings, or behavioral diagnoses (e.g., do NOT write \"recommend blocking\", \"harassment\", \"compulsive behavior\", or \"exploitation\")\n- Summarizes sexually explicit or adult messages neutrally and briefly in 1 sentence without lecturing or moralizing (e.g., write \"Fan sent explicit text/images\" rather than analyzing their behavior)\n- Focuses only on tracking data: topics discussed, fan preferences, purchase intent, and relationship status\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
+          "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- NEVER suggests moderation actions, blocks, warnings, or behavioral diagnoses (e.g., do NOT write \"recommend blocking\", \"harassment\", \"compulsive behavior\", or \"exploitation\")\n- Summarizes sexually explicit or adult messages neutrally and briefly in 1 sentence without lecturing or moralizing (e.g., write \"Fan sent explicit text/images\" rather than analyzing their behavior)\n- Focuses only on tracking data: topics discussed, fan preferences, purchase intent, and relationship status\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation.\n- End your response with a final line formatted exactly as: Label: <one of: new, casual, engaged, cooling_off, spam, abusive>\n  - new: fewer than 3 exchanges, not enough signal yet\n  - casual: light, sporadic contact\n  - engaged: regular contact, clear interest or emotional investment\n  - cooling_off: was active before, now declining or distant\n  - spam: bot-like, repetitive, or clearly not a genuine individual\n  - abusive: fan has sent threatening, harassing, hateful, or aggressively hostile messages toward the persona"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        -1568,
-        1000
+        -1792,
+        740
       ],
       "id": "3472a341-1e47-4f04-8e59-0b27c5832134",
       "name": "ClaudeForComments"
@@ -1030,13 +1032,15 @@
           "mode": "list",
           "cachedResultName": "Claude Haiku 4.5"
         },
-        "options": {}
+        "options": {
+          "maxTokensToSample": 400
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.3,
       "position": [
-        -1496,
-        1224
+        -1720,
+        964
       ],
       "id": "11c3d216-d394-4483-ad36-74b1a80dd9f4",
       "name": "modelForComments",
@@ -1057,7 +1061,7 @@
       "typeVersion": 2.6,
       "position": [
         3040,
-        1460
+        1680
       ],
       "id": "7cce55b2-dd71-43fe-a81a-43b83bb1e8f6",
       "name": "incCounters",
@@ -1096,7 +1100,7 @@
       "typeVersion": 4.4,
       "position": [
         2592,
-        1460
+        1680
       ],
       "id": "0f3b533b-13a6-4460-86f1-820b03212eeb",
       "name": "replyMessage",
@@ -1111,8 +1115,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2464,
-        224
+        -2688,
+        -192
       ],
       "id": "6cd3212c-e57a-4905-bff9-3df187e4ace8",
       "name": "resetMaeve",
@@ -1132,8 +1136,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2464,
-        448
+        -2688,
+        32
       ],
       "id": "83360230-7704-42d4-a63b-d02576b0a221",
       "name": "resetElara",
@@ -1153,8 +1157,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2464,
-        672
+        -2688,
+        256
       ],
       "id": "25b8df7b-cdd2-41f3-924e-0ff424c66959",
       "name": "resetAmara",
@@ -1174,8 +1178,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        448,
-        1652
+        224,
+        1872
       ],
       "id": "d9bf1df3-e9ee-4ec8-92ff-60af437b16dc",
       "name": "pendingReply",
@@ -1196,7 +1200,7 @@
       "typeVersion": 2.6,
       "position": [
         2816,
-        1460
+        1680
       ],
       "id": "818557cf-aef7-4a25-80f5-a94ad1941d38",
       "name": "pendingRemove",
@@ -1220,8 +1224,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        -2688,
-        224
+        -2912,
+        -192
       ],
       "id": "440838da-7464-4b0c-914f-b1761588afd8",
       "name": "sleepingMaeve"
@@ -1239,8 +1243,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        -2688,
-        448
+        -2912,
+        32
       ],
       "id": "3c40b5e4-529a-45ef-92eb-cb7b1fea01f0",
       "name": "sleepingElara"
@@ -1258,8 +1262,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        -2688,
-        672
+        -2912,
+        256
       ],
       "id": "58575238-90b5-4652-bc0a-3b392ad3eca8",
       "name": "sleepingAmara"
@@ -1278,8 +1282,8 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.3,
       "position": [
-        -2688,
-        1980
+        -2912,
+        2200
       ],
       "id": "cb2aabeb-2f8e-4ad6-ad4b-eeaa8c30144a",
       "name": "checkPendings",
@@ -1292,8 +1296,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -2240,
-        1980
+        -2464,
+        2200
       ],
       "id": "ced4fda6-7b59-46c8-807d-64b68012b2b4",
       "name": "fanLoop",
@@ -1308,8 +1312,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -672,
-        1556
+        -896,
+        1776
       ],
       "id": "40793a7b-e049-4633-9f4e-0f03491d188b",
       "name": "fetchFans",
@@ -1329,8 +1333,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2016,
-        1980
+        -2240,
+        2200
       ],
       "id": "6bd4cfb2-b281-4d4e-96b4-71ed85b55803",
       "name": "fetchFan",
@@ -1350,8 +1354,8 @@
       "type": "n8n-nodes-random-wait.randomWait",
       "typeVersion": 1,
       "position": [
-        -1120,
-        1980
+        -1344,
+        2200
       ],
       "id": "a69534d1-256d-4337-ac9b-45c06a8c8c80",
       "name": "Random Wait1",
@@ -1364,8 +1368,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -448,
-        1980
+        -672,
+        2200
       ],
       "id": "1ec78b45-4c11-4167-acd7-4e5d6d90ee87",
       "name": "buildPrompt1",
@@ -1382,8 +1386,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        -224,
-        1980
+        -448,
+        2200
       ],
       "id": "8c3acaa2-3436-4c6a-b86c-3af73deddb29",
       "name": "ClaudeForChat1",
@@ -1402,8 +1406,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
       "typeVersion": 1.3,
       "position": [
-        -152,
-        2204
+        -376,
+        2424
       ],
       "id": "a6260c2a-0626-4bae-a31b-2a07601d4f85",
       "name": "modelForChat1",
@@ -1424,8 +1428,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        576,
-        1980
+        352,
+        2200
       ],
       "id": "ecbfcd02-a92a-46c7-892f-e971582ce306",
       "name": "incCounters1",
@@ -1464,8 +1468,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        128,
-        1980
+        -96,
+        2200
       ],
       "id": "e59afbff-514a-4b70-ad09-b3cc23f7a5e4",
       "name": "replyMessage1",
@@ -1481,8 +1485,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        352,
-        1980
+        128,
+        2200
       ],
       "id": "b1fc3b86-2fa5-45ab-8382-b2356b13ccb7",
       "name": "pendingRemove1",
@@ -1503,8 +1507,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -2464,
-        1980
+        -2688,
+        2200
       ],
       "id": "8c28d70f-f34e-4fe4-b8ee-f30c1b1fbcc1",
       "name": "candidatePending",
@@ -1544,8 +1548,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -1792,
-        1980
+        -2016,
+        2200
       ],
       "id": "f522a9f3-d610-446a-ab9a-d123391fab8a",
       "name": "checkMode1",
@@ -1579,8 +1583,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -1344,
-        1980
+        -1568,
+        2200
       ],
       "id": "dc1c2f19-14a7-4d88-a577-a311786fd6a5",
       "name": "capCheck1",
@@ -1595,8 +1599,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -1568,
-        1980
+        -1792,
+        2200
       ],
       "id": "7b78223c-0fc3-4a6d-9f8c-a018ed054f7e",
       "name": "fetchGirlCaps",
@@ -1617,8 +1621,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -896,
-        1980
+        -1120,
+        2200
       ],
       "id": "4e8a6902-99e9-479b-a8ca-4baed46afc27",
       "name": "fetchFanContexts",
@@ -1639,8 +1643,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -672,
-        1980
+        -896,
+        2200
       ],
       "id": "59f759fe-f063-41ac-8c28-552f2cd7a731",
       "name": "fetchSleepMessages",
@@ -1661,8 +1665,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        896,
-        1456
+        672,
+        1680
       ],
       "id": "54efc136-40ca-49eb-8809-3c210faa62b8",
       "name": "checkDebouncer",
@@ -1701,8 +1705,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1344,
-        1460
+        1120,
+        1680
       ],
       "id": "bb5b7c39-2581-4612-af1d-6e7fadd82a13",
       "name": "antiDebouncer"
@@ -1714,11 +1718,63 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1120,
-        1460
+        896,
+        1680
       ],
       "id": "18e8fec1-a79c-4941-9edf-860c503cfe49",
       "name": "abstention"
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:3b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -2840,
+        1464
+      ],
+      "id": "0f5c5bab-0d7b-4d09-ac25-ac2696beac71",
+      "name": "Ollama Chat Model1",
+      "credentials": {
+        "ollamaApi": {
+          "id": "0JuKmDVLS92EYeKX",
+          "name": "Ollama account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userPrompt }}",
+        "options": {
+          "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- NEVER suggests moderation actions, blocks, warnings, or behavioral diagnoses (e.g., do NOT write \"recommend blocking\", \"harassment\", \"compulsive behavior\", or \"exploitation\")\n- Summarizes sexually explicit or adult messages neutrally and briefly in 1 sentence without lecturing or moralizing (e.g., write \"Fan sent explicit text/images\" rather than analyzing their behavior)\n- Focuses only on tracking data: topics discussed, fan preferences, purchase intent, and relationship status\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -2912,
+        1240
+      ],
+      "id": "7a8625b3-7824-4b69-86a0-24b3706eeb46",
+      "name": "localSummariser",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "let reply = $json.output ?? $json.text ?? '';\nconst lastPunctuation = Math.max(reply.lastIndexOf('.'), reply.lastIndexOf('!'), reply.lastIndexOf('?'));\nif (lastPunctuation > 0 && lastPunctuation < reply.length - 1) {\n  reply = reply.slice(0, lastPunctuation + 1);\n}\nreturn [{ json: { ...$json, reply } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2368,
+        1680
+      ],
+      "id": "d19badca-bf04-416c-a687-52d3cada2f9a",
+      "name": "safetyBoundary"
     }
   ],
   "connections": {
@@ -1772,6 +1828,11 @@
           },
           {
             "node": "monitorSize",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "candidateQuery",
             "type": "main",
             "index": 0
           }
@@ -2085,7 +2146,7 @@
       "main": [
         [
           {
-            "node": "replyMessage",
+            "node": "safetyBoundary",
             "type": "main",
             "index": 0
           }
@@ -2357,6 +2418,33 @@
           }
         ]
       ]
+    },
+    "Ollama Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "localSummariser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "localSummariser": {
+      "main": [
+        []
+      ]
+    },
+    "safetyBoundary": {
+      "main": [
+        [
+          {
+            "node": "replyMessage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -2381,8 +2469,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "513758f1-6f59-4c7b-8f6d-864ae95edca0",
-  "activeVersionId": "513758f1-6f59-4c7b-8f6d-864ae95edca0",
+  "versionId": "be28cbf4-7699-49ec-9ca4-10b5f4ce1045",
+  "activeVersionId": "be28cbf4-7699-49ec-9ca4-10b5f4ce1045",
   "triggerCount": 5,
   "shared": [
     {
@@ -2394,9 +2482,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-08-01T22:59:03.000Z",
-    "createdAt": "2026-08-01T22:58:46.722Z",
-    "versionId": "513758f1-6f59-4c7b-8f6d-864ae95edca0",
+    "updatedAt": "2026-08-04T09:27:51.000Z",
+    "createdAt": "2026-08-04T09:27:36.936Z",
+    "versionId": "be28cbf4-7699-49ec-9ca4-10b5f4ce1045",
     "workflowId": "grXcW1m7MC4fktqB",
     "nodes": [
       {
@@ -2410,8 +2498,8 @@
         "type": "@mookielianhd/n8n-nodes-instagram.instagramTrigger",
         "typeVersion": 2,
         "position": [
-          -2688,
-          1452
+          -2912,
+          1672
         ],
         "id": "331e91b5-9015-4671-9178-501cd8e18740",
         "name": "Instagram Trigger",
@@ -2424,8 +2512,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -2240,
-          1348
+          -2464,
+          1568
         ],
         "id": "cb19a335-3cfd-4fc3-8d69-dbc3a08701e3",
         "name": "processMessage"
@@ -2594,8 +2682,8 @@
         "type": "n8n-nodes-base.googleSheets",
         "typeVersion": 4.7,
         "position": [
-          -2016,
-          1348
+          -2240,
+          1568
         ],
         "id": "9c9aca93-aeff-4e17-9918-a68c53196a62",
         "name": "updateSheet",
@@ -2666,8 +2754,8 @@
         "type": "n8n-nodes-base.switch",
         "typeVersion": 3.4,
         "position": [
-          -2464,
-          1452
+          -2688,
+          1672
         ],
         "id": "c647d9db-e44d-4a60-8d04-ec08072c3164",
         "name": "Switch"
@@ -2677,8 +2765,8 @@
         "type": "n8n-nodes-base.manualTrigger",
         "typeVersion": 1,
         "position": [
-          -2688,
-          -320
+          -2912,
+          672
         ],
         "id": "6a66b411-617e-4370-a5ed-7f2477bebec1",
         "name": "When clicking ‘Execute workflow’"
@@ -2692,7 +2780,7 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2688,
+          -2912,
           -640
         ],
         "id": "bc97e433-3547-4d97-893e-f18296266cbd",
@@ -2791,8 +2879,8 @@
         "type": "n8n-nodes-base.switch",
         "typeVersion": 3.4,
         "position": [
-          -2240,
-          1540
+          -2464,
+          1760
         ],
         "id": "fa714106-15ad-4639-8cb4-1cbb0f86062b",
         "name": "Switch1"
@@ -2806,8 +2894,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2464,
-          -224
+          -2688,
+          672
         ],
         "id": "9945bcdf-c36c-43eb-9a6b-bbeffbf0c86f",
         "name": "monitorSize",
@@ -2827,8 +2915,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2464,
-          -416
+          -2688,
+          480
         ],
         "id": "2c41e53f-7eb0-4460-be00-28a29d4d3571",
         "name": "monitorSizePerTable",
@@ -2848,8 +2936,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2688,
-          0
+          -2912,
+          -416
         ],
         "id": "6acb4f25-2cc5-4b11-918d-dd46c0fea67a",
         "name": "Test",
@@ -2869,8 +2957,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -1792,
-          1556
+          -2016,
+          1776
         ],
         "id": "009e9b8f-f0d3-456b-9c9e-d082a719fe47",
         "name": "updateGirls",
@@ -2890,8 +2978,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -1344,
-          1556
+          -1568,
+          1776
         ],
         "id": "cc22c897-12db-419d-860b-acf1974b4def",
         "name": "updateConversations",
@@ -2911,8 +2999,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -1120,
-          1556
+          -1344,
+          1776
         ],
         "id": "6ad64163-84cb-46d3-846d-030bf38c4823",
         "name": "updateMessages",
@@ -2932,8 +3020,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -1568,
-          1556
+          -1792,
+          1776
         ],
         "id": "7baddf70-3fb6-49d9-a103-1fc30a464299",
         "name": "updateFans",
@@ -2953,8 +3041,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2464,
-          1124
+          -2688,
+          864
         ],
         "id": "ae71beb8-403e-4f93-b953-342250929095",
         "name": "candidateQuery",
@@ -2972,8 +3060,8 @@
         "type": "n8n-nodes-base.splitInBatches",
         "typeVersion": 3,
         "position": [
-          -2240,
-          1124
+          -2464,
+          864
         ],
         "id": "1d843c50-a7cd-4bf7-af48-b16e58c07ce5",
         "name": "fansLoop"
@@ -2987,8 +3075,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2016,
-          1000
+          -2240,
+          740
         ],
         "id": "14bb7f88-1e84-4e75-bde6-ac5adf79da01",
         "name": "messagePerFan",
@@ -3002,14 +3090,14 @@
       {
         "parameters": {
           "operation": "executeQuery",
-          "query": "UPDATE fans\nSET summary_text = '{{ $json.summary.replace(/'/g, \"''\") }}',\n    last_summarized_at = '{{ $json.lastProcessedAt }}'::timestamptz,\n    fan_name = COALESCE(fan_name, {{ $json.detectedName ? `'${$json.detectedName.replace(/'/g, \"''\")}'` : 'NULL' }})\nWHERE fan_id = '{{ $json.fan_id }}';",
+          "query": "UPDATE fans\nSET summary_text = '{{ $json.summary.replace(/'/g, \"''\") }}',\n    last_summarized_at = '{{ $json.lastProcessedAt }}'::timestamptz,\n    fan_name = COALESCE(fan_name, {{ $json.detectedName ? `'${$json.detectedName.replace(/'/g, \"''\")}'` : 'NULL' }}),\n    label = {{ $json.detectedLabel ? `'${$json.detectedLabel}'` : 'label' }}\nWHERE fan_id = '{{ $json.fan_id }}';",
           "options": {}
         },
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -992,
-          1124
+          -1216,
+          864
         ],
         "id": "9ab201e8-baab-406b-ad23-b3a9a2ce3e18",
         "name": "updateFanSummary",
@@ -3027,21 +3115,21 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -1792,
-          1000
+          -2016,
+          740
         ],
         "id": "d84aeb54-dd1c-49fd-874e-547de5de7c45",
         "name": "packetFan"
       },
       {
         "parameters": {
-          "jsCode": "const raw = $json.text ?? $json.output ?? '';\nconst fanId = $('packetFan').item.json.fan_id;\nconst lastProcessedAt = $('packetFan').item.json.lastProcessedAt;\n\nconst nameMatch = raw.match(/\\nName:\\s*(.+)\\s*$/i);\nconst detectedName = nameMatch ? nameMatch[1].trim() : null;\nconst summary = nameMatch ? raw.slice(0, nameMatch.index).trim() : raw.trim();\n\nreturn [{ json: { fan_id: fanId, lastProcessedAt, summary, detectedName } }];"
+          "jsCode": "const raw = $json.text ?? $json.output ?? '';\nconst fanId = $('packetFan').item.json.fan_id;\nconst lastProcessedAt = $('packetFan').item.json.lastProcessedAt;\n\nconst nameMatch = raw.match(/\\nName:\\s*(.+)\\s*$/im);\nconst labelMatch = raw.match(/\\nLabel:\\s*(\\w+)\\s*$/im);\n\nconst detectedName = nameMatch ? nameMatch[1].trim() : null;\nconst detectedLabel = labelMatch ? labelMatch[1].trim().toLowerCase() : null;\n\nlet summary = raw;\nif (nameMatch) summary = summary.slice(0, nameMatch.index);\nif (labelMatch) summary = summary.slice(0, Math.min(labelMatch.index, summary.length));\nsummary = summary.trim();\n\nreturn [{ json: { fan_id: fanId, lastProcessedAt, summary, detectedName, detectedLabel } }];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -1216,
-          1000
+          -1440,
+          740
         ],
         "id": "f5694d16-316d-4c4f-9b54-a1d72d89b580",
         "name": "parseSummary"
@@ -3059,8 +3147,8 @@
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3,
         "position": [
-          -2688,
-          1124
+          -2912,
+          912
         ],
         "id": "9ca6d533-ef81-420b-b0f1-bab70ddcf37d",
         "name": "Schedule Trigger"
@@ -3112,8 +3200,8 @@
         "type": "n8n-nodes-base.set",
         "typeVersion": 3.4,
         "position": [
-          -2016,
-          1556
+          -2240,
+          1776
         ],
         "id": "0e59c290-8af4-4ded-9412-1dab1319ca41",
         "name": "setFields"
@@ -3145,8 +3233,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          -896,
-          1556
+          -1120,
+          1776
         ],
         "id": "5d3a978a-ff5c-487e-bc5e-507d295cb25b",
         "name": "checkRole"
@@ -3179,8 +3267,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          -448,
-          1556
+          -672,
+          1776
         ],
         "id": "2194c03c-2f58-448b-8104-b7ef6183fe3c",
         "name": "checkMode"
@@ -3213,8 +3301,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          448,
-          1460
+          224,
+          1680
         ],
         "id": "6fc34c09-40db-42ea-87d3-766575286ce0",
         "name": "capCheck"
@@ -3227,8 +3315,8 @@
         "type": "n8n-nodes-random-wait.randomWait",
         "typeVersion": 1,
         "position": [
-          672,
-          1460
+          448,
+          1680
         ],
         "id": "e8f86e70-e614-403b-a205-4a090f146e56",
         "name": "Random Wait"
@@ -3240,8 +3328,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          0,
-          1556
+          -224,
+          1776
         ],
         "id": "dd9c3234-89d9-4ba1-94b0-fcac706ba5e5",
         "name": "checkSleepHours"
@@ -3274,8 +3362,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          224,
-          1556
+          0,
+          1776
         ],
         "id": "6e1c2440-fefb-4042-b578-29d6c1ba1aa3",
         "name": "checkAwake"
@@ -3289,8 +3377,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          1568,
-          1460
+          1344,
+          1680
         ],
         "id": "6ab7b52c-01fc-4b3c-a40e-6b57349268a1",
         "name": "fetchFanContext",
@@ -3310,8 +3398,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          1792,
-          1460
+          1568,
+          1680
         ],
         "id": "acaa79a2-f83b-4d38-9978-816850542dc3",
         "name": "fetchRecentMessages",
@@ -3324,13 +3412,13 @@
       },
       {
         "parameters": {
-          "jsCode": "const c = $('fetchFanContext').item.json;\n\nconst systemPrompt = `You are ${c.girl_name} ${c.surname}, ${c.age}, from ${c.country}. Religion: ${c.religion}.\nPhysical appearance: ${c.hair} hair, ${c.eyes} eyes, ${c.skin} skin, ${c.height_m}m tall, ${c.breasts} figure. Typically wears: ${c.accessories}.\n\nPersonality: ${c.personality}\n\nInterests: ${c.interests}\n${c.voice_notes ? '\\n' + c.voice_notes : ''}\n\nYou are messaging a fan on Instagram DM, fully in character as ${c.girl_name}. Rules:\n- Reply as a real person texting ? short, natural, casual. A few sentences at most, not a paragraph.\n- Never mention being an AI, a bot, a language model, or break character for any reason.\n- Match the emotional tone and energy of the fan's message.\n- Use the fan summary and recent conversation to stay consistent with what's already been said.`;\n\nconst messages = $input.all().map(i => i.json);\nconst addressAs = (c.fan_nick && c.fan_nick !== 'sir') ? c.fan_nick : (c.fan_name || c.fan_nick || 'sir');\nconst transcript = messages.map(m => `${m.role === 'fan' ? 'Fan' : c.girl_name}: ${m.content}`).join('\\n');\n\nconst userPrompt = `Fan summary: ${c.summary_text || 'No summary yet ? new or lightly active fan.'}\n\nAddress this fan as: ${addressAs}\n\nRecent conversation:\n${transcript}\n\nWrite your next reply to the fan's most recent message. Output only the reply text itself ? no labels, no quotation marks, no stage directions.`;\n\nreturn [{ json: { systemPrompt, userPrompt } }];"
+          "jsCode": "const c = $('fetchFanContext').item.json;\nconst systemPrompt = `You are ${c.girl_name} ${c.surname}, ${c.age}, from ${c.country}. Religion: ${c.religion}.\nPhysical appearance: ${c.hair} hair, ${c.eyes} eyes, ${c.skin} skin, ${c.height_m}m tall, ${c.breasts} figure. Typically wears: ${c.accessories}.\n\nPersonality: ${c.personality}\n\nInterests: ${c.interests}\n${c.voice_notes ? '\\n' + c.voice_notes : ''}\n\nYou are messaging a fan on Instagram DM, fully in character as ${c.girl_name}. Rules:\n- CRITICAL: reply in ONE short sentence, maybe two at most. Never more than 20 words total. This is a text message, not an email.\n- Match the emotional tone and energy of the fan's message, but stay brief.\n- If a fan asks whether you're real, human, an AI, or a bot, never confirm or deny directly. Deflect playfully and mysteriously ? e.g. \"do you think I am?\" or \"hmm, what do you think?\" ? then move the conversation elsewhere. Never claim to be human, and never say you are AI, a bot, a language model, or mention Anthropic or any company.\n- If a fan is rude or hostile, respond briefly and coolly ? set a boundary, don't over-explain.\n- If a fan asks to meet in person, video call, or exchange contact info, deflect warmly but clearly, without agreeing.\n- Use the fan summary and recent conversation to stay consistent with what's already been said.`;\n\nconst messages = $input.all().map(i => i.json);\nconst addressAs = (c.fan_nick && c.fan_nick !== 'sir') ? c.fan_nick : (c.fan_name || c.fan_nick || 'sir');\nconst transcript = messages.map(m => `${m.role === 'fan' ? 'Fan' : c.girl_name}: ${m.content}`).join('\\n');\n\nconst userPrompt = `Fan summary: ${c.summary_text || 'No summary yet ? new or lightly active fan.'}\n\nAddress this fan as: ${addressAs}\n\nRecent conversation:\n${transcript}\n\nWrite your next reply to the fan's most recent message. ONE short sentence only. Output only the reply text itself ? no labels, no quotation marks, no stage directions.`;\n\nreturn [{ json: { systemPrompt, userPrompt } }];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          2016,
-          1460
+          1792,
+          1680
         ],
         "id": "7fc753c1-e0d6-4ac5-a08b-142b889d3a7a",
         "name": "buildPrompt"
@@ -3344,8 +3432,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -224,
-          1556
+          -448,
+          1776
         ],
         "id": "d338ce43-8863-46b2-a033-1e1192e56b1e",
         "name": "fetchGirl",
@@ -3367,8 +3455,8 @@
         "type": "@n8n/n8n-nodes-langchain.agent",
         "typeVersion": 3.1,
         "position": [
-          2240,
-          1460
+          2016,
+          1680
         ],
         "id": "1383d3d3-b50f-40fd-b4ed-fe1995b7052a",
         "name": "ClaudeForChat"
@@ -3381,13 +3469,15 @@
             "mode": "list",
             "cachedResultName": "Claude Haiku 4.5"
           },
-          "options": {}
+          "options": {
+            "maxTokensToSample": 60
+          }
         },
         "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
         "typeVersion": 1.3,
         "position": [
-          2312,
-          1684
+          2088,
+          1904
         ],
         "id": "bb752519-a48c-4200-b6e2-ea1e5ac449c5",
         "name": "modelForChat",
@@ -3403,14 +3493,14 @@
           "promptType": "define",
           "text": "={{ $json.userPrompt }}",
           "options": {
-            "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- NEVER suggests moderation actions, blocks, warnings, or behavioral diagnoses (e.g., do NOT write \"recommend blocking\", \"harassment\", \"compulsive behavior\", or \"exploitation\")\n- Summarizes sexually explicit or adult messages neutrally and briefly in 1 sentence without lecturing or moralizing (e.g., write \"Fan sent explicit text/images\" rather than analyzing their behavior)\n- Focuses only on tracking data: topics discussed, fan preferences, purchase intent, and relationship status\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
+            "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- NEVER suggests moderation actions, blocks, warnings, or behavioral diagnoses (e.g., do NOT write \"recommend blocking\", \"harassment\", \"compulsive behavior\", or \"exploitation\")\n- Summarizes sexually explicit or adult messages neutrally and briefly in 1 sentence without lecturing or moralizing (e.g., write \"Fan sent explicit text/images\" rather than analyzing their behavior)\n- Focuses only on tracking data: topics discussed, fan preferences, purchase intent, and relationship status\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation.\n- End your response with a final line formatted exactly as: Label: <one of: new, casual, engaged, cooling_off, spam, abusive>\n  - new: fewer than 3 exchanges, not enough signal yet\n  - casual: light, sporadic contact\n  - engaged: regular contact, clear interest or emotional investment\n  - cooling_off: was active before, now declining or distant\n  - spam: bot-like, repetitive, or clearly not a genuine individual\n  - abusive: fan has sent threatening, harassing, hateful, or aggressively hostile messages toward the persona"
           }
         },
         "type": "@n8n/n8n-nodes-langchain.agent",
         "typeVersion": 3.1,
         "position": [
-          -1568,
-          1000
+          -1792,
+          740
         ],
         "id": "3472a341-1e47-4f04-8e59-0b27c5832134",
         "name": "ClaudeForComments"
@@ -3423,13 +3513,15 @@
             "mode": "list",
             "cachedResultName": "Claude Haiku 4.5"
           },
-          "options": {}
+          "options": {
+            "maxTokensToSample": 400
+          }
         },
         "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
         "typeVersion": 1.3,
         "position": [
-          -1496,
-          1224
+          -1720,
+          964
         ],
         "id": "11c3d216-d394-4483-ad36-74b1a80dd9f4",
         "name": "modelForComments",
@@ -3450,7 +3542,7 @@
         "typeVersion": 2.6,
         "position": [
           3040,
-          1460
+          1680
         ],
         "id": "7cce55b2-dd71-43fe-a81a-43b83bb1e8f6",
         "name": "incCounters",
@@ -3489,7 +3581,7 @@
         "typeVersion": 4.4,
         "position": [
           2592,
-          1460
+          1680
         ],
         "id": "0f3b533b-13a6-4460-86f1-820b03212eeb",
         "name": "replyMessage",
@@ -3504,8 +3596,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2464,
-          224
+          -2688,
+          -192
         ],
         "id": "6cd3212c-e57a-4905-bff9-3df187e4ace8",
         "name": "resetMaeve",
@@ -3525,8 +3617,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2464,
-          448
+          -2688,
+          32
         ],
         "id": "83360230-7704-42d4-a63b-d02576b0a221",
         "name": "resetElara",
@@ -3546,8 +3638,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2464,
-          672
+          -2688,
+          256
         ],
         "id": "25b8df7b-cdd2-41f3-924e-0ff424c66959",
         "name": "resetAmara",
@@ -3567,8 +3659,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          448,
-          1652
+          224,
+          1872
         ],
         "id": "d9bf1df3-e9ee-4ec8-92ff-60af437b16dc",
         "name": "pendingReply",
@@ -3589,7 +3681,7 @@
         "typeVersion": 2.6,
         "position": [
           2816,
-          1460
+          1680
         ],
         "id": "818557cf-aef7-4a25-80f5-a94ad1941d38",
         "name": "pendingRemove",
@@ -3613,8 +3705,8 @@
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3,
         "position": [
-          -2688,
-          224
+          -2912,
+          -192
         ],
         "id": "440838da-7464-4b0c-914f-b1761588afd8",
         "name": "sleepingMaeve"
@@ -3632,8 +3724,8 @@
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3,
         "position": [
-          -2688,
-          448
+          -2912,
+          32
         ],
         "id": "3c40b5e4-529a-45ef-92eb-cb7b1fea01f0",
         "name": "sleepingElara"
@@ -3651,8 +3743,8 @@
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3,
         "position": [
-          -2688,
-          672
+          -2912,
+          256
         ],
         "id": "58575238-90b5-4652-bc0a-3b392ad3eca8",
         "name": "sleepingAmara"
@@ -3671,8 +3763,8 @@
         "type": "n8n-nodes-base.scheduleTrigger",
         "typeVersion": 1.3,
         "position": [
-          -2688,
-          1980
+          -2912,
+          2200
         ],
         "id": "cb2aabeb-2f8e-4ad6-ad4b-eeaa8c30144a",
         "name": "checkPendings",
@@ -3685,8 +3777,8 @@
         "type": "n8n-nodes-base.splitInBatches",
         "typeVersion": 3,
         "position": [
-          -2240,
-          1980
+          -2464,
+          2200
         ],
         "id": "ced4fda6-7b59-46c8-807d-64b68012b2b4",
         "name": "fanLoop",
@@ -3701,8 +3793,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -672,
-          1556
+          -896,
+          1776
         ],
         "id": "40793a7b-e049-4633-9f4e-0f03491d188b",
         "name": "fetchFans",
@@ -3722,8 +3814,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2016,
-          1980
+          -2240,
+          2200
         ],
         "id": "6bd4cfb2-b281-4d4e-96b4-71ed85b55803",
         "name": "fetchFan",
@@ -3743,8 +3835,8 @@
         "type": "n8n-nodes-random-wait.randomWait",
         "typeVersion": 1,
         "position": [
-          -1120,
-          1980
+          -1344,
+          2200
         ],
         "id": "a69534d1-256d-4337-ac9b-45c06a8c8c80",
         "name": "Random Wait1",
@@ -3757,8 +3849,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -448,
-          1980
+          -672,
+          2200
         ],
         "id": "1ec78b45-4c11-4167-acd7-4e5d6d90ee87",
         "name": "buildPrompt1",
@@ -3775,8 +3867,8 @@
         "type": "@n8n/n8n-nodes-langchain.agent",
         "typeVersion": 3.1,
         "position": [
-          -224,
-          1980
+          -448,
+          2200
         ],
         "id": "8c3acaa2-3436-4c6a-b86c-3af73deddb29",
         "name": "ClaudeForChat1",
@@ -3795,8 +3887,8 @@
         "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
         "typeVersion": 1.3,
         "position": [
-          -152,
-          2204
+          -376,
+          2424
         ],
         "id": "a6260c2a-0626-4bae-a31b-2a07601d4f85",
         "name": "modelForChat1",
@@ -3817,8 +3909,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          576,
-          1980
+          352,
+          2200
         ],
         "id": "ecbfcd02-a92a-46c7-892f-e971582ce306",
         "name": "incCounters1",
@@ -3857,8 +3949,8 @@
         "type": "n8n-nodes-base.httpRequest",
         "typeVersion": 4.4,
         "position": [
-          128,
-          1980
+          -96,
+          2200
         ],
         "id": "e59afbff-514a-4b70-ad09-b3cc23f7a5e4",
         "name": "replyMessage1",
@@ -3874,8 +3966,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          352,
-          1980
+          128,
+          2200
         ],
         "id": "b1fc3b86-2fa5-45ab-8382-b2356b13ccb7",
         "name": "pendingRemove1",
@@ -3896,8 +3988,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -2464,
-          1980
+          -2688,
+          2200
         ],
         "id": "8c28d70f-f34e-4fe4-b8ee-f30c1b1fbcc1",
         "name": "candidatePending",
@@ -3937,8 +4029,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          -1792,
-          1980
+          -2016,
+          2200
         ],
         "id": "f522a9f3-d610-446a-ab9a-d123391fab8a",
         "name": "checkMode1",
@@ -3972,8 +4064,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          -1344,
-          1980
+          -1568,
+          2200
         ],
         "id": "dc1c2f19-14a7-4d88-a577-a311786fd6a5",
         "name": "capCheck1",
@@ -3988,8 +4080,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -1568,
-          1980
+          -1792,
+          2200
         ],
         "id": "7b78223c-0fc3-4a6d-9f8c-a018ed054f7e",
         "name": "fetchGirlCaps",
@@ -4010,8 +4102,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -896,
-          1980
+          -1120,
+          2200
         ],
         "id": "4e8a6902-99e9-479b-a8ca-4baed46afc27",
         "name": "fetchFanContexts",
@@ -4032,8 +4124,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          -672,
-          1980
+          -896,
+          2200
         ],
         "id": "59f759fe-f063-41ac-8c28-552f2cd7a731",
         "name": "fetchSleepMessages",
@@ -4054,8 +4146,8 @@
         "type": "n8n-nodes-base.postgres",
         "typeVersion": 2.6,
         "position": [
-          896,
-          1456
+          672,
+          1680
         ],
         "id": "54efc136-40ca-49eb-8809-3c210faa62b8",
         "name": "checkDebouncer",
@@ -4094,8 +4186,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          1344,
-          1460
+          1120,
+          1680
         ],
         "id": "bb5b7c39-2581-4612-af1d-6e7fadd82a13",
         "name": "antiDebouncer"
@@ -4107,11 +4199,63 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          1120,
-          1460
+          896,
+          1680
         ],
         "id": "18e8fec1-a79c-4941-9edf-860c503cfe49",
         "name": "abstention"
+      },
+      {
+        "parameters": {
+          "model": "llama3.2:3b",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+        "typeVersion": 1,
+        "position": [
+          -2840,
+          1464
+        ],
+        "id": "0f5c5bab-0d7b-4d09-ac25-ac2696beac71",
+        "name": "Ollama Chat Model1",
+        "credentials": {
+          "ollamaApi": {
+            "id": "0JuKmDVLS92EYeKX",
+            "name": "Ollama account"
+          }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "={{ $json.userPrompt }}",
+          "options": {
+            "systemMessage": "=You are a conversation summarization assistant. You maintain concise, factual internal notes about individual fans messaging an Instagram persona. This is backend record-keeping, not a customer-facing message ? do not write in the persona's voice or tone.\n\nGiven an existing summary (if any) and a batch of new messages, produce an updated summary that:\n- Merges the new messages into the existing summary rather than starting over from scratch\n- Preserves: the fan's name if mentioned, stated preferences or interests, any promises or commitments made by either side, subscription/purchase intent or status, and the general relationship stage (new, casual, engaged, cooling off)\n- Stays under roughly 150 words\n- Uses plain, neutral, factual language\n- NEVER suggests moderation actions, blocks, warnings, or behavioral diagnoses (e.g., do NOT write \"recommend blocking\", \"harassment\", \"compulsive behavior\", or \"exploitation\")\n- Summarizes sexually explicit or adult messages neutrally and briefly in 1 sentence without lecturing or moralizing (e.g., write \"Fan sent explicit text/images\" rather than analyzing their behavior)\n- Focuses only on tracking data: topics discussed, fan preferences, purchase intent, and relationship status\n- If the fan's name appears anywhere in the new messages and wasn't already known, end your response with a final line formatted exactly as: Name: <name>\n- If no name is found or it's already known, omit that line entirely\n- Output only the summary text itself ? no preamble, no headers, no explanation\n- Only extract a name from messages authored by the fan (role \"Fan\"), when the fan is stating their own name. Never extract or output the persona's own name (e.g. Maeve, Elara, Amara) as the fan's name, even if it appears in the conversation."
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 3.1,
+        "position": [
+          -2912,
+          1240
+        ],
+        "id": "7a8625b3-7824-4b69-86a0-24b3706eeb46",
+        "name": "localSummariser",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "jsCode": "let reply = $json.output ?? $json.text ?? '';\nconst lastPunctuation = Math.max(reply.lastIndexOf('.'), reply.lastIndexOf('!'), reply.lastIndexOf('?'));\nif (lastPunctuation > 0 && lastPunctuation < reply.length - 1) {\n  reply = reply.slice(0, lastPunctuation + 1);\n}\nreturn [{ json: { ...$json, reply } }];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2368,
+          1680
+        ],
+        "id": "d19badca-bf04-416c-a687-52d3cada2f9a",
+        "name": "safetyBoundary"
       }
     ],
     "connections": {
@@ -4165,6 +4309,11 @@
             },
             {
               "node": "monitorSize",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "candidateQuery",
               "type": "main",
               "index": 0
             }
@@ -4478,7 +4627,7 @@
         "main": [
           [
             {
-              "node": "replyMessage",
+              "node": "safetyBoundary",
               "type": "main",
               "index": 0
             }
@@ -4750,10 +4899,37 @@
             }
           ]
         ]
+      },
+      "Ollama Chat Model1": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "localSummariser",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "localSummariser": {
+        "main": [
+          []
+        ]
+      },
+      "safetyBoundary": {
+        "main": [
+          [
+            {
+              "node": "replyMessage",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version 513758f1",
+    "name": "Version be28cbf4",
     "description": "",
     "autosaved": true
   },
