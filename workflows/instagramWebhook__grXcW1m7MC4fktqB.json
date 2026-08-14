@@ -2452,7 +2452,9 @@
       "recurrenceRules": []
     },
     "node:checkPendings": {
-      "recurrenceRules": []
+      "recurrenceRules": [
+        2
+      ]
     }
   },
   "meta": {
