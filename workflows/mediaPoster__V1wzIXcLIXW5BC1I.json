@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-08T20:32:44.940Z",
+  "updatedAt": "2026-09-03T21:16:21.297Z",
   "createdAt": "2026-05-04T08:05:03.846Z",
   "id": "V1wzIXcLIXW5BC1I",
   "name": "mediaPoster",
@@ -1632,8 +1632,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -2352,
-        -864
+        -2576,
+        -176
       ],
       "id": "7a6fe2d9-3c04-4518-9e0c-5597fa868ea2",
       "name": "When clicking ‘Execute workflow’"
@@ -2154,7 +2154,7 @@
       "main": [
         [
           {
-            "node": "Tokens2",
+            "node": "Tokens",
             "type": "main",
             "index": 0
           }
@@ -2171,8 +2171,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "f550942b-ebbb-4ff8-b2a5-4d8e3439bc23",
-  "activeVersionId": "f550942b-ebbb-4ff8-b2a5-4d8e3439bc23",
+  "versionId": "8bf94b4d-86a6-4716-bbfe-37c06ef50dd3",
+  "activeVersionId": "8bf94b4d-86a6-4716-bbfe-37c06ef50dd3",
   "triggerCount": 3,
   "shared": [
     {
@@ -2184,9 +2184,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-08-08T20:33:02.000Z",
-    "createdAt": "2026-08-08T20:32:44.947Z",
-    "versionId": "f550942b-ebbb-4ff8-b2a5-4d8e3439bc23",
+    "updatedAt": "2026-09-03T21:16:21.000Z",
+    "createdAt": "2026-09-03T21:16:18.173Z",
+    "versionId": "8bf94b4d-86a6-4716-bbfe-37c06ef50dd3",
     "workflowId": "V1wzIXcLIXW5BC1I",
     "nodes": [
       {
@@ -3815,8 +3815,8 @@
         "type": "n8n-nodes-base.manualTrigger",
         "typeVersion": 1,
         "position": [
-          -2352,
-          -864
+          -2576,
+          -176
         ],
         "id": "7a6fe2d9-3c04-4518-9e0c-5597fa868ea2",
         "name": "When clicking ‘Execute workflow’"
@@ -4337,7 +4337,7 @@
         "main": [
           [
             {
-              "node": "Tokens2",
+              "node": "Tokens",
               "type": "main",
               "index": 0
             }
@@ -4346,9 +4346,9 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version f550942b",
+    "name": "Version 8bf94b4d",
     "description": "",
-    "autosaved": true
+    "autosaved": false
   },
   "tags": []
 }
