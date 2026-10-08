@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-03T21:16:21.297Z",
+  "updatedAt": "2026-10-07T19:37:31.148Z",
   "createdAt": "2026-05-04T08:05:03.846Z",
   "id": "V1wzIXcLIXW5BC1I",
   "name": "mediaPoster",
@@ -72,19 +72,19 @@
             {
               "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
               "name": "maeveToken",
-              "value": "IGAAXVb07ZCZBz9BZAFo5bGtpX1VNRWVVbDVkSnFrUGRhd2M5ZAG5XRENrZAXJaa3daaU5ZAaTZAhNnhwLUtrOUdST1RvdGdVX2RYX3BDZAkFya1VyaGh5cmExRHlZAMDRCSnBDQm5pZAHJScU5qMmc0b2JoU2VfUjRVTFQ1Mm1jS2lQSno3WQZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGF5bGRQUjFvX0hfSk9sd3FnaXRGOUJVY0VSY2Q3cTEyQTBMcHd6MTQ0b1Y2MnhvZAXpXUzRjU0VzOEE5akpFR3JFdnI2MWY3S0RhejhJTXdfOGNZAbVBSdGNVeWF2X2VUa2NvQVdJVTJ4aThiNlA4UUxmTmdGSQZDZD",
               "type": "string"
             },
             {
               "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
               "name": "elaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAGFsYThJOUtkWm1tUG1TRVVKSlJWZAUJoU0VqNFJVVUJfazYyc0RQa19oeldBVWcxaktFRFoxdVJmRlhhVjRWaFRJdmdVd0NPMzgzU1d4U29DN3lOdkt3b2pESnFucTJvRUtucEVNbTR2aWEtV19tTi11TGY1bwZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAFp2SEhwN1pvUmhIaVBrQzIxUkNqT243dTlnR21hREV2b1VkY1RKZAm1OY1VETkJhMVpQV0dfUnM2UTBIbXlDeUJQajZAaVDNlUmNvdjUtV0dlNUpKaVl5MWUwS2FEdnEwamg3TlRyNnpobGhzdEpvZA0RUb1NQYwZDZD",
               "type": "string"
             },
             {
               "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
               "name": "amaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAFpWSnBMbkJmTFA0ZAXV3REFNV3hXS2pjYXM0bUw5VmxMMHlSTjI3RTRvQXZAsZA0V1bnJodWNPNlpxRFBFSDhzTDA1dXZAqUmtJY2pIMDAzY09vSVpWNWtVZAEF5WTdkS0JnWUJEMnBWcHN5UHdPRDRUYk83UWRPNAZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGFMSnNiaXh0MGdrZAzRGX2huOThIRmp1aFZAtMWswSlltZA0ZAaVy0tZAWRfVUpHWlR0N1htdmNKSHo2TnFGcGUzbHA2QTBQLWlUdkVvS3dSM1JjVWVIS1oxWWxCdmFBWjFKXzlXZAlYyVXNBM2tJbWxLX1d4aHp2RQZDZD",
               "type": "string"
             },
             {
@@ -345,19 +345,19 @@
             {
               "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
               "name": "maeveToken",
-              "value": "IGAAXVb07ZCZBz9BZAFo5bGtpX1VNRWVVbDVkSnFrUGRhd2M5ZAG5XRENrZAXJaa3daaU5ZAaTZAhNnhwLUtrOUdST1RvdGdVX2RYX3BDZAkFya1VyaGh5cmExRHlZAMDRCSnBDQm5pZAHJScU5qMmc0b2JoU2VfUjRVTFQ1Mm1jS2lQSno3WQZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGF5bGRQUjFvX0hfSk9sd3FnaXRGOUJVY0VSY2Q3cTEyQTBMcHd6MTQ0b1Y2MnhvZAXpXUzRjU0VzOEE5akpFR3JFdnI2MWY3S0RhejhJTXdfOGNZAbVBSdGNVeWF2X2VUa2NvQVdJVTJ4aThiNlA4UUxmTmdGSQZDZD",
               "type": "string"
             },
             {
               "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
               "name": "elaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAGFsYThJOUtkWm1tUG1TRVVKSlJWZAUJoU0VqNFJVVUJfazYyc0RQa19oeldBVWcxaktFRFoxdVJmRlhhVjRWaFRJdmdVd0NPMzgzU1d4U29DN3lOdkt3b2pESnFucTJvRUtucEVNbTR2aWEtV19tTi11TGY1bwZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAFp2SEhwN1pvUmhIaVBrQzIxUkNqT243dTlnR21hREV2b1VkY1RKZAm1OY1VETkJhMVpQV0dfUnM2UTBIbXlDeUJQajZAaVDNlUmNvdjUtV0dlNUpKaVl5MWUwS2FEdnEwamg3TlRyNnpobGhzdEpvZA0RUb1NQYwZDZD",
               "type": "string"
             },
             {
               "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
               "name": "amaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAFpWSnBMbkJmTFA0ZAXV3REFNV3hXS2pjYXM0bUw5VmxMMHlSTjI3RTRvQXZAsZA0V1bnJodWNPNlpxRFBFSDhzTDA1dXZAqUmtJY2pIMDAzY09vSVpWNWtVZAEF5WTdkS0JnWUJEMnBWcHN5UHdPRDRUYk83UWRPNAZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGFMSnNiaXh0MGdrZAzRGX2huOThIRmp1aFZAtMWswSlltZA0ZAaVy0tZAWRfVUpHWlR0N1htdmNKSHo2TnFGcGUzbHA2QTBQLWlUdkVvS3dSM1JjVWVIS1oxWWxCdmFBWjFKXzlXZAlYyVXNBM2tJbWxLX1d4aHp2RQZDZD",
               "type": "string"
             },
             {
@@ -1102,19 +1102,19 @@
             {
               "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
               "name": "maeveToken",
-              "value": "IGAAXVb07ZCZBz9BZAFo5bGtpX1VNRWVVbDVkSnFrUGRhd2M5ZAG5XRENrZAXJaa3daaU5ZAaTZAhNnhwLUtrOUdST1RvdGdVX2RYX3BDZAkFya1VyaGh5cmExRHlZAMDRCSnBDQm5pZAHJScU5qMmc0b2JoU2VfUjRVTFQ1Mm1jS2lQSno3WQZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGF5bGRQUjFvX0hfSk9sd3FnaXRGOUJVY0VSY2Q3cTEyQTBMcHd6MTQ0b1Y2MnhvZAXpXUzRjU0VzOEE5akpFR3JFdnI2MWY3S0RhejhJTXdfOGNZAbVBSdGNVeWF2X2VUa2NvQVdJVTJ4aThiNlA4UUxmTmdGSQZDZD",
               "type": "string"
             },
             {
               "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
               "name": "elaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAGFsYThJOUtkWm1tUG1TRVVKSlJWZAUJoU0VqNFJVVUJfazYyc0RQa19oeldBVWcxaktFRFoxdVJmRlhhVjRWaFRJdmdVd0NPMzgzU1d4U29DN3lOdkt3b2pESnFucTJvRUtucEVNbTR2aWEtV19tTi11TGY1bwZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAFp2SEhwN1pvUmhIaVBrQzIxUkNqT243dTlnR21hREV2b1VkY1RKZAm1OY1VETkJhMVpQV0dfUnM2UTBIbXlDeUJQajZAaVDNlUmNvdjUtV0dlNUpKaVl5MWUwS2FEdnEwamg3TlRyNnpobGhzdEpvZA0RUb1NQYwZDZD",
               "type": "string"
             },
             {
               "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
               "name": "amaraToken",
-              "value": "IGAAXVb07ZCZBz9BZAFpWSnBMbkJmTFA0ZAXV3REFNV3hXS2pjYXM0bUw5VmxMMHlSTjI3RTRvQXZAsZA0V1bnJodWNPNlpxRFBFSDhzTDA1dXZAqUmtJY2pIMDAzY09vSVpWNWtVZAEF5WTdkS0JnWUJEMnBWcHN5UHdPRDRUYk83UWRPNAZDZD",
+              "value": "IGAAXVb07ZCZBz9BZAGFMSnNiaXh0MGdrZAzRGX2huOThIRmp1aFZAtMWswSlltZA0ZAaVy0tZAWRfVUpHWlR0N1htdmNKSHo2TnFGcGUzbHA2QTBQLWlUdkVvS3dSM1JjVWVIS1oxWWxCdmFBWjFKXzlXZAlYyVXNBM2tJbWxLX1d4aHp2RQZDZD",
               "type": "string"
             },
             {
@@ -2171,8 +2171,8 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "8bf94b4d-86a6-4716-bbfe-37c06ef50dd3",
-  "activeVersionId": "8bf94b4d-86a6-4716-bbfe-37c06ef50dd3",
+  "versionId": "42edb5d2-2667-4854-9eac-d12f251ed4dc",
+  "activeVersionId": "42edb5d2-2667-4854-9eac-d12f251ed4dc",
   "triggerCount": 3,
   "shared": [
     {
@@ -2184,9 +2184,9 @@
     }
   ],
   "activeVersion": {
-    "updatedAt": "2026-09-03T21:16:21.000Z",
-    "createdAt": "2026-09-03T21:16:18.173Z",
-    "versionId": "8bf94b4d-86a6-4716-bbfe-37c06ef50dd3",
+    "updatedAt": "2026-10-07T19:37:36.000Z",
+    "createdAt": "2026-10-07T19:37:31.152Z",
+    "versionId": "42edb5d2-2667-4854-9eac-d12f251ed4dc",
     "workflowId": "V1wzIXcLIXW5BC1I",
     "nodes": [
       {
@@ -2255,19 +2255,19 @@
               {
                 "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
                 "name": "maeveToken",
-                "value": "IGAAXVb07ZCZBz9BZAFo5bGtpX1VNRWVVbDVkSnFrUGRhd2M5ZAG5XRENrZAXJaa3daaU5ZAaTZAhNnhwLUtrOUdST1RvdGdVX2RYX3BDZAkFya1VyaGh5cmExRHlZAMDRCSnBDQm5pZAHJScU5qMmc0b2JoU2VfUjRVTFQ1Mm1jS2lQSno3WQZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGF5bGRQUjFvX0hfSk9sd3FnaXRGOUJVY0VSY2Q3cTEyQTBMcHd6MTQ0b1Y2MnhvZAXpXUzRjU0VzOEE5akpFR3JFdnI2MWY3S0RhejhJTXdfOGNZAbVBSdGNVeWF2X2VUa2NvQVdJVTJ4aThiNlA4UUxmTmdGSQZDZD",
                 "type": "string"
               },
               {
                 "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
                 "name": "elaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAGFsYThJOUtkWm1tUG1TRVVKSlJWZAUJoU0VqNFJVVUJfazYyc0RQa19oeldBVWcxaktFRFoxdVJmRlhhVjRWaFRJdmdVd0NPMzgzU1d4U29DN3lOdkt3b2pESnFucTJvRUtucEVNbTR2aWEtV19tTi11TGY1bwZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAFp2SEhwN1pvUmhIaVBrQzIxUkNqT243dTlnR21hREV2b1VkY1RKZAm1OY1VETkJhMVpQV0dfUnM2UTBIbXlDeUJQajZAaVDNlUmNvdjUtV0dlNUpKaVl5MWUwS2FEdnEwamg3TlRyNnpobGhzdEpvZA0RUb1NQYwZDZD",
                 "type": "string"
               },
               {
                 "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
                 "name": "amaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAFpWSnBMbkJmTFA0ZAXV3REFNV3hXS2pjYXM0bUw5VmxMMHlSTjI3RTRvQXZAsZA0V1bnJodWNPNlpxRFBFSDhzTDA1dXZAqUmtJY2pIMDAzY09vSVpWNWtVZAEF5WTdkS0JnWUJEMnBWcHN5UHdPRDRUYk83UWRPNAZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGFMSnNiaXh0MGdrZAzRGX2huOThIRmp1aFZAtMWswSlltZA0ZAaVy0tZAWRfVUpHWlR0N1htdmNKSHo2TnFGcGUzbHA2QTBQLWlUdkVvS3dSM1JjVWVIS1oxWWxCdmFBWjFKXzlXZAlYyVXNBM2tJbWxLX1d4aHp2RQZDZD",
                 "type": "string"
               },
               {
@@ -2528,19 +2528,19 @@
               {
                 "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
                 "name": "maeveToken",
-                "value": "IGAAXVb07ZCZBz9BZAFo5bGtpX1VNRWVVbDVkSnFrUGRhd2M5ZAG5XRENrZAXJaa3daaU5ZAaTZAhNnhwLUtrOUdST1RvdGdVX2RYX3BDZAkFya1VyaGh5cmExRHlZAMDRCSnBDQm5pZAHJScU5qMmc0b2JoU2VfUjRVTFQ1Mm1jS2lQSno3WQZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGF5bGRQUjFvX0hfSk9sd3FnaXRGOUJVY0VSY2Q3cTEyQTBMcHd6MTQ0b1Y2MnhvZAXpXUzRjU0VzOEE5akpFR3JFdnI2MWY3S0RhejhJTXdfOGNZAbVBSdGNVeWF2X2VUa2NvQVdJVTJ4aThiNlA4UUxmTmdGSQZDZD",
                 "type": "string"
               },
               {
                 "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
                 "name": "elaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAGFsYThJOUtkWm1tUG1TRVVKSlJWZAUJoU0VqNFJVVUJfazYyc0RQa19oeldBVWcxaktFRFoxdVJmRlhhVjRWaFRJdmdVd0NPMzgzU1d4U29DN3lOdkt3b2pESnFucTJvRUtucEVNbTR2aWEtV19tTi11TGY1bwZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAFp2SEhwN1pvUmhIaVBrQzIxUkNqT243dTlnR21hREV2b1VkY1RKZAm1OY1VETkJhMVpQV0dfUnM2UTBIbXlDeUJQajZAaVDNlUmNvdjUtV0dlNUpKaVl5MWUwS2FEdnEwamg3TlRyNnpobGhzdEpvZA0RUb1NQYwZDZD",
                 "type": "string"
               },
               {
                 "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
                 "name": "amaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAFpWSnBMbkJmTFA0ZAXV3REFNV3hXS2pjYXM0bUw5VmxMMHlSTjI3RTRvQXZAsZA0V1bnJodWNPNlpxRFBFSDhzTDA1dXZAqUmtJY2pIMDAzY09vSVpWNWtVZAEF5WTdkS0JnWUJEMnBWcHN5UHdPRDRUYk83UWRPNAZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGFMSnNiaXh0MGdrZAzRGX2huOThIRmp1aFZAtMWswSlltZA0ZAaVy0tZAWRfVUpHWlR0N1htdmNKSHo2TnFGcGUzbHA2QTBQLWlUdkVvS3dSM1JjVWVIS1oxWWxCdmFBWjFKXzlXZAlYyVXNBM2tJbWxLX1d4aHp2RQZDZD",
                 "type": "string"
               },
               {
@@ -3285,19 +3285,19 @@
               {
                 "id": "971b0afc-7494-48d1-8585-e0cdeed2b1ab",
                 "name": "maeveToken",
-                "value": "IGAAXVb07ZCZBz9BZAFo5bGtpX1VNRWVVbDVkSnFrUGRhd2M5ZAG5XRENrZAXJaa3daaU5ZAaTZAhNnhwLUtrOUdST1RvdGdVX2RYX3BDZAkFya1VyaGh5cmExRHlZAMDRCSnBDQm5pZAHJScU5qMmc0b2JoU2VfUjRVTFQ1Mm1jS2lQSno3WQZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGF5bGRQUjFvX0hfSk9sd3FnaXRGOUJVY0VSY2Q3cTEyQTBMcHd6MTQ0b1Y2MnhvZAXpXUzRjU0VzOEE5akpFR3JFdnI2MWY3S0RhejhJTXdfOGNZAbVBSdGNVeWF2X2VUa2NvQVdJVTJ4aThiNlA4UUxmTmdGSQZDZD",
                 "type": "string"
               },
               {
                 "id": "bae5d865-19bc-4233-b0b3-315c271272d9",
                 "name": "elaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAGFsYThJOUtkWm1tUG1TRVVKSlJWZAUJoU0VqNFJVVUJfazYyc0RQa19oeldBVWcxaktFRFoxdVJmRlhhVjRWaFRJdmdVd0NPMzgzU1d4U29DN3lOdkt3b2pESnFucTJvRUtucEVNbTR2aWEtV19tTi11TGY1bwZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAFp2SEhwN1pvUmhIaVBrQzIxUkNqT243dTlnR21hREV2b1VkY1RKZAm1OY1VETkJhMVpQV0dfUnM2UTBIbXlDeUJQajZAaVDNlUmNvdjUtV0dlNUpKaVl5MWUwS2FEdnEwamg3TlRyNnpobGhzdEpvZA0RUb1NQYwZDZD",
                 "type": "string"
               },
               {
                 "id": "b2728c8b-1c90-4613-af6b-d249f1d14b49",
                 "name": "amaraToken",
-                "value": "IGAAXVb07ZCZBz9BZAFpWSnBMbkJmTFA0ZAXV3REFNV3hXS2pjYXM0bUw5VmxMMHlSTjI3RTRvQXZAsZA0V1bnJodWNPNlpxRFBFSDhzTDA1dXZAqUmtJY2pIMDAzY09vSVpWNWtVZAEF5WTdkS0JnWUJEMnBWcHN5UHdPRDRUYk83UWRPNAZDZD",
+                "value": "IGAAXVb07ZCZBz9BZAGFMSnNiaXh0MGdrZAzRGX2huOThIRmp1aFZAtMWswSlltZA0ZAaVy0tZAWRfVUpHWlR0N1htdmNKSHo2TnFGcGUzbHA2QTBQLWlUdkVvS3dSM1JjVWVIS1oxWWxCdmFBWjFKXzlXZAlYyVXNBM2tJbWxLX1d4aHp2RQZDZD",
                 "type": "string"
               },
               {
@@ -4346,9 +4346,9 @@
       }
     },
     "authors": "Argentum Orchesta",
-    "name": "Version 8bf94b4d",
+    "name": "Version 42edb5d2",
     "description": "",
-    "autosaved": false
+    "autosaved": true
   },
   "tags": []
 }
