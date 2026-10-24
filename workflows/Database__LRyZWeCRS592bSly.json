@@ -1,0 +1,31 @@
+{
+  "updatedAt": "2026-10-24T06:21:17.167Z",
+  "createdAt": "2026-10-24T06:20:56.424Z",
+  "id": "LRyZWeCRS592bSly",
+  "name": "Database",
+  "active": false,
+  "isArchived": false,
+  "nodes": [],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "19386817-40dd-46dc-bca0-f463bd3b6bc4",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-10-24T06:20:56.434Z",
+      "createdAt": "2026-10-24T06:20:56.434Z",
+      "role": "workflow:owner",
+      "workflowId": "LRyZWeCRS592bSly",
+      "projectId": "gjrgqNCD0fEExU4G"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}
