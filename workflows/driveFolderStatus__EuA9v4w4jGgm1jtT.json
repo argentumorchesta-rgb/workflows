@@ -1534,13 +1534,13 @@
   },
   "staticData": {
     "node:Google Drive Trigger2": {
-      "lastTimeChecked": "2026-11-24T08:35:39Z"
+      "lastTimeChecked": "2026-11-26T01:00:18Z"
     },
     "node:Google Drive Trigger": {
-      "lastTimeChecked": "2026-11-24T08:35:39Z"
+      "lastTimeChecked": "2026-11-26T00:59:50Z"
     },
     "node:Google Drive Trigger1": {
-      "lastTimeChecked": "2026-11-24T08:35:40Z"
+      "lastTimeChecked": "2026-11-26T00:59:53Z"
     },
     "node:Schedule Trigger": {
       "recurrenceRules": []
